@@ -27,6 +27,9 @@ export async function generateMetadata({
   return {
     title: metadata.title,
     description: metadata.description,
+    other: {
+      'yandex-verification': '2067b27d0443e897',
+    },
     alternates: {
       canonical: currentUrl,
       languages: {
