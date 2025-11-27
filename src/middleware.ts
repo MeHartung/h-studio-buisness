@@ -24,7 +24,8 @@ export async function middleware(request: NextRequest) {
     '/robots.txt',
     '/sitemap.xml',
     '/sitemap-0.xml',
-    '/favicon.ico'
+    '/favicon.ico',
+    '/yandex_2067b27d0443e897.html'
   ];
   if (excludedPaths.includes(pathname)) {
     return NextResponse.next();
