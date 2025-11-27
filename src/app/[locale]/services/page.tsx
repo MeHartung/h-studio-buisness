@@ -147,7 +147,7 @@ export default function ServicesPage() {
 
           <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-28 lg:pt-24 lg:pb-36 relative z-10">
             <div className="max-w-4xl">
-              <h1 className="text-[56px] leading-[64px] font-semibold tracking-[-0.02em] text-text font-display">
+              <h1 className="text-[32px] leading-[40px] sm:text-[40px] sm:leading-[48px] lg:text-[56px] lg:leading-[64px] font-semibold tracking-[-0.02em] text-text font-display">
                 {t('hero.title')}
               </h1>
             </div>
