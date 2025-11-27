@@ -1,0 +1,162 @@
+{
+  "metadata": {
+    "title": "H-Studio Business - Prozessautomatisierung & Interne Tools",
+    "description": "Wir entwickeln interne Tools, Konfiguratoren und Automatisierungssysteme, die manuelle Arbeit reduzieren und Betriebskosten senken."
+  },
+  "hero": {
+    "badge": "Automatisierung • KI • Enterprise",
+    "title": "Von Prozessen zu Ergebnissen. Automatisiert.",
+    "description": "Wir entwickeln interne Tools, Konfiguratoren und Automatisierungssysteme, die manuelle Arbeit reduzieren und Betriebskosten senken.",
+    "requestDemo": "Demo anfordern",
+    "seeExamples": "Live-Beispiele ansehen",
+    "trust1": "Bis zu 70% weniger manuelle Arbeit",
+    "trust2": "7× schnellere Dokumentenflüsse",
+    "trust3": "Enterprise • DSGVO-konform",
+    "aiAgentTitle": "KI-Vertriebsagent",
+    "aiAgentStatus": "Aktiv • 24/7",
+    "aiAgentInbox": "99% Posteingang",
+    "aiAgentAnalyzing": "Unternehmenswebsite analysieren...",
+    "aiAgentMessage": "Personalisierte Nachricht für Acme Corp erstellt",
+    "aiAgentTracking": "Antwort verfolgen...",
+    "aiAgentStats": "+2 Antworten heute • 12 Öffnungen"
+  },
+  "features": {
+    "processAutomation": {
+      "title": "Prozessautomatisierung",
+      "desc1": "Automatisierte Systeme ersetzen manuelle Schritte bei Berechnungen, Dokumentenerstellung, Genehmigungen und internen Anfragen.",
+      "desc2": "Wir analysieren Ihren Workflow, identifizieren Engpässe und verwandeln Routineoperationen in optimierte, kontrollierte Prozesse.",
+      "learnMore": "Mehr erfahren"
+    },
+    "aiBusinessLogic": {
+      "title": "KI-gesteuerte Geschäftslogik",
+      "desc1": "Unsere KI-Module verstehen Ihre Regeln, Parameter, Spezifikationen und Preismodelle — genau wie Ihr Team.",
+      "desc2": "Sie automatisieren Entscheidungen, Berechnungen und Dokumentenerstellung mit konsistenter Genauigkeit.",
+      "learnMore": "Mehr erfahren"
+    },
+    "enterpriseInfrastructure": {
+      "title": "Enterprise-Infrastruktur",
+      "desc1": "Wir entwickeln und warten sichere interne Systeme — APIs, Integrationen, CI/CD-Pipelines, Zugriffskontrolle und Hochverfügbarkeits-Setups.",
+      "desc2": "Private Bereitstellungen, Verschlüsselung und vollständige DSGVO-Konformität sind standardmäßig enthalten.",
+      "learnMore": "Mehr erfahren"
+    }
+  },
+  "techCore": {
+    "workflowEngines": {
+      "title": "Automatisierte Workflow-Engines",
+      "description": "Hintergrundsysteme führen Berechnungen durch, generieren Dokumente, verarbeiten Anfragen und leiten Aufgaben zwischen Abteilungen weiter."
+    },
+    "businessLogic": {
+      "title": "Geschäftslogik & KI-Module",
+      "description": "KI interpretiert Regeln, Parameter, Spezifikationen und Datensätze, um Entscheidungen mit konsistenter Genauigkeit zu automatisieren."
+    },
+    "scheduling": {
+      "title": "Prozessplanung & Orchestrierung",
+      "description": "End-to-End-Workflows laufen automatisch — SLA-Timer, Genehmigungen, Status-Updates und Betriebsüberwachung."
+    },
+    "integrations": {
+      "title": "Systemintegrationen & APIs",
+      "description": "Alle Daten, Dokumente und Ereignisse synchronisieren sich nahtlos mit Ihrem ERP, CRM und internen Plattformen."
+    }
+  },
+  "collaboration": {
+    "title": "Zusammenarbeit & Change Management",
+    "subtitle": "Strukturierter, reibungsloser",
+    "subtitleText": "Ansatz zur Einführung interner Systeme in Teams.",
+    "description": "Wir helfen Ihrem Personal, neue Tools durch klare Kommunikation, Schulungsmaterialien, schrittweise Einführung und prozessorientierte Anleitung zu übernehmen — vollständig konform mit Unternehmens- und Sicherheitsanforderungen.",
+    "checklist": {
+      "item1": "Prozessorientiertes Onboarding",
+      "item2": "Dokumentation & interne Schulungen",
+      "item3": "Schrittweise, risikoarme Einführung",
+      "item4": "Konsistenz, Governance und Compliance"
+    }
+  },
+  "whoItsFor": {
+    "title": "Gebaut für Teams, die im großen Maßstab arbeiten",
+    "description": "Ob Sie die Produktion optimieren, interne Workflows verbessern oder Legacy-Systeme modernisieren.",
+    "manufacturing": {
+      "label": "Fertigung & Produktion",
+      "description": "Automatisieren Sie Berechnungen, Spezifikationen, CPQs und Bestellworkflows."
+    },
+    "logistics": {
+      "label": "Logistik & Betrieb",
+      "description": "Optimieren Sie Anfragen, Routing, Terminplanung und Dokumentenflüsse."
+    },
+    "enterprise": {
+      "label": "Enterprise-Services",
+      "description": "Digitalisieren Sie Genehmigungen, Berichterstellung und abteilungsübergreifende Prozesse."
+    },
+    "engineering": {
+      "label": "Ingenieurwesen & F&E",
+      "description": "Entwickeln Sie interne Tools, Konfiguratoren und datengesteuerte Systeme."
+    }
+  },
+  "process": {
+    "title": "Wie es funktioniert",
+    "description": "Von der Prozessabbildung bis zur Automatisierungsbereitstellung — ein vollständiger Implementierungsworkflow.",
+    "step1": {
+      "label": "Prozesse analysieren",
+      "desc": "Wir untersuchen Ihre aktuellen Workflows, Engpässe und Aufgaben, die übermäßig viel Zeit in Anspruch nehmen."
+    },
+    "step2": {
+      "label": "Systemlogik entwerfen",
+      "desc": "Wir definieren Datenstrukturen, Regeln, Geschäftslogik und Integrationsanforderungen."
+    },
+    "step3": {
+      "label": "Interne Tools erstellen",
+      "desc": "Wir entwickeln Schnittstellen, Automatisierungsmodule und Berechnungs-/Verarbeitungs-Engines."
+    },
+    "step4": {
+      "label": "Integrieren & Verbinden",
+      "desc": "Das System wird mit Ihrem ERP, CRM, Dokumentenflüssen und internen Plattformen verknüpft."
+    },
+    "step5": {
+      "label": "An Teams ausrollen",
+      "desc": "Wir schulen Mitarbeiter, erstellen Dokumentation und gewährleisten eine reibungslose Einführung."
+    },
+    "step6": {
+      "label": "Lernen & Optimieren",
+      "desc": "Kontinuierliche Verbesserung basierend auf realer Nutzung, Metriken und operativem Feedback."
+    }
+  },
+  "results": {
+    "reduction": "Reduzierung der manuellen Arbeitsbelastung",
+    "faster": "schnellere Dokumenten- und Genehmigungsflüsse",
+    "amount": "€45,000",
+    "savings": "monatliche Einsparungen bei Betriebskosten"
+  },
+  "aiAssistant": {
+    "title": "KI-Prozessassistent",
+    "subtitle": "KI-Assistent — Ihr 24/7-Betriebspartner",
+    "description": "Stellen Sie sich einen internen Assistenten vor, der Ihre Regeln, Berechnungen, Dokumente und Workflows kennt — und niemals schläft.",
+    "feature1": "Berechnungen und Parameter automatisieren",
+    "feature2": "Dokumente und Berichte generieren",
+    "feature3": "Interne Anfragen sofort verarbeiten",
+    "feature4": "Nächste Schritte in einem Workflow vorschlagen",
+    "feature5": "Nahtlos mit Ihren internen Systemen synchronisieren",
+    "buildButton": "Meinen Assistenten erstellen",
+    "demoButton": "Demo ansehen"
+  },
+  "cta": {
+    "title": "Transformieren Sie Ihre internen Prozesse — sicher, intelligent, im großen Maßstab.",
+    "button": "Loslegen"
+  },
+  "footer": {
+    "addressTitle": "Korrespondenzadresse",
+    "address": "Stallschreiberstraße 15\n10179 Berlin, Deutschland",
+    "contactTitle": "Kontakt",
+    "privacy": "Datenschutz",
+    "legalNotice": "Impressum",
+    "terms": "Nutzungsbedingungen",
+    "cookieSettings": "Cookie-Einstellungen",
+    "copyright": "© 2025 H-Studio Lead Systems. Alle Rechte vorbehalten."
+  },
+  "navigation": {
+    "contact": "Kontakt"
+  },
+  "language": {
+    "english": "English",
+    "german": "Deutsch",
+    "russian": "Русский"
+  }
+}
+

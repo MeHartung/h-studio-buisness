@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0B0D10;
+  --panel: #0F1217;
+  --card: #12161D;
+  --muted: #A5AAB5;
+  --text: #E9EEF5;
+  --brand: #7C5CFC;
+  --accent: #3AA0FF;
+}
+
+/* Typography scale */
+@layer base {
+  h1 {
+    font-size: 56px;
+    line-height: 64px;
+    letter-spacing: -0.02em;
+  }
+  
+  h2 {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -0.02em;
+  }
+  
+  h3 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  
+  body {
+    font-size: 16px;
+    line-height: 28px;
+    background-color: var(--bg);
+    color: var(--text);
+  }
+  
+  html {
+    background-color: var(--bg);
+  }
+  
+  small {
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

@@ -1,0 +1,162 @@
+{
+  "metadata": {
+    "title": "H-Studio Business - Process Automation & Internal Tools",
+    "description": "We build internal tools, configurators, and automation systems that cut manual work and reduce operational costs."
+  },
+  "hero": {
+    "badge": "Automation • AI • Enterprise",
+    "title": "From processes to results. Automated.",
+    "description": "We build internal tools, configurators, and automation systems that cut manual work and reduce operational costs.",
+    "requestDemo": "Request Demo",
+    "seeExamples": "See Live Examples",
+    "trust1": "Up to 70% less manual work",
+    "trust2": "7× faster document flows",
+    "trust3": "Enterprise • GDPR Safe",
+    "aiAgentTitle": "AI Sales Agent",
+    "aiAgentStatus": "Active • 24/7",
+    "aiAgentInbox": "99% Inbox",
+    "aiAgentAnalyzing": "Analyzing company website...",
+    "aiAgentMessage": "Personalized message drafted for Acme Corp",
+    "aiAgentTracking": "Tracking reply...",
+    "aiAgentStats": "+2 replies today • 12 opens"
+  },
+  "features": {
+    "processAutomation": {
+      "title": "Process Automation",
+      "desc1": "Automated systems replace manual steps in calculations, document preparation, approvals, and internal requests.",
+      "desc2": "We analyze your workflow, identify bottlenecks, and turn routine operations into streamlined, controlled processes.",
+      "learnMore": "Learn more"
+    },
+    "aiBusinessLogic": {
+      "title": "AI-Driven Business Logic",
+      "desc1": "Our AI modules understand your rules, parameters, specifications, and pricing models — just like your team does.",
+      "desc2": "They automate decisions, calculations, and document generation with consistent accuracy.",
+      "learnMore": "Learn more"
+    },
+    "enterpriseInfrastructure": {
+      "title": "Enterprise Infrastructure",
+      "desc1": "We design and maintain secure internal systems — APIs, integrations, CI/CD pipelines, access control, and high-availability setups.",
+      "desc2": "Private deployments, encryption, and full GDPR/DSGVO compliance are included by design.",
+      "learnMore": "Learn more"
+    }
+  },
+  "techCore": {
+    "workflowEngines": {
+      "title": "Automated workflow engines",
+      "description": "Background systems execute calculations, generate documents, process requests, and route tasks between departments."
+    },
+    "businessLogic": {
+      "title": "Business logic & AI modules",
+      "description": "AI interprets rules, parameters, specifications, and datasets to automate decisions with consistent accuracy."
+    },
+    "scheduling": {
+      "title": "Process scheduling & orchestration",
+      "description": "End-to-end workflows run automatically — SLA timers, approvals, status updates, and operational monitoring."
+    },
+    "integrations": {
+      "title": "Systems integrations & APIs",
+      "description": "All data, documents, and events sync seamlessly with your ERP, CRM, and internal platforms."
+    }
+  },
+  "collaboration": {
+    "title": "Collaboration & Change Management",
+    "subtitle": "Structured, low-friction",
+    "subtitleText": "approach to rolling out internal systems across teams.",
+    "description": "We help your staff adopt new tools through clear communication, training materials, gradual rollout, and process-aligned guidance — fully compliant with corporate and security requirements.",
+    "checklist": {
+      "item1": "Process-aligned onboarding",
+      "item2": "Documentation & internal training",
+      "item3": "Gradual, low-risk rollout",
+      "item4": "Consistency, governance, and compliance"
+    }
+  },
+  "whoItsFor": {
+    "title": "Built for teams that operate at scale",
+    "description": "Whether you're optimizing production, improving internal workflows, or modernizing legacy systems.",
+    "manufacturing": {
+      "label": "Manufacturing & Production",
+      "description": "Automate calculations, specifications, CPQs, and order workflows."
+    },
+    "logistics": {
+      "label": "Logistics & Operations",
+      "description": "Streamline requests, routing, scheduling, and document flows."
+    },
+    "enterprise": {
+      "label": "Enterprise Services",
+      "description": "Digitize approvals, reporting, and cross-department processes."
+    },
+    "engineering": {
+      "label": "Engineering & R&D",
+      "description": "Develop internal tools, configurators, and data-driven systems."
+    }
+  },
+  "process": {
+    "title": "How it works",
+    "description": "From mapping your processes to deploying automation — a complete implementation workflow.",
+    "step1": {
+      "label": "Analyze Processes",
+      "desc": "We study your current workflows, bottlenecks, and tasks that consume excessive time."
+    },
+    "step2": {
+      "label": "Design System Logic",
+      "desc": "We define data structures, rules, business logic, and integration requirements."
+    },
+    "step3": {
+      "label": "Build Internal Tools",
+      "desc": "We develop interfaces, automation modules, and calculation/processing engines."
+    },
+    "step4": {
+      "label": "Integrate & Connect",
+      "desc": "The system is linked with your ERP, CRM, document flows, and internal platforms."
+    },
+    "step5": {
+      "label": "Roll Out to Teams",
+      "desc": "We train staff, prepare documentation, and ensure smooth adoption."
+    },
+    "step6": {
+      "label": "Learn & Optimize",
+      "desc": "Continuous improvement based on real usage, metrics, and operational feedback."
+    }
+  },
+  "results": {
+    "reduction": "reduction in manual workload",
+    "faster": "faster document and approval flows",
+    "amount": "$50,000",
+    "savings": "monthly savings in operational costs"
+  },
+  "aiAssistant": {
+    "title": "AI Process Assistant",
+    "subtitle": "AI Assistant — your 24/7 operational partner",
+    "description": "Imagine an internal assistant who knows your rules, calculations, documents, and workflows — and never sleeps.",
+    "feature1": "Automate calculations and parameters",
+    "feature2": "Generate documents and reports",
+    "feature3": "Process internal requests instantly",
+    "feature4": "Suggest next steps in a workflow",
+    "feature5": "Sync seamlessly with your internal systems",
+    "buildButton": "Build My Assistant",
+    "demoButton": "See Demo"
+  },
+  "cta": {
+    "title": "Transform your internal processes — securely, intelligently, at scale.",
+    "button": "Get Started"
+  },
+  "footer": {
+    "addressTitle": "Correspondence Address",
+    "address": "Stallschreiberstraße 15\n10179 Berlin, Deutschland",
+    "contactTitle": "Contact",
+    "privacy": "Privacy",
+    "legalNotice": "Legal Notice",
+    "terms": "Terms",
+    "cookieSettings": "Cookie Settings",
+    "copyright": "© 2025 H-Studio Lead Systems. All rights reserved."
+  },
+  "navigation": {
+    "contact": "Contact"
+  },
+  "language": {
+    "english": "English",
+    "german": "Deutsch",
+    "russian": "Русский"
+  }
+}
+
