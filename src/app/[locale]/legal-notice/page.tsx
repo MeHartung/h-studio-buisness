@@ -1,0 +1,204 @@
+import { Metadata } from "next";
+import { getTranslations } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
+import { Link } from '@/i18n/routing';
+import Image from 'next/image';
+
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({
+  params
+}: Props): Promise<Metadata> {
+  const { locale } = await params;
+  
+  const messages = (await import(`../../../messages/${locale}.json`)).default;
+  const metadata = messages.legalNotice.meta;
+
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://h-studio-business.com";
+  const currentUrl = `${baseUrl}/${locale}/legal-notice`;
+
+  return {
+    title: metadata.title,
+    description: metadata.description,
+    robots: metadata.robots,
+    alternates: {
+      canonical: currentUrl,
+      languages: {
+        ru: `${baseUrl}/ru/legal-notice`,
+        en: `${baseUrl}/en/legal-notice`,
+        de: `${baseUrl}/de/legal-notice`,
+      }
+    },
+    openGraph: {
+      title: metadata.ogTitle,
+      description: metadata.ogDescription,
+      url: currentUrl,
+      siteName: "H-Studio Business",
+      locale: locale === 'ru' ? 'ru_RU' : locale === 'de' ? 'de_DE' : 'en_US',
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title: metadata.twitterTitle,
+      description: metadata.twitterDescription,
+    },
+  };
+}
+
+export default async function LegalNotice({
+  params
+}: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  
+  const t = await getTranslations({ locale, namespace: 'legalNotice' });
+  
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b border-white/10 bg-panel">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/logo-white.svg"
+                alt="H-Studio"
+                width={120}
+                height={20}
+                className="h-5 w-auto"
+              />
+            </Link>
+            <Link
+              href="/"
+              className="text-sm text-text/70 hover:text-text transition-colors"
+            >
+              {locale === 'ru' ? '← Назад на главную' : locale === 'de' ? '← Zur Startseite' : '← Back to home'}
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      {/* Content */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="mb-12">
+          <h1 className="text-4xl lg:text-5xl font-semibold text-text tracking-[-0.02em] mb-4">
+            {t('title')}
+          </h1>
+          <div className="w-20 h-1 bg-brand rounded-full"></div>
+        </div>
+
+        <div className="space-y-8">
+          {/* Company Info */}
+          <div className="bg-card border border-white/10 rounded-3xl p-8">
+            <h2 className="text-2xl font-semibold text-text mb-6">
+              {t('companyInfo.title')}
+            </h2>
+            
+            <div className="space-y-4 text-sm text-text/80">
+              <div>
+                <strong className="text-text font-semibold">{t('companyInfo.companyName')}:</strong><br />
+                <span className="text-text/70">{t('companyInfo.companyNameValue')}</span>
+              </div>
+              
+              <div>
+                <strong className="text-text font-semibold">{t('companyInfo.address')}:</strong><br />
+                <span className="text-text/70 whitespace-pre-line">{t('companyInfo.addressValue')}</span>
+              </div>
+              
+              <div>
+                <strong className="text-text font-semibold">{t('companyInfo.phone')}:</strong><br />
+                <a href="tel:+79826666680" className="text-brand hover:opacity-80 transition-colors">
+                  {t('companyInfo.phoneValue')}
+                </a>
+              </div>
+              
+              <div>
+                <strong className="text-text font-semibold">{t('companyInfo.email')}:</strong><br />
+                <a href={`mailto:${t('companyInfo.emailValue')}`} className="text-brand hover:opacity-80 transition-colors">
+                  {t('companyInfo.emailValue')}
+                </a>
+              </div>
+              
+              <div>
+                <strong className="text-text font-semibold">{t('companyInfo.representedBy')}:</strong><br />
+                <span className="text-text/70">{t('companyInfo.representedByValue')}</span>
+              </div>
+              
+              <div>
+                <strong className="text-text font-semibold">{t('companyInfo.businessRegistration')}:</strong><br />
+                <span className="text-text/70">{t('companyInfo.businessRegistrationValue')}</span>
+              </div>
+              
+              <div>
+                <strong className="text-text font-semibold">{t('companyInfo.taxOffice')}:</strong><br />
+                <span className="text-text/70">{t('companyInfo.taxOfficeValue')}</span>
+              </div>
+              
+              {t('companyInfo.ustId') && (
+                <div>
+                  <strong className="text-text font-semibold">{t('companyInfo.ustId')}:</strong><br />
+                  <span className="text-text/70">{t('companyInfo.ustIdValue')}</span>
+                </div>
+              )}
+              
+              <div>
+                <strong className="text-text font-semibold">{t('companyInfo.businessActivity')}:</strong><br />
+                <span className="text-text/70">{t('companyInfo.businessActivityValue')}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Legal Information */}
+          <div className="space-y-8">
+            {t('vsbg.title') && (
+              <div>
+                <h2 className="text-2xl font-semibold text-text mb-4">
+                  {t('vsbg.title')}
+                </h2>
+                <p className="text-text/70 leading-relaxed whitespace-pre-line">
+                  {t('vsbg.content')}
+                </p>
+              </div>
+            )}
+
+            {t('disclaimer.title') && (
+              <div>
+                <h2 className="text-2xl font-semibold text-text mb-4">
+                  {t('disclaimer.title')}
+                </h2>
+                <p className="text-text/70 leading-relaxed">
+                  {t('disclaimer.content')}
+                </p>
+              </div>
+            )}
+
+            {t('limitationOfLiability.title') && (
+              <div>
+                <h2 className="text-2xl font-semibold text-text mb-4">
+                  {t('limitationOfLiability.title')}
+                </h2>
+                <p className="text-text/70 leading-relaxed">
+                  {t('limitationOfLiability.content')}
+                </p>
+              </div>
+            )}
+
+            {t('governingLaw.title') && (
+              <div>
+                <h2 className="text-2xl font-semibold text-text mb-4">
+                  {t('governingLaw.title')}
+                </h2>
+                <p className="text-text/70 leading-relaxed">
+                  {t('governingLaw.content')}
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+

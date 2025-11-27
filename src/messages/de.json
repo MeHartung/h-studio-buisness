@@ -284,10 +284,94 @@
     "legalNotice": "Impressum",
     "terms": "Nutzungsbedingungen",
     "cookieSettings": "Cookie-Einstellungen",
-    "copyright": "© 2025 H-Studio Lead Systems. Alle Rechte vorbehalten."
+    "copyright": "© 2025 H-Studio Lead Systems. Alle Rechte vorbehalten.",
+    "cookieBanner": {
+      "title": "Cookie-Einstellungen",
+      "description": "Wir verwenden Cookies, um Ihr Erlebnis zu verbessern. Durch Fortfahren stimmen Sie der Verwendung von Cookies zu.",
+      "rejectAll": "Alle ablehnen",
+      "customize": "Anpassen",
+      "acceptAll": "Alle akzeptieren",
+      "cookieSettings": "Cookie-Einstellungen",
+      "strictlyNecessary": "Unbedingt erforderlich",
+      "strictlyNecessaryDesc": "Erforderlich für die grundlegende Website-Funktionalität",
+      "strictlyNecessaryNote": "Diese Cookies können nicht deaktiviert werden, da sie für die Funktionsweise der Website unerlässlich sind.",
+      "analytics": "Analytik",
+      "analyticsDesc": "Helfen uns zu verstehen, wie Besucher interagieren",
+      "analyticsNote": "Google Analytics und ähnliche Tools zur Analyse der Website-Nutzung.",
+      "marketing": "Marketing",
+      "marketingDesc": "Werden für Werbung und Tracking verwendet",
+      "marketingNote": "Cookies für personalisierte Werbung und Marketingkampagnen.",
+      "cancel": "Abbrechen",
+      "savePreferences": "Einstellungen speichern"
+    },
+    "legalDetails": {
+      "title": "Rechtliche Angaben",
+      "companyName": "LLC «Rotatsiya»",
+      "legalAddress": "623751, Swerdlowskaja Oblast, Reschewskoj Rajon, Resch, O. Koschewoi Str., 16",
+      "ogrn": "OGRN: 1126677000581",
+      "inn": "INN: 6677001169",
+      "kpp": "KPP: 667701001",
+      "phone": "+7 (982) 666-66-80",
+      "email": "hello@h-studio.io"
+    }
   },
   "navigation": {
     "contact": "Kontakt"
+  },
+  "legalNotice": {
+    "meta": {
+      "title": "Impressum",
+      "description": "Impressum. Firmeninformationen, Adresse und Kontaktdaten gemäß russischem Recht.",
+      "robots": "noindex,follow",
+      "ogTitle": "Impressum",
+      "ogDescription": "Offizielle Firmeninformationen.",
+      "twitterTitle": "Impressum",
+      "twitterDescription": "Firmeninformationen, Adresse und Kontaktdaten."
+    },
+    "title": "Impressum",
+    "companyInfo": {
+      "title": "Website-Inhaber und Betreiber",
+      "companyName": "Name der juristischen Person",
+      "companyNameValue": "Gesellschaft mit beschränkter Haftung «Rotatsiya»",
+      "address": "Rechtsanschrift",
+      "addressValue": "623751, Swerdlowskaja Oblast, Reschewskoj Rajon, Resch, O. Koschewoi Str., 16",
+      "phone": "Telefon",
+      "phoneValue": "+7 (982) 666-66-80",
+      "email": "E-Mail",
+      "emailValue": "hello@h-studio.io",
+      "representedBy": "OGRN",
+      "representedByValue": "1126677000581",
+      "businessRegistration": "INN",
+      "businessRegistrationValue": "6677001169",
+      "taxOffice": "KPP",
+      "taxOfficeValue": "667701001",
+      "ustId": "",
+      "ustIdValue": "",
+      "businessActivity": "Zweck der Website",
+      "businessActivityValue": "Die Website bietet Informationen über die Dienstleistungen der LLC «Rotatsiya» in den Bereichen: Erstellung und Entwicklung von Websites, IT-Integrationen und Automatisierung, Support und technischer Support, Beratung zu digitalen Lösungen. Alle bereitgestellten Informationen dienen nur zur Information und stellen kein öffentliches Angebot dar."
+    },
+    "disclaimer": {
+      "title": "Haftung für Inhalte",
+      "content": "Die LLC «Rotatsiya» bemüht sich, die Relevanz und Genauigkeit der veröffentlichten Daten aufrechtzuerhalten, garantiert jedoch nicht das Fehlen technischer Fehler, Tippfehler oder veralteter Informationen. Das Unternehmen übernimmt keine Verantwortung für die Folgen der Nutzung der Website-Materialien."
+    },
+    "limitationOfLiability": {
+      "title": "Externe Links",
+      "content": "Die Website kann Links zu Drittanbieter-Ressourcen enthalten. Die LLC «Rotatsiya» übernimmt keine Verantwortung für den Inhalt von Websites Dritter, deren Sicherheit und die Richtigkeit der bereitgestellten Informationen."
+    },
+    "governingLaw": {
+      "title": "Urheberrecht",
+      "content": "Alle Website-Materialien — Texte, grafische Elemente, Design, Fotografien, Programmcode — sind urheberrechtlich geschützt. VERBOTEN: Vervielfältigung, Verbreitung, Veröffentlichung, Verwendung von Website-Materialien ohne schriftliche Genehmigung der LLC «Rotatsiya»."
+    },
+    "vsbg": {
+      "title": "Rückmeldung",
+      "content": "Bei Fragen zur Nutzung der Website können Sie sich wenden an: hello@h-studio.io"
+    },
+    "mstv": {
+      "title": "",
+      "description": "",
+      "responsiblePerson": "",
+      "responsibleAddress": ""
+    }
   },
   "language": {
     "english": "English",

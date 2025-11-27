@@ -21,7 +21,11 @@ import {
   HiSparkles,
   HiPhone,
   HiLocationMarker,
-  HiArrowUp
+  HiArrowUp,
+  HiChevronLeft,
+  HiChevronRight,
+  HiChevronDown,
+  HiCalculator
 } from 'react-icons/hi';
 import { FaLinkedin, FaWhatsapp, FaTelegram } from 'react-icons/fa';
 import CookieBanner from '@/components/CookieBanner';
@@ -45,9 +49,11 @@ function LinkedInSection() {
               </h2>
             </div>
             
-            <p className="text-lg text-text/80 leading-7">
-              <strong className="text-text">{t('subtitle')}</strong> {t('subtitleText')}
-            </p>
+            {(t('subtitle') || t('subtitleText')) && (
+              <p className="text-lg text-text/80 leading-7">
+                <strong className="text-text">{t('subtitle')}</strong> {t('subtitleText')}
+              </p>
+            )}
             
             <p className="text-base text-muted leading-6">
               {t('description')}
@@ -81,8 +87,172 @@ function LinkedInSection() {
   );
 }
 
+function ServicesSection() {
+  const t = useTranslations('ourServices');
+  const [openDropdowns, setOpenDropdowns] = useState<Set<number>>(new Set([0, 1])); // Первые две категории открыты по умолчанию
+
+  const categories = [
+    {
+      title: t('category1.title'),
+      services: t.raw('category1.services') as Array<{ title: string; description: string; link: string }>
+    },
+    {
+      title: t('category2.title'),
+      services: t.raw('category2.services') as Array<{ title: string; description: string; link: string }>
+    },
+    {
+      title: t('category3.title'),
+      services: t.raw('category3.services') as Array<{ title: string; description: string; link: string }>
+    },
+    {
+      title: t('category4.title'),
+      services: t.raw('category4.services') as Array<{ title: string; description: string; link: string }>
+    }
+  ];
+
+  const handleDropdownToggle = (categoryIndex: number) => {
+    const newOpenDropdowns = new Set(openDropdowns);
+    
+    if (newOpenDropdowns.has(categoryIndex)) {
+      // Если закрываем, закрываем оба в паре
+      newOpenDropdowns.delete(categoryIndex);
+      // Определяем пару: 0-1, 2-3
+      const pairIndex = categoryIndex % 2 === 0 ? categoryIndex + 1 : categoryIndex - 1;
+      newOpenDropdowns.delete(pairIndex);
+    } else {
+      // Если открываем, открываем оба в паре
+      newOpenDropdowns.add(categoryIndex);
+      // Определяем пару: 0-1, 2-3
+      const pairIndex = categoryIndex % 2 === 0 ? categoryIndex + 1 : categoryIndex - 1;
+      if (pairIndex < categories.length) {
+        newOpenDropdowns.add(pairIndex);
+      }
+    }
+    
+    setOpenDropdowns(newOpenDropdowns);
+  };
+
+  return (
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+      {/* Заголовок и описание по центру */}
+      <div className="text-center mb-12">
+        {/* Бейдж */}
+        <div className="mb-6 inline-block">
+          <div className="bg-brand/20 text-brand px-4 py-2 rounded-xl text-sm font-medium border border-brand/30">
+            {t('badge')}
+          </div>
+        </div>
+
+        {/* Заголовок */}
+        <h2 className="mb-6 text-4xl lg:text-5xl font-semibold text-text leading-tight">
+          {t('title')}
+        </h2>
+
+        {/* Описание */}
+        <p className="text-base text-muted mb-8 leading-6 max-w-2xl mx-auto">
+          {t('description')}
+        </p>
+      </div>
+
+      {/* Дропдауны в две колонки */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+        {categories.map((category, categoryIndex) => (
+          <div key={categoryIndex} className="border border-white/10 rounded-2xl p-6 bg-card">
+            <button
+              onClick={() => handleDropdownToggle(categoryIndex)}
+              className="flex items-center justify-center w-full text-center group mb-4 relative"
+            >
+              <h3 className="text-lg lg:text-xl font-semibold text-text group-hover:text-brand transition-colors">
+                {category.title}
+              </h3>
+              <div className={`absolute right-0 flex-shrink-0 transition-transform duration-300 ${openDropdowns.has(categoryIndex) ? 'rotate-180' : ''}`}>
+                <HiChevronDown className="w-5 h-5 text-brand" />
+              </div>
+            </button>
+            
+            {openDropdowns.has(categoryIndex) && (
+              <div className="mt-4 overflow-visible transition-all duration-300 ease-in-out">
+                <div className="space-y-4">
+                  {category.services.map((service, serviceIndex) => (
+                    <div key={serviceIndex} className="pl-4 border-l-2 border-brand/30">
+                      <Link 
+                        href={service.link}
+                        className="block group/item"
+                      >
+                        <h4 className="text-base font-semibold text-text group-hover/item:text-brand transition-colors mb-2">
+                          {service.title}
+                        </h4>
+                        <p className="text-sm text-text/80 leading-6 mb-3">
+                          {service.description}
+                        </p>
+                        <span className="inline-flex items-center gap-2 text-sm text-brand hover:text-brand/80 transition-colors font-medium">
+                          Читать больше
+                          <HiArrowRight size={16} />
+                        </span>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Кнопка "Все услуги" по центру */}
+      <div className="mt-12 text-center">
+        <Link
+          href="/services"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-brand text-white rounded-xl hover:bg-brand/90 transition-colors font-medium shadow-[0_10px_30px_-12px_rgba(124,92,252,0.4)]"
+        >
+          {t('viewAll')}
+          <HiArrowRight size={20} />
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 function CasesSection() {
   const t = useTranslations('cases');
+  const tClients = useTranslations('clients');
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const [slidesToShow, setSlidesToShow] = useState(1);
+
+  useEffect(() => {
+    const updateSlidesToShow = () => {
+      if (window.innerWidth >= 1024) {
+        setSlidesToShow(3); // lg: 3 slides
+      } else if (window.innerWidth >= 768) {
+        setSlidesToShow(2); // md: 2 slides
+      } else {
+        setSlidesToShow(1); // mobile: 1 slide
+      }
+    };
+
+    updateSlidesToShow();
+    window.addEventListener('resize', updateSlidesToShow);
+    return () => window.removeEventListener('resize', updateSlidesToShow);
+  }, []);
+  
+  // Функция для разделения "ООО" и названия компании
+  const formatCompanyName = (company: string) => {
+    const match = company.match(/^ООО\s+(.+)$/);
+    if (match) {
+      return {
+        prefix: 'ООО',
+        name: match[1].trim()
+      };
+    }
+    return {
+      prefix: '',
+      name: company
+    };
+  };
+  
+  const companies = tClients.raw('companies') as string[];
   
   const cases = [
     {
@@ -94,7 +264,8 @@ function CasesSection() {
         t('case1.result2'),
         t('case1.result3'),
         t('case1.result4')
-      ]
+      ],
+      isClients: false
     },
     {
       title: t('case2.title'),
@@ -105,7 +276,8 @@ function CasesSection() {
         t('case2.result2'),
         t('case2.result3'),
         t('case2.result4')
-      ]
+      ],
+      isClients: false
     },
     {
       title: t('case3.title'),
@@ -116,7 +288,8 @@ function CasesSection() {
         t('case3.result2'),
         t('case3.result3'),
         t('case3.result4')
-      ]
+      ],
+      isClients: false
     },
     {
       title: t('case4.title'),
@@ -127,7 +300,8 @@ function CasesSection() {
         t('case4.result2'),
         t('case4.result3'),
         t('case4.result4')
-      ]
+      ],
+      isClients: false
     },
     {
       title: t('case5.title'),
@@ -138,9 +312,130 @@ function CasesSection() {
         t('case5.result2'),
         t('case5.result3'),
         t('case5.result4')
-      ]
+      ],
+      isClients: false
+    },
+    {
+      title: t('clientsCase.title'),
+      subtitle: t('clientsCase.subtitle'),
+      companies: companies,
+      isClients: true
     }
   ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => {
+      const maxSlide = Math.max(0, cases.length - slidesToShow);
+      return prev >= maxSlide ? 0 : prev + 1;
+    });
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => {
+      const maxSlide = Math.max(0, cases.length - slidesToShow);
+      return prev <= 0 ? maxSlide : prev - 1;
+    });
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    }
+    if (isRightSwipe) {
+      prevSlide();
+    }
+  };
+
+  const renderCaseCard = (caseItem: any, index: number) => (
+    <div
+      key={index}
+      className="bg-card border border-white/10 rounded-3xl p-6 lg:p-8 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] flex flex-col h-full w-full max-w-[380px]"
+    >
+      <h3 className="text-[24px] leading-[32px] font-semibold text-text mb-6">
+        {caseItem.title}
+      </h3>
+      
+      {caseItem.isClients ? (
+        // Карточка клиентов
+        <div className="flex-1 flex flex-col">
+          {caseItem.subtitle && (
+            <p className="text-sm text-muted leading-6 mb-6">
+              {caseItem.subtitle}
+            </p>
+          )}
+          <ul className="space-y-3 flex-1">
+            {caseItem.companies?.map((company: string, idx: number) => {
+              return (
+                <li key={idx} className="text-sm text-text/80 font-medium">
+                  {company}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ) : (
+        // Обычная карточка кейса
+        <div className="space-y-6 flex-1 flex flex-col">
+          {/* Проблема */}
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-2 h-2 rounded-full bg-red-500"></div>
+              <span className="text-sm font-semibold text-text/80 uppercase tracking-wide">{t('problemLabel')}</span>
+            </div>
+            <p className="text-sm text-muted leading-6">
+              {caseItem.problem}
+            </p>
+          </div>
+
+          {/* Решение */}
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-2 h-2 rounded-full bg-brand"></div>
+              <span className="text-sm font-semibold text-text/80 uppercase tracking-wide">{t('solutionLabel')}</span>
+            </div>
+            <p className="text-sm text-muted leading-6">
+              {caseItem.solution}
+            </p>
+          </div>
+
+          {/* Результат */}
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-2 h-2 rounded-full bg-green-500"></div>
+              <span className="text-sm font-semibold text-text/80 uppercase tracking-wide">{t('resultLabel')}</span>
+            </div>
+            <ul className="space-y-2">
+                  {caseItem.results?.filter((r: string) => r && r.trim()).map((result: string, idx: number) => (
+                <li key={idx} className="flex items-start gap-2 text-sm text-muted">
+                  <span className="text-brand flex-shrink-0 mt-0.5">
+                    <HiCheckCircle size={16} />
+                  </span>
+                  <span>{result}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
@@ -153,59 +448,65 @@ function CasesSection() {
         </p>
       </div>
 
-      <div className="space-y-8">
-        {cases.map((caseItem, index) => (
-          <div
-            key={index}
-            className="bg-card border border-white/10 rounded-3xl p-8 lg:p-12 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]"
+      {/* Carousel - All Devices */}
+      <div className="relative">
+        <div className="overflow-hidden">
+          <div 
+            className="flex transition-transform duration-300 ease-in-out gap-6"
+            style={{ 
+              transform: slidesToShow === 1 
+                ? `translateX(calc(-${currentSlide} * (100% + 1.5rem)))`
+                : `translateX(calc(-${currentSlide} * (380px + 1.5rem)))`
+            }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
-            <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-6">
-              {caseItem.title}
-            </h3>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Проблема */}
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2 h-2 rounded-full bg-red-500"></div>
-                  <span className="text-sm font-semibold text-text/80 uppercase tracking-wide">{t('problemLabel')}</span>
-                </div>
-                <p className="text-sm text-muted leading-6">
-                  {caseItem.problem}
-                </p>
+            {cases.map((caseItem, index) => (
+              <div 
+                key={index} 
+                className="min-w-full md:min-w-[380px] flex-shrink-0"
+              >
+                {renderCaseCard(caseItem, index)}
               </div>
-
-              {/* Решение */}
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2 h-2 rounded-full bg-brand"></div>
-                  <span className="text-sm font-semibold text-text/80 uppercase tracking-wide">{t('solutionLabel')}</span>
-                </div>
-                <p className="text-sm text-muted leading-6">
-                  {caseItem.solution}
-                </p>
-              </div>
-
-              {/* Результат */}
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                  <span className="text-sm font-semibold text-text/80 uppercase tracking-wide">{t('resultLabel')}</span>
-                </div>
-                <ul className="space-y-2">
-                  {caseItem.results.map((result, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-muted">
-                      <span className="text-brand flex-shrink-0 mt-0.5">
-                        <HiCheckCircle size={16} />
-                      </span>
-                      <span>{result}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="flex items-center justify-center gap-4 mt-6">
+          <button
+            onClick={prevSlide}
+            className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all"
+            aria-label="Previous slide"
+          >
+            <HiChevronLeft size={24} className="text-text" />
+          </button>
+          
+          {/* Dots Indicator */}
+          <div className="flex gap-2">
+            {cases.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentSlide 
+                    ? 'bg-brand w-8' 
+                    : 'bg-white/20 hover:bg-white/30'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={nextSlide}
+            className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all"
+            aria-label="Next slide"
+          >
+            <HiChevronRight size={24} className="text-text" />
+          </button>
+        </div>
       </div>
     </section>
   );
@@ -293,6 +594,13 @@ function ResultsSection() {
   
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+      {t('title') && (
+        <div className="text-center mb-16">
+          <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
+            {t('title')}
+          </h2>
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
         <div className="text-center">
           <div className="text-[56px] lg:text-[80px] font-bold tracking-[-0.02em] text-brand mb-4 leading-none">
@@ -304,8 +612,8 @@ function ResultsSection() {
         </div>
         
         <div className="text-center">
-          <div className="text-[72px] lg:text-[96px] font-bold tracking-[-0.02em] text-brand mb-4 leading-none">
-            7×
+          <div className="text-[48px] lg:text-[72px] font-bold tracking-[-0.02em] text-brand mb-4 leading-none">
+            2–3 мин
           </div>
           <p className="text-base lg:text-lg text-text/70 leading-relaxed">
             {t('faster')}
@@ -366,13 +674,13 @@ export default function Home() {
                 </Link>
               </div>
               <div className="flex items-center gap-3">
-                <LanguageSwitcher />
+                {/* <LanguageSwitcher /> */}
                 <Link
-                  href="#contact"
+                  href="/services"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 text-text font-semibold rounded-xl hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-brand/60"
-                  aria-label={tNav('contact')}
+                  aria-label={tNav('services')}
                 >
-                  {tNav('contact')}
+                  {tNav('services')}
                 </Link>
               </div>
             </div>
@@ -409,9 +717,15 @@ export default function Home() {
                   {tHero('title')}
                 </h1>
                 
-                <p className="text-text/70 max-w-xl text-base leading-7">
+                <p className="text-text/70 max-w-xl text-base leading-7 font-medium">
                   {tHero('description')}
                 </p>
+                
+                {tHero('subtitle') && (
+                  <p className="text-text/70 max-w-xl text-base leading-7">
+                    {tHero('subtitle')}
+                  </p>
+                )}
                 
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Link
@@ -432,13 +746,13 @@ export default function Home() {
                 </div>
                 
                 {/* Trust Row */}
-                <div className="mt-6 flex items-center justify-start gap-2 sm:gap-6 text-[10px] sm:text-xs text-text/60 flex-wrap">
+                <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-start gap-2 sm:gap-6 text-[10px] sm:text-xs text-text/60">
                   <div className="whitespace-nowrap">{tHero('trust1')}</div>
-                  <div className="h-4 w-px bg-white/20 flex-shrink-0" />
+                  <div className="hidden sm:block h-4 w-px bg-white/20 flex-shrink-0" />
                   <div className="whitespace-nowrap">{tHero('trust2')}</div>
-                  <div className="h-4 w-px bg-white/20 flex-shrink-0" />
+                  <div className="hidden sm:block h-4 w-px bg-white/20 flex-shrink-0" />
                   <div className="whitespace-nowrap">{tHero('trust3')}</div>
-                  <div className="h-4 w-px bg-white/20 flex-shrink-0" />
+                  <div className="hidden sm:block h-4 w-px bg-white/20 flex-shrink-0" />
                   <div className="whitespace-nowrap">{tHero('trust4')}</div>
                 </div>
               </div>
@@ -485,7 +799,7 @@ export default function Home() {
         {/* What We Do Section */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Calculation Automation */}
+            {/* Wizard расчёта и КП */}
             <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
                 <HiSearch size={20} />
@@ -494,16 +808,18 @@ export default function Home() {
               <p className="text-sm text-muted leading-6 mb-4">
                 {t('features.calculationAutomation.desc1')}
               </p>
-              <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.calculationAutomation.desc2')}
-              </p>
+              {t('features.calculationAutomation.desc2') && (
+                <p className="text-sm text-muted leading-6 mb-4">
+                  {t('features.calculationAutomation.desc2')}
+                </p>
+              )}
               <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.calculationAutomation.learnMore')}>
                 {t('features.calculationAutomation.learnMore')}
                 <HiArrowRight size={12} />
               </Link>
             </div>
 
-            {/* KP Configurator */}
+            {/* Автоматические расчёты параметров */}
             <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
                 <HiLightBulb size={20} />
@@ -512,16 +828,18 @@ export default function Home() {
               <p className="text-sm text-muted leading-6 mb-4">
                 {t('features.kpConfigurator.desc1')}
               </p>
-              <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.kpConfigurator.desc2')}
-              </p>
+              {t('features.kpConfigurator.desc2') && (
+                <p className="text-sm text-muted leading-6 mb-4">
+                  {t('features.kpConfigurator.desc2')}
+                </p>
+              )}
               <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.kpConfigurator.learnMore')}>
                 {t('features.kpConfigurator.learnMore')}
                 <HiArrowRight size={12} />
               </Link>
             </div>
 
-            {/* Document Automation */}
+            {/* Документооборот и спецификации */}
             <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
                 <HiDocumentText size={20} />
@@ -530,65 +848,13 @@ export default function Home() {
               <p className="text-sm text-muted leading-6 mb-4">
                 {t('features.documentAutomation.desc1')}
               </p>
-              <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.documentAutomation.desc2')}
-              </p>
+              {t('features.documentAutomation.desc2') && (
+                <p className="text-sm text-muted leading-6 mb-4">
+                  {t('features.documentAutomation.desc2')}
+                </p>
+              )}
               <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.documentAutomation.learnMore')}>
                 {t('features.documentAutomation.learnMore')}
-                <HiArrowRight size={12} />
-              </Link>
-            </div>
-
-            {/* Sales Tools */}
-            <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
-                <HiUser size={20} />
-              </div>
-              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.salesTools.title')}</h3>
-              <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.salesTools.desc1')}
-              </p>
-              <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.salesTools.desc2')}
-              </p>
-              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.salesTools.learnMore')}>
-                {t('features.salesTools.learnMore')}
-                <HiArrowRight size={12} />
-              </Link>
-            </div>
-
-            {/* Engineering Tools */}
-            <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
-                <HiCog size={20} />
-              </div>
-              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.engineeringTools.title')}</h3>
-              <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.engineeringTools.desc1')}
-              </p>
-              <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.engineeringTools.desc2')}
-              </p>
-              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.engineeringTools.learnMore')}>
-                {t('features.engineeringTools.learnMore')}
-                <HiArrowRight size={12} />
-              </Link>
-            </div>
-
-            {/* Integrations */}
-            <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
-                <HiPuzzle size={20} />
-              </div>
-              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.integrations.title')}</h3>
-              <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.integrations.desc1')}
-              </p>
-              <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.integrations.desc2')}
-              </p>
-              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.integrations.learnMore')}>
-                {t('features.integrations.learnMore')}
                 <HiArrowRight size={12} />
               </Link>
             </div>
@@ -627,9 +893,9 @@ export default function Home() {
                 description: t('whoItsFor.equipment.description')
               },
               { 
-                icon: HiLightBulb, 
-                label: t('whoItsFor.construction.label'),
-                description: t('whoItsFor.construction.description')
+                icon: HiClock, 
+                label: t('whoItsFor.cables.label'),
+                description: t('whoItsFor.cables.description')
               },
               { 
                 icon: HiGlobeAlt, 
@@ -642,21 +908,11 @@ export default function Home() {
                 description: t('whoItsFor.pipes.description')
               },
               { 
-                icon: HiClock, 
-                label: t('whoItsFor.cables.label'),
-                description: t('whoItsFor.cables.description')
-              },
-              { 
-                icon: HiUser, 
-                label: t('whoItsFor.automotive.label'),
-                description: t('whoItsFor.automotive.description')
-              },
-              { 
                 icon: HiDocumentText, 
                 label: t('whoItsFor.custom.label'),
                 description: t('whoItsFor.custom.description')
               }
-            ].map((item, index) => {
+            ].filter(item => item.label && item.description).map((item, index) => {
               const Icon = item.icon;
               return (
                 <div
@@ -682,6 +938,9 @@ export default function Home() {
 
         {/* Cases Section */}
         <CasesSection />
+
+        {/* Services Section */}
+        <ServicesSection />
 
         {/* Process Section */}
         <ProcessSection />
@@ -819,7 +1078,7 @@ export default function Home() {
         {/* Final CTA Section */}
         <section id="contact" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
           <div className="bg-card border border-white/10 rounded-3xl p-12 lg:p-16 text-center shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]">
-            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
+            <h2 className="text-2xl sm:text-[40px] leading-[32px] sm:leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
               {t('cta.title')}
             </h2>
             <p className="text-base text-text/70 mb-8 max-w-2xl mx-auto">
@@ -827,7 +1086,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
               <Link
-                href="mailto:hello@h-studio-berlin.de?subject=Получить разбор"
+                href={`mailto:${t('footer.legalDetails.email')}?subject=Получить разбор`}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand text-black font-semibold rounded-xl hover:opacity-90 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.5)] focus:outline-none focus:ring-2 focus:ring-brand/60"
               >
                 <span>{t('cta.button1')}</span>
@@ -867,7 +1126,7 @@ export default function Home() {
                     <span className="text-brand mt-0.5 flex-shrink-0">
                       <HiLocationMarker size={20} />
                     </span>
-                    <span>{t('footer.address')}</span>
+                    <span className="whitespace-pre-line">{t('footer.legalDetails.legalAddress')}</span>
                   </div>
                 </div>
               </div>
@@ -878,36 +1137,16 @@ export default function Home() {
                     <span className="text-brand">
                       <HiPhone size={20} />
                     </span>
-                    <a href="tel:+4917641762410" className="text-muted hover:text-brand transition-colors">
-                      +49 176 41762410
+                    <a href="tel:+79826666680" className="text-muted hover:text-brand transition-colors">
+                      {t('footer.legalDetails.phone')}
                     </a>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-brand">
                       <HiMail size={20} />
                     </span>
-                    <a href="mailto:hello@h-studio-berlin.de" className="text-muted hover:text-brand transition-colors">
-                      hello@h-studio-berlin.de
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-3 pt-2">
-                    <a
-                      href="https://wa.me/4917641762410"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-brand hover:opacity-80 transition-colors"
-                      aria-label="WhatsApp"
-                    >
-                      <FaWhatsapp size={24} />
-                    </a>
-                    <a
-                      href="https://t.me/+4917641762410"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-brand hover:opacity-80 transition-colors"
-                      aria-label="Telegram"
-                    >
-                      <FaTelegram size={24} />
+                    <a href={`mailto:${t('footer.legalDetails.email')}`} className="text-muted hover:text-brand transition-colors">
+                      {t('footer.legalDetails.email')}
                     </a>
                   </div>
                 </div>
@@ -916,11 +1155,11 @@ export default function Home() {
             <div className="border-t border-white/10 pt-8">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex flex-wrap items-center gap-4 text-sm text-muted">
-                  <a href="mailto:hello@h-studio-berlin.de?subject=Privacy Policy Request" className="hover:text-text transition-colors">{t('footer.privacy')}</a>
+                  <a href={`mailto:${t('footer.legalDetails.email')}?subject=Privacy Policy Request`} className="hover:text-text transition-colors">{t('footer.privacy')}</a>
                   <span>•</span>
-                  <a href="mailto:hello@h-studio-berlin.de?subject=Legal Notice Request" className="hover:text-text transition-colors">{t('footer.legalNotice')}</a>
+                  <Link href="/legal-notice" className="hover:text-text transition-colors">{t('footer.legalNotice')}</Link>
                   <span>•</span>
-                  <a href="mailto:hello@h-studio-berlin.de?subject=Terms Request" className="hover:text-text transition-colors">{t('footer.terms')}</a>
+                  <a href={`mailto:${t('footer.legalDetails.email')}?subject=Terms Request`} className="hover:text-text transition-colors">{t('footer.terms')}</a>
                   <span>•</span>
                   <button
                     onClick={() => {

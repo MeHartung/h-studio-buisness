@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // Essential cookie для языка согласно TDDDG §25(2) - технически необходимый
 const LOCALE_COOKIE = 'lang';
-const DEFAULT_LOCALE = 'en';
-const VALID_LOCALES = ['en', 'de', 'ru'];
+const DEFAULT_LOCALE = 'ru';
+const VALID_LOCALES = ['ru'];
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 дней
 
 export async function middleware(request: NextRequest) {
@@ -109,13 +109,13 @@ export async function middleware(request: NextRequest) {
     return res;
   }
 
-  // ✅ Для Googlebot всегда используем английский язык с 301 редиректом
+  // ✅ Для Googlebot всегда используем русский язык с 301 редиректом
   if (pathname === '/') {
-    return NextResponse.redirect(new URL('/en', request.url), 301);
+    return NextResponse.redirect(new URL('/ru', request.url), 301);
   }
   
-  // Для остальных путей Googlebot перенаправляем на английскую версию
-  const redirectUrl = new URL(`/en${pathname}${search}`, request.url);
+  // Для остальных путей Googlebot перенаправляем на русскую версию
+  const redirectUrl = new URL(`/ru${pathname}${search}`, request.url);
   return NextResponse.redirect(redirectUrl, 301);
 }
 

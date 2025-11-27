@@ -284,10 +284,94 @@
     "legalNotice": "Legal Notice",
     "terms": "Terms",
     "cookieSettings": "Cookie Settings",
-    "copyright": "© 2025 H-Studio Lead Systems. All rights reserved."
+    "copyright": "© 2025 H-Studio Lead Systems. All rights reserved.",
+    "cookieBanner": {
+      "title": "Cookie Preferences",
+      "description": "We use cookies to enhance your experience. By continuing, you agree to our use of cookies.",
+      "rejectAll": "Reject All",
+      "customize": "Customize",
+      "acceptAll": "Accept All",
+      "cookieSettings": "Cookie Settings",
+      "strictlyNecessary": "Strictly Necessary",
+      "strictlyNecessaryDesc": "Required for basic website functionality",
+      "strictlyNecessaryNote": "These cookies cannot be disabled as they are essential for the website to function.",
+      "analytics": "Analytics",
+      "analyticsDesc": "Help us understand how visitors interact",
+      "analyticsNote": "Google Analytics and similar tools to analyze website usage.",
+      "marketing": "Marketing",
+      "marketingDesc": "Used for advertising and tracking",
+      "marketingNote": "Cookies for personalized ads and marketing campaigns.",
+      "cancel": "Cancel",
+      "savePreferences": "Save Preferences"
+    },
+    "legalDetails": {
+      "title": "Legal Details",
+      "companyName": "LLC «Rotatsiya»",
+      "legalAddress": "623751, Sverdlovsk Region, Rezhevskoy District, Rezh, O. Koshevogo St., 16",
+      "ogrn": "OGRN: 1126677000581",
+      "inn": "INN: 6677001169",
+      "kpp": "KPP: 667701001",
+      "phone": "+7 (982) 666-66-80",
+      "email": "hello@h-studio.io"
+    }
   },
   "navigation": {
     "contact": "Contact"
+  },
+  "legalNotice": {
+    "meta": {
+      "title": "Legal Notice",
+      "description": "Legal notice. Company information, address and contact details in accordance with Russian legislation.",
+      "robots": "noindex,follow",
+      "ogTitle": "Legal Notice",
+      "ogDescription": "Official company information.",
+      "twitterTitle": "Legal Notice",
+      "twitterDescription": "Company information, address and contact details."
+    },
+    "title": "Legal Notice",
+    "companyInfo": {
+      "title": "Website Owner and Operator",
+      "companyName": "Legal Entity Name",
+      "companyNameValue": "Limited Liability Company «Rotatsiya»",
+      "address": "Legal Address",
+      "addressValue": "623751, Sverdlovsk Region, Rezhevskoy District, Rezh, O. Koshevogo St., 16",
+      "phone": "Phone",
+      "phoneValue": "+7 (982) 666-66-80",
+      "email": "Email",
+      "emailValue": "hello@h-studio.io",
+      "representedBy": "OGRN",
+      "representedByValue": "1126677000581",
+      "businessRegistration": "INN",
+      "businessRegistrationValue": "6677001169",
+      "taxOffice": "KPP",
+      "taxOfficeValue": "667701001",
+      "ustId": "",
+      "ustIdValue": "",
+      "businessActivity": "Website Purpose",
+      "businessActivityValue": "The website provides information about the services of LLC «Rotatsiya» in the field of: website creation and development, IT integrations and automation, support and technical support, consultations on digital solutions. All information provided is for reference only and is not a public offer."
+    },
+    "disclaimer": {
+      "title": "Content Liability",
+      "content": "LLC «Rotatsiya» strives to maintain the relevance and accuracy of published data, however, it does not guarantee the absence of technical errors, typos or outdated information. The company is not responsible for the consequences of using the website materials."
+    },
+    "limitationOfLiability": {
+      "title": "External Links",
+      "content": "The website may contain links to third-party resources. LLC «Rotatsiya» is not responsible for the content of third-party sites, their security and the correctness of the information posted."
+    },
+    "governingLaw": {
+      "title": "Copyright",
+      "content": "All website materials — texts, graphic elements, design, photographs, program code — are objects of copyright. PROHIBITED: copying, distribution, publication, use of website materials without written permission from LLC «Rotatsiya»."
+    },
+    "vsbg": {
+      "title": "Feedback",
+      "content": "For questions related to the use of the website, you can contact: hello@h-studio.io"
+    },
+    "mstv": {
+      "title": "",
+      "description": "",
+      "responsiblePerson": "",
+      "responsibleAddress": ""
+    }
   },
   "language": {
     "english": "English",

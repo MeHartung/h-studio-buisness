@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { HiX, HiCog } from 'react-icons/hi';
+import { useTranslations } from 'next-intl';
 
 interface CookiePreferences {
   necessary: boolean;
@@ -10,6 +11,7 @@ interface CookiePreferences {
 }
 
 export default function CookieBanner() {
+  const t = useTranslations('footer.cookieBanner');
   const [showBanner, setShowBanner] = useState(false);
   const [showManager, setShowManager] = useState(false);
   const [preferences, setPreferences] = useState<CookiePreferences>({
@@ -74,42 +76,42 @@ export default function CookieBanner() {
     <>
       {/* Cookie Banner */}
       {showBanner && (
-        <div className="fixed bottom-4 left-4 z-50 max-w-md">
-          <div className="bg-white rounded-lg shadow-xl border border-gray-200 p-4">
+        <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:max-w-md z-50">
+          <div className="bg-card border border-white/10 rounded-xl shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] p-4 backdrop-blur-sm">
             <div className="flex items-start justify-between gap-3 mb-3">
               <div className="flex-1">
-                <h3 className="font-semibold text-gray-900 mb-1">Cookie Preferences</h3>
-                <p className="text-sm text-gray-600">
-                  We use cookies to enhance your experience. By continuing, you agree to our use of cookies.
+                <h3 className="font-semibold text-text mb-1">{t('title')}</h3>
+                <p className="text-sm text-text/70">
+                  {t('description')}
                 </p>
               </div>
               <button
                 onClick={() => setShowBanner(false)}
-                className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
+                className="text-text/40 hover:text-text transition-colors flex-shrink-0"
                 aria-label="Close"
               >
                 <HiX size={20} />
               </button>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
               <button
                 onClick={handleRejectAll}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                className="px-4 py-2 text-sm font-medium text-text bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors"
               >
-                Reject All
+                {t('rejectAll')}
               </button>
               <button
                 onClick={() => setShowManager(true)}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-1"
+                className="px-4 py-2 text-sm font-medium text-text bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors flex items-center justify-center gap-1"
               >
                 <HiCog size={16} />
-                Customize
+                {t('customize')}
               </button>
               <button
                 onClick={handleAcceptAll}
-                className="px-4 py-2 text-sm font-medium text-white bg-[#7C5CFC] rounded-lg hover:bg-[#7C5CFC]/90 transition-colors"
+                className="px-4 py-2 text-sm font-medium text-black bg-brand rounded-lg hover:opacity-90 transition-colors"
               >
-                Accept All
+                {t('acceptAll')}
               </button>
             </div>
           </div>
@@ -118,13 +120,13 @@ export default function CookieBanner() {
 
       {/* Cookie Manager Modal */}
       {showManager && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="bg-white rounded-xl shadow-2xl border border-gray-200 p-6 max-w-md w-full mx-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+          <div className="bg-card border border-white/10 rounded-xl shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] p-6 max-w-md w-full">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-gray-900">Cookie Settings</h2>
+              <h2 className="text-xl font-bold text-text">{t('cookieSettings')}</h2>
               <button
                 onClick={() => setShowManager(false)}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-text/40 hover:text-text transition-colors"
                 aria-label="Close"
               >
                 <HiX size={24} />
@@ -132,29 +134,29 @@ export default function CookieBanner() {
             </div>
 
             <div className="space-y-4 mb-6">
-              <div className="p-4 bg-gray-50 rounded-lg">
+              <div className="p-4 bg-white/5 border border-white/10 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <div>
-                    <h3 className="font-semibold text-gray-900">Strictly Necessary</h3>
-                    <p className="text-sm text-gray-600">Required for basic website functionality</p>
+                    <h3 className="font-semibold text-text">{t('strictlyNecessary')}</h3>
+                    <p className="text-sm text-text/70">{t('strictlyNecessaryDesc')}</p>
                   </div>
                   <input
                     type="checkbox"
                     checked={preferences.necessary}
                     disabled
-                    className="w-5 h-5 text-[#7C5CFC] rounded border-gray-300"
+                    className="w-5 h-5 text-brand rounded border-white/20 bg-white/5"
                   />
                 </div>
-                <p className="text-xs text-gray-500 mt-1">
-                  These cookies cannot be disabled as they are essential for the website to function.
+                <p className="text-xs text-text/50 mt-1">
+                  {t('strictlyNecessaryNote')}
                 </p>
               </div>
 
-              <div className="p-4 bg-gray-50 rounded-lg">
+              <div className="p-4 bg-white/5 border border-white/10 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <div>
-                    <h3 className="font-semibold text-gray-900">Analytics</h3>
-                    <p className="text-sm text-gray-600">Help us understand how visitors interact</p>
+                    <h3 className="font-semibold text-text">{t('analytics')}</h3>
+                    <p className="text-sm text-text/70">{t('analyticsDesc')}</p>
                   </div>
                   <input
                     type="checkbox"
@@ -162,19 +164,19 @@ export default function CookieBanner() {
                     onChange={(e) =>
                       setPreferences({ ...preferences, analytics: e.target.checked })
                     }
-                    className="w-5 h-5 text-[#7C5CFC] rounded border-gray-300"
+                    className="w-5 h-5 text-brand rounded border-white/20 bg-white/5"
                   />
                 </div>
-                <p className="text-xs text-gray-500 mt-1">
-                  Google Analytics and similar tools to analyze website usage.
+                <p className="text-xs text-text/50 mt-1">
+                  {t('analyticsNote')}
                 </p>
               </div>
 
-              <div className="p-4 bg-gray-50 rounded-lg">
+              <div className="p-4 bg-white/5 border border-white/10 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <div>
-                    <h3 className="font-semibold text-gray-900">Marketing</h3>
-                    <p className="text-sm text-gray-600">Used for advertising and tracking</p>
+                    <h3 className="font-semibold text-text">{t('marketing')}</h3>
+                    <p className="text-sm text-text/70">{t('marketingDesc')}</p>
                   </div>
                   <input
                     type="checkbox"
@@ -182,11 +184,11 @@ export default function CookieBanner() {
                     onChange={(e) =>
                       setPreferences({ ...preferences, marketing: e.target.checked })
                     }
-                    className="w-5 h-5 text-[#7C5CFC] rounded border-gray-300"
+                    className="w-5 h-5 text-brand rounded border-white/20 bg-white/5"
                   />
                 </div>
-                <p className="text-xs text-gray-500 mt-1">
-                  Cookies for personalized ads and marketing campaigns.
+                <p className="text-xs text-text/50 mt-1">
+                  {t('marketingNote')}
                 </p>
               </div>
             </div>
@@ -194,15 +196,15 @@ export default function CookieBanner() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowManager(false)}
-                className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                className="flex-1 px-4 py-2 text-sm font-medium text-text bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors"
               >
-                Cancel
+                {t('cancel')}
               </button>
               <button
                 onClick={handleSavePreferences}
-                className="flex-1 px-4 py-2 text-sm font-medium text-white bg-[#7C5CFC] rounded-lg hover:bg-[#7C5CFC]/90 transition-colors"
+                className="flex-1 px-4 py-2 text-sm font-medium text-black bg-brand rounded-lg hover:opacity-90 transition-colors"
               >
-                Save Preferences
+                {t('savePreferences')}
               </button>
             </div>
           </div>
