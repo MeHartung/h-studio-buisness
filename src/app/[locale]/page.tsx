@@ -90,6 +90,17 @@ function LinkedInSection() {
 function ServicesSection() {
   const t = useTranslations('ourServices');
   const [openDropdowns, setOpenDropdowns] = useState<Set<number>>(new Set()); // Все дропдауны закрыты по умолчанию
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const categories = [
     {
@@ -114,18 +125,22 @@ function ServicesSection() {
     const newOpenDropdowns = new Set(openDropdowns);
     
     if (newOpenDropdowns.has(categoryIndex)) {
-      // Если закрываем, закрываем оба в паре
+      // Если закрываем
       newOpenDropdowns.delete(categoryIndex);
-      // Определяем пару: 0-1, 2-3
-      const pairIndex = categoryIndex % 2 === 0 ? categoryIndex + 1 : categoryIndex - 1;
-      newOpenDropdowns.delete(pairIndex);
+      // На десктопе закрываем оба в паре, на мобильных только текущий
+      if (!isMobile) {
+        const pairIndex = categoryIndex % 2 === 0 ? categoryIndex + 1 : categoryIndex - 1;
+        newOpenDropdowns.delete(pairIndex);
+      }
     } else {
-      // Если открываем, открываем оба в паре
+      // Если открываем
       newOpenDropdowns.add(categoryIndex);
-      // Определяем пару: 0-1, 2-3
-      const pairIndex = categoryIndex % 2 === 0 ? categoryIndex + 1 : categoryIndex - 1;
-      if (pairIndex < categories.length) {
-        newOpenDropdowns.add(pairIndex);
+      // На десктопе открываем оба в паре, на мобильных только текущий
+      if (!isMobile) {
+        const pairIndex = categoryIndex % 2 === 0 ? categoryIndex + 1 : categoryIndex - 1;
+        if (pairIndex < categories.length) {
+          newOpenDropdowns.add(pairIndex);
+        }
       }
     }
     
