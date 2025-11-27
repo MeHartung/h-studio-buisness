@@ -16,7 +16,7 @@ export async function generateMetadata({
   const messages = (await import(`../../../messages/${locale}.json`)).default;
   const metadata = messages.legalNotice.meta;
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://h-studio-business.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://h-studio-tech.ru";
   const currentUrl = `${baseUrl}/${locale}/legal-notice`;
 
   return {

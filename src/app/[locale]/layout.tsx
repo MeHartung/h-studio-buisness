@@ -4,9 +4,49 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import { Metadata } from 'next';
+import { OrganizationSchema, WebsiteSchema } from '@/components/StructuredData';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
+}
+
+// Мета-теги для главной страницы (по умолчанию)
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const messages = (await import(`../../messages/${locale}.json`)).default;
+  const metadata = messages.metadata;
+
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://h-studio-tech.ru";
+  const currentUrl = `${baseUrl}/${locale}`;
+
+  return {
+    title: metadata.title,
+    description: metadata.description,
+    alternates: {
+      canonical: currentUrl,
+      languages: {
+        ru: `${baseUrl}/ru`,
+      },
+    },
+    openGraph: {
+      title: metadata.title,
+      description: metadata.description,
+      url: currentUrl,
+      siteName: "H-Studio Business",
+      locale: 'ru_RU',
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: metadata.title,
+      description: metadata.description,
+    },
+  };
 }
 
 export default async function LocaleLayout({
@@ -33,6 +73,8 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body>
+        <OrganizationSchema locale={locale} />
+        <WebsiteSchema locale={locale} />
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
