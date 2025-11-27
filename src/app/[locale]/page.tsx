@@ -89,7 +89,7 @@ function LinkedInSection() {
 
 function ServicesSection() {
   const t = useTranslations('ourServices');
-  const [openDropdowns, setOpenDropdowns] = useState<Set<number>>(new Set([0, 1])); // Первые две категории открыты по умолчанию
+  const [openDropdowns, setOpenDropdowns] = useState<Set<number>>(new Set()); // Все дропдауны закрыты по умолчанию
 
   const categories = [
     {
