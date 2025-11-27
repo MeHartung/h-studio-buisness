@@ -81,6 +81,136 @@ function LinkedInSection() {
   );
 }
 
+function CasesSection() {
+  const t = useTranslations('cases');
+  
+  const cases = [
+    {
+      title: t('case1.title'),
+      problem: t('case1.problem'),
+      solution: t('case1.solution'),
+      results: [
+        t('case1.result1'),
+        t('case1.result2'),
+        t('case1.result3'),
+        t('case1.result4')
+      ]
+    },
+    {
+      title: t('case2.title'),
+      problem: t('case2.problem'),
+      solution: t('case2.solution'),
+      results: [
+        t('case2.result1'),
+        t('case2.result2'),
+        t('case2.result3'),
+        t('case2.result4')
+      ]
+    },
+    {
+      title: t('case3.title'),
+      problem: t('case3.problem'),
+      solution: t('case3.solution'),
+      results: [
+        t('case3.result1'),
+        t('case3.result2'),
+        t('case3.result3'),
+        t('case3.result4')
+      ]
+    },
+    {
+      title: t('case4.title'),
+      problem: t('case4.problem'),
+      solution: t('case4.solution'),
+      results: [
+        t('case4.result1'),
+        t('case4.result2'),
+        t('case4.result3'),
+        t('case4.result4')
+      ]
+    },
+    {
+      title: t('case5.title'),
+      problem: t('case5.problem'),
+      solution: t('case5.solution'),
+      results: [
+        t('case5.result1'),
+        t('case5.result2'),
+        t('case5.result3'),
+        t('case5.result4')
+      ]
+    }
+  ];
+
+  return (
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+      <div className="text-center mb-16">
+        <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
+          {t('title')}
+        </h2>
+        <p className="text-base text-text/70 max-w-2xl mx-auto">
+          {t('description')}
+        </p>
+      </div>
+
+      <div className="space-y-8">
+        {cases.map((caseItem, index) => (
+          <div
+            key={index}
+            className="bg-card border border-white/10 rounded-3xl p-8 lg:p-12 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]"
+          >
+            <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-6">
+              {caseItem.title}
+            </h3>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Проблема */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                  <span className="text-sm font-semibold text-text/80 uppercase tracking-wide">{t('problemLabel')}</span>
+                </div>
+                <p className="text-sm text-muted leading-6">
+                  {caseItem.problem}
+                </p>
+              </div>
+
+              {/* Решение */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-2 h-2 rounded-full bg-brand"></div>
+                  <span className="text-sm font-semibold text-text/80 uppercase tracking-wide">{t('solutionLabel')}</span>
+                </div>
+                <p className="text-sm text-muted leading-6">
+                  {caseItem.solution}
+                </p>
+              </div>
+
+              {/* Результат */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                  <span className="text-sm font-semibold text-text/80 uppercase tracking-wide">{t('resultLabel')}</span>
+                </div>
+                <ul className="space-y-2">
+                  {caseItem.results.map((result, idx) => (
+                    <li key={idx} className="flex items-start gap-2 text-sm text-muted">
+                      <span className="text-brand flex-shrink-0 mt-0.5">
+                        <HiCheckCircle size={16} />
+                      </span>
+                      <span>{result}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function ProcessSection() {
   const t = useTranslations('process');
   
@@ -89,8 +219,7 @@ function ProcessSection() {
     { num: 2, label: t('step2.label'), desc: t('step2.desc') },
     { num: 3, label: t('step3.label'), desc: t('step3.desc') },
     { num: 4, label: t('step4.label'), desc: t('step4.desc') },
-    { num: 5, label: t('step5.label'), desc: t('step5.desc') },
-    { num: 6, label: t('step6.label'), desc: t('step6.desc') }
+    { num: 5, label: t('step5.label'), desc: t('step5.desc') }
   ];
 
   return (
@@ -106,7 +235,7 @@ function ProcessSection() {
 
       {/* Desktop: Horizontal Grid */}
       <div className="hidden lg:block">
-        <div className="grid grid-cols-6 gap-8">
+        <div className="grid grid-cols-5 gap-8">
           {steps.map((step, index) => (
                 <div 
                   key={index} 
@@ -303,12 +432,14 @@ export default function Home() {
                 </div>
                 
                 {/* Trust Row */}
-                <div className="mt-6 flex items-center justify-start gap-2 sm:gap-6 text-[10px] sm:text-xs text-text/60">
+                <div className="mt-6 flex items-center justify-start gap-2 sm:gap-6 text-[10px] sm:text-xs text-text/60 flex-wrap">
                   <div className="whitespace-nowrap">{tHero('trust1')}</div>
                   <div className="h-4 w-px bg-white/20 flex-shrink-0" />
                   <div className="whitespace-nowrap">{tHero('trust2')}</div>
                   <div className="h-4 w-px bg-white/20 flex-shrink-0" />
                   <div className="whitespace-nowrap">{tHero('trust3')}</div>
+                  <div className="h-4 w-px bg-white/20 flex-shrink-0" />
+                  <div className="whitespace-nowrap">{tHero('trust4')}</div>
                 </div>
               </div>
 
@@ -351,117 +482,115 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Why it Works Section */}
+        {/* What We Do Section */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Process Automation */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Calculation Automation */}
             <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
                 <HiSearch size={20} />
               </div>
-              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.processAutomation.title')}</h3>
+              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.calculationAutomation.title')}</h3>
               <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.processAutomation.desc1')}
+                {t('features.calculationAutomation.desc1')}
               </p>
               <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.processAutomation.desc2')}
+                {t('features.calculationAutomation.desc2')}
               </p>
-              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.processAutomation.learnMore')}>
-                {t('features.processAutomation.learnMore')}
+              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.calculationAutomation.learnMore')}>
+                {t('features.calculationAutomation.learnMore')}
                 <HiArrowRight size={12} />
               </Link>
             </div>
 
-            {/* AI-Driven Business Logic */}
+            {/* KP Configurator */}
             <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
                 <HiLightBulb size={20} />
               </div>
-              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.aiBusinessLogic.title')}</h3>
+              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.kpConfigurator.title')}</h3>
               <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.aiBusinessLogic.desc1')}
+                {t('features.kpConfigurator.desc1')}
               </p>
               <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.aiBusinessLogic.desc2')}
+                {t('features.kpConfigurator.desc2')}
               </p>
-              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.aiBusinessLogic.learnMore')}>
-                {t('features.aiBusinessLogic.learnMore')}
+              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.kpConfigurator.learnMore')}>
+                {t('features.kpConfigurator.learnMore')}
                 <HiArrowRight size={12} />
               </Link>
             </div>
 
-            {/* Enterprise Infrastructure */}
+            {/* Document Automation */}
             <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
-                <HiMail size={20} />
+                <HiDocumentText size={20} />
               </div>
-              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.enterpriseInfrastructure.title')}</h3>
+              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.documentAutomation.title')}</h3>
               <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.enterpriseInfrastructure.desc1')}
+                {t('features.documentAutomation.desc1')}
               </p>
               <p className="text-sm text-muted leading-6 mb-4">
-                {t('features.enterpriseInfrastructure.desc2')}
+                {t('features.documentAutomation.desc2')}
               </p>
-              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.enterpriseInfrastructure.learnMore')}>
-                {t('features.enterpriseInfrastructure.learnMore')}
+              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.documentAutomation.learnMore')}>
+                {t('features.documentAutomation.learnMore')}
                 <HiArrowRight size={12} />
               </Link>
             </div>
-          </div>
-        </section>
 
-        {/* Tech Core Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-start">
-            {/* Left: Image */}
-            <div className="relative">
-              <img src="/1.png" alt="Tech Core" className="w-full h-auto object-contain" />
+            {/* Sales Tools */}
+            <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
+                <HiUser size={20} />
+              </div>
+              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.salesTools.title')}</h3>
+              <p className="text-sm text-muted leading-6 mb-4">
+                {t('features.salesTools.desc1')}
+              </p>
+              <p className="text-sm text-muted leading-6 mb-4">
+                {t('features.salesTools.desc2')}
+              </p>
+              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.salesTools.learnMore')}>
+                {t('features.salesTools.learnMore')}
+                <HiArrowRight size={12} />
+              </Link>
             </div>
 
-            {/* Right: Feature Cards */}
-            <div className="space-y-6">
-              {[
-                {
-                  icon: HiTrendingUp,
-                  title: t('techCore.workflowEngines.title'),
-                  description: t('techCore.workflowEngines.description'),
-                },
-                {
-                  icon: HiLightBulb,
-                  title: t('techCore.businessLogic.title'),
-                  description: t('techCore.businessLogic.description'),
-                },
-                {
-                  icon: HiClock,
-                  title: t('techCore.scheduling.title'),
-                  description: t('techCore.scheduling.description'),
-                },
-                {
-                  icon: HiPuzzle,
-                  title: t('techCore.integrations.title'),
-                  description: t('techCore.integrations.description'),
-                },
-              ].map((feature, index) => {
-                const Icon = feature.icon;
-                return (
-                  <div
-                    key={index}
-                    className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.2)]"
-                  >
-                    <div className="flex items-start gap-5">
-                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-brand/20 to-brand/10 rounded-xl flex items-center justify-center border border-brand/20 text-brand">
-                        <Icon size={24} />
-                      </div>
-                      <div className="flex-1 pt-0.5">
-                        <h3 className="text-xl font-semibold text-text mb-2">{feature.title}</h3>
-                        <p className="text-sm text-muted leading-6">
-                          {feature.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+            {/* Engineering Tools */}
+            <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
+                <HiCog size={20} />
+              </div>
+              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.engineeringTools.title')}</h3>
+              <p className="text-sm text-muted leading-6 mb-4">
+                {t('features.engineeringTools.desc1')}
+              </p>
+              <p className="text-sm text-muted leading-6 mb-4">
+                {t('features.engineeringTools.desc2')}
+              </p>
+              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.engineeringTools.learnMore')}>
+                {t('features.engineeringTools.learnMore')}
+                <HiArrowRight size={12} />
+              </Link>
+            </div>
+
+            {/* Integrations */}
+            <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
+                <HiPuzzle size={20} />
+              </div>
+              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.integrations.title')}</h3>
+              <p className="text-sm text-muted leading-6 mb-4">
+                {t('features.integrations.desc1')}
+              </p>
+              <p className="text-sm text-muted leading-6 mb-4">
+                {t('features.integrations.desc2')}
+              </p>
+              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.integrations.learnMore')}>
+                {t('features.integrations.learnMore')}
+                <HiArrowRight size={12} />
+              </Link>
             </div>
           </div>
         </section>
@@ -488,19 +617,44 @@ export default function Home() {
                 description: t('whoItsFor.manufacturing.description')
               },
               { 
-                icon: HiClock, 
-                label: t('whoItsFor.logistics.label'),
-                description: t('whoItsFor.logistics.description')
+                icon: HiPuzzle, 
+                label: t('whoItsFor.metalwork.label'),
+                description: t('whoItsFor.metalwork.description')
               },
               { 
-                icon: HiUser, 
-                label: t('whoItsFor.enterprise.label'),
-                description: t('whoItsFor.enterprise.description')
+                icon: HiCog, 
+                label: t('whoItsFor.equipment.label'),
+                description: t('whoItsFor.equipment.description')
               },
               { 
                 icon: HiLightBulb, 
-                label: t('whoItsFor.engineering.label'),
-                description: t('whoItsFor.engineering.description')
+                label: t('whoItsFor.construction.label'),
+                description: t('whoItsFor.construction.description')
+              },
+              { 
+                icon: HiGlobeAlt, 
+                label: t('whoItsFor.windows.label'),
+                description: t('whoItsFor.windows.description')
+              },
+              { 
+                icon: HiPuzzle, 
+                label: t('whoItsFor.pipes.label'),
+                description: t('whoItsFor.pipes.description')
+              },
+              { 
+                icon: HiClock, 
+                label: t('whoItsFor.cables.label'),
+                description: t('whoItsFor.cables.description')
+              },
+              { 
+                icon: HiUser, 
+                label: t('whoItsFor.automotive.label'),
+                description: t('whoItsFor.automotive.description')
+              },
+              { 
+                icon: HiDocumentText, 
+                label: t('whoItsFor.custom.label'),
+                description: t('whoItsFor.custom.description')
               }
             ].map((item, index) => {
               const Icon = item.icon;
@@ -526,6 +680,9 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Cases Section */}
+        <CasesSection />
+
         {/* Process Section */}
         <ProcessSection />
 
@@ -544,23 +701,23 @@ export default function Home() {
             <div className="space-y-6">
               <div>
                 <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
-                  {t('aiAssistant.title')}
+                  {t('processAssistant.title')}
                 </h2>
                 <p className="text-base text-text/80 leading-7 mb-2">
-                  {t('aiAssistant.subtitle')}
+                  {t('processAssistant.subtitle')}
                 </p>
                 <p className="text-base text-text/80 leading-7">
-                  {t('aiAssistant.description')}
+                  {t('processAssistant.description')}
                 </p>
               </div>
 
               <div className="space-y-4">
                 {[
-                  t('aiAssistant.feature1'),
-                  t('aiAssistant.feature2'),
-                  t('aiAssistant.feature3'),
-                  t('aiAssistant.feature4'),
-                  t('aiAssistant.feature5')
+                  t('processAssistant.feature1'),
+                  t('processAssistant.feature2'),
+                  t('processAssistant.feature3'),
+                  t('processAssistant.feature4'),
+                  t('processAssistant.feature5')
                 ].map((feature, index) => (
                   <div key={index} className="flex items-start gap-3">
                     <span className="text-brand flex-shrink-0 mt-0.5">
@@ -576,14 +733,14 @@ export default function Home() {
                   href="#contact"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand text-black font-semibold rounded-xl hover:opacity-90 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.5)] focus:outline-none focus:ring-2 focus:ring-brand/60"
                 >
-                  <span>{t('aiAssistant.buildButton')}</span>
+                  <span>{t('processAssistant.buildButton')}</span>
                   <HiArrowRight size={20} />
                 </Link>
                 <Link
                   href="#contact"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 text-text font-semibold rounded-xl hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-brand/60"
                 >
-                  {t('aiAssistant.demoButton')}
+                  {t('processAssistant.demoButton')}
                 </Link>
               </div>
             </div>
@@ -662,16 +819,25 @@ export default function Home() {
         {/* Final CTA Section */}
         <section id="contact" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
           <div className="bg-card border border-white/10 rounded-3xl p-12 lg:p-16 text-center shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]">
-            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-6">
+            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
               {t('cta.title')}
             </h2>
+            <p className="text-base text-text/70 mb-8 max-w-2xl mx-auto">
+              {t('cta.subtitle')}
+            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
               <Link
-                href="mailto:hello@h-studio-berlin.de?subject=Get Started"
+                href="mailto:hello@h-studio-berlin.de?subject=Получить разбор"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand text-black font-semibold rounded-xl hover:opacity-90 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.5)] focus:outline-none focus:ring-2 focus:ring-brand/60"
               >
-                <span>{t('cta.button')}</span>
+                <span>{t('cta.button1')}</span>
                 <HiArrowRight size={20} />
+              </Link>
+              <Link
+                href="#contact"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 text-text font-semibold rounded-xl hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-brand/60"
+              >
+                {t('cta.button2')}
               </Link>
             </div>
           </div>

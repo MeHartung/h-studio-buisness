@@ -12,6 +12,7 @@
     "trust1": "Up to 70% less manual work",
     "trust2": "7× faster document flows",
     "trust3": "Enterprise • GDPR Safe",
+    "trust4": "Monthly savings from $50,000",
     "aiAgentTitle": "AI Sales Agent",
     "aiAgentStatus": "Active • 24/7",
     "aiAgentInbox": "99% Inbox",
@@ -37,6 +38,42 @@
       "title": "Enterprise Infrastructure",
       "desc1": "We design and maintain secure internal systems — APIs, integrations, CI/CD pipelines, access control, and high-availability setups.",
       "desc2": "Private deployments, encryption, and full GDPR/DSGVO compliance are included by design.",
+      "learnMore": "Learn more"
+    },
+    "calculationAutomation": {
+      "title": "Calculation Automation",
+      "desc1": "Automatic selection of parameters, specifications, materials, models, weight, cost, and deadlines.",
+      "desc2": "Eliminate calculation errors and reduce time spent on technical specifications.",
+      "learnMore": "Learn more"
+    },
+    "kpConfigurator": {
+      "title": "CPQ Configurator",
+      "desc1": "CPQ is generated in 1–3 minutes based on order parameters.",
+      "desc2": "Managers no longer spend hours on manual calculations and CPQ preparation.",
+      "learnMore": "Learn more"
+    },
+    "documentAutomation": {
+      "title": "Document Automation",
+      "desc1": "Specifications, PDFs, approvals, routing — all automated.",
+      "desc2": "Document flow speeds up 5–10 times, approvals go faster.",
+      "learnMore": "Learn more"
+    },
+    "salesTools": {
+      "title": "Sales Department Tools",
+      "desc1": "Fast calculations → fewer errors → more processed requests.",
+      "desc2": "Free up managers from routine calculations, they focus on working with clients.",
+      "learnMore": "Learn more"
+    },
+    "engineeringTools": {
+      "title": "Engineering Department Tools",
+      "desc1": "Reduce engineering workload: automatic parameter selection.",
+      "desc2": "Engineers spend less time on routine calculations, more on design.",
+      "learnMore": "Learn more"
+    },
+    "integrations": {
+      "title": "CRM/ERP/1C Integrations",
+      "desc1": "Data is automatically pulled from your systems.",
+      "desc2": "No need to manually transfer data between systems — everything syncs automatically.",
       "learnMore": "Learn more"
     }
   },
@@ -88,6 +125,90 @@
     "engineering": {
       "label": "Engineering & R&D",
       "description": "Develop internal tools, configurators, and data-driven systems."
+    },
+    "metalwork": {
+      "label": "Metalwork & Engineering Companies",
+      "description": "Configurators for metalwork and engineering solutions calculations."
+    },
+    "equipment": {
+      "label": "Equipment & Machinery Plants",
+      "description": "Automation of equipment parameters and configuration calculations."
+    },
+    "construction": {
+      "label": "Construction Materials Suppliers",
+      "description": "Quick CP generation and calculations for construction materials."
+    },
+    "windows": {
+      "label": "Windows & Doors Companies",
+      "description": "Window and door configurators with automatic cost calculation."
+    },
+    "pipes": {
+      "label": "Pipe & Fittings Manufacturers",
+      "description": "Automation of calculations for pipeline products."
+    },
+    "cables": {
+      "label": "Cable Plants",
+      "description": "Cable parameters and components calculations."
+    },
+    "automotive": {
+      "label": "Automotive Components & Plastics",
+      "description": "Automation of calculations for automotive component production."
+    },
+    "custom": {
+      "label": "Companies with Technical Specifications",
+      "description": "Working with technical specifications and custom calculations."
+    }
+  },
+  "cases": {
+    "title": "Real Cases",
+    "description": "How we helped manufacturing companies reduce manual work and speed up processes.",
+    "problemLabel": "Problem",
+    "solutionLabel": "Solution",
+    "resultLabel": "Result",
+    "case1": {
+      "title": "Product Calculation Configurator",
+      "problem": "Managers spent 1–2 hours calculating product costs, selecting parameters, and preparing CPQs.",
+      "solution": "We developed a configurator: dimensions → material → components → cost → PDF.",
+      "result1": "CPQ in 3–5 minutes instead of 1–2 hours",
+      "result2": "60% reduction in sales department workload",
+      "result3": "calculation errors reduced to zero",
+      "result4": "increased speed of processing incoming requests"
+    },
+    "case2": {
+      "title": "Material and Cost Calculation Automation",
+      "problem": "Technical department manually calculated material consumption, weight, labor intensity, and cost for each order.",
+      "solution": "Created an internal calculation system with ERP integration and automatic specification generation.",
+      "result1": "calculations completed in 1–2 minutes",
+      "result2": "~40% reduction in engineering workload",
+      "result3": "reduced delays in order approval",
+      "result4": "standardized calculation system"
+    },
+    "case3": {
+      "title": "CPQ and Specification Automation for Suppliers",
+      "problem": "Large number of incoming requests, managers couldn't keep up with preparing commercial proposals.",
+      "solution": "Developed a tool that automatically selects products/items, calculates cost, and generates CPQ in the required format.",
+      "result1": "CPQ preparation speed increased 7x",
+      "result2": "one manager now handles 3x more requests",
+      "result3": "improved conversion of initial inquiries",
+      "result4": "unified document format"
+    },
+    "case4": {
+      "title": "Automated Production Calculation System",
+      "problem": "Complex production process calculations: duration, load, materials, cost, deadlines.",
+      "solution": "We created an internal calculation system that considers product parameters, process sheets, and resource availability.",
+      "result1": "reduced planning delays",
+      "result2": "calculations became uniform and accurate",
+      "result3": "reduced risk of cost calculation errors",
+      "result4": "planning department accelerated 4x"
+    },
+    "case5": {
+      "title": "Document Flow and Approval Automation",
+      "problem": "Delays due to manual approvals, lost emails, different document formats.",
+      "solution": "Implemented an automated approval system: routing, statuses, reminders, document versions.",
+      "result1": "approval speed increased 5–10x",
+      "result2": "eliminated bottlenecks and manual actions",
+      "result3": "increased process transparency",
+      "result4": "eliminated human factor in document flow"
     }
   },
   "process": {
@@ -136,9 +257,24 @@
     "buildButton": "Build My Assistant",
     "demoButton": "See Demo"
   },
+  "processAssistant": {
+    "title": "AI Process Assistant",
+    "subtitle": "AI Assistant — your 24/7 operational partner",
+    "description": "Imagine an internal assistant who knows your rules, calculations, documents, and workflows — and never sleeps.",
+    "feature1": "Automate calculations and parameters",
+    "feature2": "Generate documents and reports",
+    "feature3": "Process internal requests instantly",
+    "feature4": "Suggest next steps in a workflow",
+    "feature5": "Sync seamlessly with your internal systems",
+    "buildButton": "Build My Assistant",
+    "demoButton": "See Demo"
+  },
   "cta": {
     "title": "Transform your internal processes — securely, intelligently, at scale.",
-    "button": "Get Started"
+    "subtitle": "We'll analyze your processes and show what can be improved in the first month.",
+    "button": "Get Started",
+    "button1": "Get Started",
+    "button2": "See Example Solution"
   },
   "footer": {
     "addressTitle": "Correspondence Address",

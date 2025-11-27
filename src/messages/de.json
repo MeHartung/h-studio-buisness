@@ -12,6 +12,7 @@
     "trust1": "Bis zu 70% weniger manuelle Arbeit",
     "trust2": "7× schnellere Dokumentenflüsse",
     "trust3": "Enterprise • DSGVO-konform",
+    "trust4": "Monatliche Einsparungen ab €45,000",
     "aiAgentTitle": "KI-Vertriebsagent",
     "aiAgentStatus": "Aktiv • 24/7",
     "aiAgentInbox": "99% Posteingang",
@@ -37,6 +38,42 @@
       "title": "Enterprise-Infrastruktur",
       "desc1": "Wir entwickeln und warten sichere interne Systeme — APIs, Integrationen, CI/CD-Pipelines, Zugriffskontrolle und Hochverfügbarkeits-Setups.",
       "desc2": "Private Bereitstellungen, Verschlüsselung und vollständige DSGVO-Konformität sind standardmäßig enthalten.",
+      "learnMore": "Mehr erfahren"
+    },
+    "calculationAutomation": {
+      "title": "Berechnungsautomatisierung",
+      "desc1": "Automatische Auswahl von Parametern, Spezifikationen, Materialien, Modellen, Gewicht, Kosten und Fristen.",
+      "desc2": "Berechnungsfehler eliminieren und Zeit für technische Spezifikationen reduzieren.",
+      "learnMore": "Mehr erfahren"
+    },
+    "kpConfigurator": {
+      "title": "CPQ-Konfigurator",
+      "desc1": "CPQ wird in 1–3 Minuten basierend auf Bestellparametern generiert.",
+      "desc2": "Manager verbringen keine Stunden mehr mit manuellen Berechnungen und CPQ-Vorbereitung.",
+      "learnMore": "Mehr erfahren"
+    },
+    "documentAutomation": {
+      "title": "Dokumentenautomatisierung",
+      "desc1": "Spezifikationen, PDFs, Genehmigungen, Routing — alles automatisiert.",
+      "desc2": "Dokumentenfluss beschleunigt sich 5–10 mal, Genehmigungen gehen schneller.",
+      "learnMore": "Mehr erfahren"
+    },
+    "salesTools": {
+      "title": "Tools für den Vertrieb",
+      "desc1": "Schnelle Berechnungen → weniger Fehler → mehr bearbeitete Anfragen.",
+      "desc2": "Manager von Routineberechnungen befreien, sie konzentrieren sich auf die Arbeit mit Kunden.",
+      "learnMore": "Mehr erfahren"
+    },
+    "engineeringTools": {
+      "title": "Tools für die Ingenieurabteilung",
+      "desc1": "Ingenieurarbeitsbelastung reduzieren: automatische Parameterauswahl.",
+      "desc2": "Ingenieure verbringen weniger Zeit mit Routineberechnungen, mehr mit Design.",
+      "learnMore": "Mehr erfahren"
+    },
+    "integrations": {
+      "title": "CRM/ERP/1C-Integrationen",
+      "desc1": "Daten werden automatisch aus Ihren Systemen abgerufen.",
+      "desc2": "Keine manuelle Datenübertragung zwischen Systemen erforderlich — alles synchronisiert sich automatisch.",
       "learnMore": "Mehr erfahren"
     }
   },
@@ -88,6 +125,90 @@
     "engineering": {
       "label": "Ingenieurwesen & F&E",
       "description": "Entwickeln Sie interne Tools, Konfiguratoren und datengesteuerte Systeme."
+    },
+    "metalwork": {
+      "label": "Metallkonstruktionen & Ingenieurunternehmen",
+      "description": "Konfiguratoren für Metallkonstruktions- und Ingenieurlösungsberechnungen."
+    },
+    "equipment": {
+      "label": "Ausrüstungs- & Maschinenfabriken",
+      "description": "Automatisierung von Ausrüstungsparametern und Konfigurationsberechnungen."
+    },
+    "construction": {
+      "label": "Baustofflieferanten",
+      "description": "Schnelle CP-Generierung und Berechnungen für Baustoffe."
+    },
+    "windows": {
+      "label": "Fenster- & Türenunternehmen",
+      "description": "Fenster- und Türenkonfiguratoren mit automatischer Kostenberechnung."
+    },
+    "pipes": {
+      "label": "Rohr- & Fittinghersteller",
+      "description": "Automatisierung von Berechnungen für Rohrleitungsprodukte."
+    },
+    "cables": {
+      "label": "Kabelwerke",
+      "description": "Kabelparameter- und Komponentenberechnungen."
+    },
+    "automotive": {
+      "label": "Automobilkomponenten & Kunststoffe",
+      "description": "Automatisierung von Berechnungen für die Automobilkomponentenproduktion."
+    },
+    "custom": {
+      "label": "Unternehmen mit technischen Spezifikationen",
+      "description": "Arbeit mit technischen Spezifikationen und individuellen Berechnungen."
+    }
+  },
+  "cases": {
+    "title": "Echte Fälle",
+    "description": "Wie wir Fertigungsunternehmen geholfen haben, manuelle Arbeit zu reduzieren und Prozesse zu beschleunigen.",
+    "problemLabel": "Problem",
+    "solutionLabel": "Lösung",
+    "resultLabel": "Ergebnis",
+    "case1": {
+      "title": "Produktberechnungskonfigurator",
+      "problem": "Manager verbrachten 1–2 Stunden mit der Berechnung der Produktkosten, Parameterauswahl und CPQ-Vorbereitung.",
+      "solution": "Wir entwickelten einen Konfigurator: Abmessungen → Material → Komponenten → Kosten → PDF.",
+      "result1": "CPQ in 3–5 Minuten statt 1–2 Stunden",
+      "result2": "60% Reduzierung der Arbeitsbelastung im Vertrieb",
+      "result3": "Berechnungsfehler auf null reduziert",
+      "result4": "erhöhte Geschwindigkeit der Bearbeitung eingehender Anfragen"
+    },
+    "case2": {
+      "title": "Automatisierung von Material- und Kostenberechnungen",
+      "problem": "Technische Abteilung berechnete manuell Materialverbrauch, Gewicht, Arbeitsintensität und Kosten für jede Bestellung.",
+      "solution": "Erstellt ein internes Berechnungssystem mit ERP-Integration und automatischer Spezifikationsgenerierung.",
+      "result1": "Berechnungen in 1–2 Minuten abgeschlossen",
+      "result2": "~40% Reduzierung der Ingenieursarbeitsbelastung",
+      "result3": "reduzierte Verzögerungen bei der Bestellgenehmigung",
+      "result4": "standardisiertes Berechnungssystem"
+    },
+    "case3": {
+      "title": "Automatisierung von CPQ und Spezifikationen für Lieferanten",
+      "problem": "Große Anzahl eingehender Anfragen, Manager konnten nicht mit der Vorbereitung kommerzieller Angebote Schritt halten.",
+      "solution": "Entwickelt ein Tool, das automatisch Produkte/Artikel auswählt, Kosten berechnet und CPQ im erforderlichen Format generiert.",
+      "result1": "CPQ-Vorbereitungsgeschwindigkeit um das 7-fache erhöht",
+      "result2": "ein Manager bearbeitet jetzt 3x mehr Anfragen",
+      "result3": "verbesserte Konversion von Erstanfragen",
+      "result4": "einheitliches Dokumentenformat"
+    },
+    "case4": {
+      "title": "Automatisiertes Produktionsberechnungssystem",
+      "problem": "Komplexe Produktionsprozessberechnungen: Dauer, Belastung, Materialien, Kosten, Fristen.",
+      "solution": "Wir haben ein internes Berechnungssystem erstellt, das Produktparameter, Prozessblätter und Ressourcenverfügbarkeit berücksichtigt.",
+      "result1": "reduzierte Planungsverzögerungen",
+      "result2": "Berechnungen wurden einheitlich und genau",
+      "result3": "reduziertes Risiko von Kostenberechnungsfehlern",
+      "result4": "Planungsabteilung um das 4-fache beschleunigt"
+    },
+    "case5": {
+      "title": "Automatisierung von Dokumentenfluss und Genehmigungen",
+      "problem": "Verzögerungen aufgrund manueller Genehmigungen, verlorener E-Mails, unterschiedlicher Dokumentenformate.",
+      "solution": "Implementiert ein automatisiertes Genehmigungssystem: Routing, Status, Erinnerungen, Dokumentenversionen.",
+      "result1": "Genehmigungsgeschwindigkeit um das 5–10-fache erhöht",
+      "result2": "Engpässe und manuelle Aktionen eliminiert",
+      "result3": "erhöhte Prozesstransparenz",
+      "result4": "menschlicher Faktor im Dokumentenfluss eliminiert"
     }
   },
   "process": {
@@ -136,9 +257,24 @@
     "buildButton": "Meinen Assistenten erstellen",
     "demoButton": "Demo ansehen"
   },
+  "processAssistant": {
+    "title": "KI-Prozessassistent",
+    "subtitle": "KI-Assistent — Ihr 24/7-Betriebspartner",
+    "description": "Stellen Sie sich einen internen Assistenten vor, der Ihre Regeln, Berechnungen, Dokumente und Workflows kennt — und niemals schläft.",
+    "feature1": "Berechnungen und Parameter automatisieren",
+    "feature2": "Dokumente und Berichte generieren",
+    "feature3": "Interne Anfragen sofort verarbeiten",
+    "feature4": "Nächste Schritte in einem Workflow vorschlagen",
+    "feature5": "Nahtlos mit Ihren internen Systemen synchronisieren",
+    "buildButton": "Meinen Assistenten erstellen",
+    "demoButton": "Demo ansehen"
+  },
   "cta": {
     "title": "Transformieren Sie Ihre internen Prozesse — sicher, intelligent, im großen Maßstab.",
-    "button": "Loslegen"
+    "subtitle": "Wir analysieren Ihre Prozesse und zeigen, was im ersten Monat verbessert werden kann.",
+    "button": "Loslegen",
+    "button1": "Loslegen",
+    "button2": "Beispiellösung ansehen"
   },
   "footer": {
     "addressTitle": "Korrespondenzadresse",
