@@ -49,7 +49,7 @@ jobs:
           npm run blog:search-topics -- --query "$QUERY" --count "${COUNT:-10}"
 
       - name: Upload results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: topics-search-results
           path: topics-search-results.json
