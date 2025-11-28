@@ -136,6 +136,8 @@ function callOpenAI(systemPrompt, userPrompt) {
       max_tokens: 2000
     });
 
+    const dataBuffer = Buffer.from(data, 'utf8');
+    
     const options = {
       hostname: 'api.openai.com',
       path: '/v1/chat/completions',
@@ -143,7 +145,7 @@ function callOpenAI(systemPrompt, userPrompt) {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${OPENAI_API_KEY}`,
-        'Content-Length': data.length
+        'Content-Length': dataBuffer.length
       }
     };
 
@@ -179,7 +181,7 @@ function callOpenAI(systemPrompt, userPrompt) {
       reject(error);
     });
 
-    req.write(data);
+    req.write(dataBuffer);
     req.end();
   });
 }
