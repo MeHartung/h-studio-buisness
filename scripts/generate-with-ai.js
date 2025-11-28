@@ -8,6 +8,7 @@
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
+const matter = require('gray-matter');
 
 const args = process.argv.slice(2);
 const topicIndex = args.indexOf('--topic');
@@ -296,6 +297,89 @@ SEO-требования:
 }
 
 /**
+ * Check for duplicate topics in existing blog posts
+ */
+function checkForDuplicates(topic, title) {
+  try {
+    const blogDir = path.join(process.cwd(), 'content/blog');
+    if (!fs.existsSync(blogDir)) {
+      return { isDuplicate: false, similarPost: null };
+    }
+
+    const fileNames = fs.readdirSync(blogDir);
+    const existingPosts = fileNames
+      .filter((fileName) => fileName.endsWith('.md') && fileName !== 'README.md')
+      .map((fileName) => {
+        try {
+          const fullPath = path.join(blogDir, fileName);
+          const fileContents = fs.readFileSync(fullPath, 'utf8');
+          const { data } = matter(fileContents);
+          return {
+            title: data.title || '',
+            slug: data.slug || '',
+            date: data.date || '',
+            fileName,
+          };
+        } catch (error) {
+          return null;
+        }
+      })
+      .filter((post) => post !== null);
+
+    // Normalize text for comparison
+    const normalize = (text) => {
+      return text
+        .toLowerCase()
+        .replace(/[^\w\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    };
+
+    const newTopicNormalized = normalize(topic);
+    const newTitleNormalized = title ? normalize(title) : '';
+
+    // Check for exact or very similar matches
+    for (const post of existingPosts) {
+      const existingTitleNormalized = normalize(post.title);
+      
+      // Calculate similarity (simple word overlap)
+      const newWords = new Set(newTopicNormalized.split(' ').filter(w => w.length > 3));
+      const existingWords = new Set(existingTitleNormalized.split(' ').filter(w => w.length > 3));
+      
+      const intersection = new Set([...newWords].filter(w => existingWords.has(w)));
+      const union = new Set([...newWords, ...existingWords]);
+      
+      const similarity = union.size > 0 ? intersection.size / union.size : 0;
+      
+      // If similarity is high (>0.6), it's likely a duplicate
+      if (similarity > 0.6) {
+        // Check if the existing post is recent (within last 30 days)
+        const postDate = new Date(post.date);
+        const daysSincePost = (new Date() - postDate) / (1000 * 60 * 60 * 24);
+        
+        if (daysSincePost < 30) {
+          return {
+            isDuplicate: true,
+            similarPost: post,
+            similarity: similarity,
+            daysSincePost: Math.floor(daysSincePost),
+          };
+        } else {
+          // Similar topic but old enough - allow but warn
+          console.warn(`⚠️  Warning: Similar topic found (${Math.floor(similarity * 100)}% similarity): "${post.title}"`);
+          console.warn(`   Published ${Math.floor(daysSincePost)} days ago. Proceeding anyway...\n`);
+        }
+      }
+    }
+
+    return { isDuplicate: false, similarPost: null };
+  } catch (error) {
+    console.warn('Warning: Could not check for duplicates:', error.message);
+    return { isDuplicate: false, similarPost: null };
+  }
+}
+
+/**
  * Load topic data from topics-search-results.json
  */
 function loadTopicData(topic) {
@@ -454,6 +538,21 @@ async function main() {
   console.log(`📝 Topic: ${topic}`);
   console.log(`📂 Category: ${category}`);
   console.log(`🏷️  Tags: ${tags.join(', ')}\n`);
+
+  // Check for duplicates before generating
+  console.log('🔍 Checking for duplicate topics...');
+  const duplicateCheck = checkForDuplicates(topic, title);
+  
+  if (duplicateCheck.isDuplicate) {
+    console.error(`\n❌ Error: Duplicate topic detected!`);
+    console.error(`   Similar article: "${duplicateCheck.similarPost.title}"`);
+    console.error(`   Published: ${duplicateCheck.similarPost.date} (${duplicateCheck.daysSincePost} days ago)`);
+    console.error(`   Similarity: ${Math.floor(duplicateCheck.similarity * 100)}%`);
+    console.error(`\n💡 Tip: Wait at least 30 days before generating similar topics, or use a more specific/different topic.\n`);
+    process.exit(1);
+  }
+  
+  console.log('✅ No duplicates found\n');
 
   try {
     // Step 0: Try to load topic data from topics-search-results.json
