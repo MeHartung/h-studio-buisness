@@ -6,7 +6,6 @@ import {
   HiCog, 
   HiSearch,
   HiLightBulb,
-  HiMail,
   HiChartBar,
   HiGlobeAlt,
   HiDocumentText,
@@ -16,16 +15,13 @@ import {
   HiCheckCircle,
   HiTrendingUp,
   HiSparkles,
-  HiPhone,
-  HiLocationMarker,
 } from 'react-icons/hi';
-import { FaLinkedin, FaWhatsapp, FaTelegram } from 'react-icons/fa';
 import CookieBanner from '@/components/CookieBanner';
-import CookieSettingsButton from '@/components/CookieSettingsButton';
 import ServicesSectionClient from '@/components/home/ServicesSectionClient';
 import CasesSectionClient from '@/components/home/CasesSectionClient';
 import ScrollToTopButton from '@/components/home/ScrollToTopButton';
 import FAQSection from '@/components/home/FAQSection';
+import Header from '@/components/Header';
 
 // Server Component для LinkedIn Section
 async function LinkedInSection() {
@@ -207,41 +203,12 @@ async function ResultsSection() {
 export default async function Home() {
   const t = await getTranslations();
   const tHero = await getTranslations('hero');
-  const tNav = await getTranslations('navigation');
-  const tFooter = await getTranslations('footer');
 
   return (
     <div className="min-h-screen bg-bg relative overflow-hidden">
       <main className="relative z-10">
         {/* Hero Section */}
         <section className="relative overflow-hidden">
-          <header className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 lg:pt-8 relative z-20">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Link href="/" className="flex items-center">
-                  <Image
-                    src="/logo-white.svg"
-                    alt="H-Studio - Автоматизация расчётов и КП"
-                    width={120}
-                    height={20}
-                    className="h-5 w-auto"
-                    style={{ width: 'auto', height: '1.25rem' }}
-                    priority
-                  />
-                </Link>
-              </div>
-              <div className="flex items-center gap-3">
-                <Link
-                  href="/services"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 text-text font-semibold rounded-xl hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-brand/60"
-                  aria-label={tNav('services')}
-                >
-                  {tNav('services')}
-                </Link>
-              </div>
-            </div>
-          </header>
-          
           <div
             className="absolute inset-0"
             style={{
@@ -260,6 +227,7 @@ export default async function Home() {
             </svg>
           </div>
 
+          <Header />
           <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-28 lg:pt-24 lg:pb-36 relative z-10">
             <div className="lg:grid lg:grid-cols-12 lg:gap-10 items-center">
               <div className="col-span-12 lg:col-span-6 space-y-6">
@@ -598,7 +566,7 @@ export default async function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
               <Link
-                href={`mailto:${tFooter('legalDetails.email')}?subject=Получить разбор`}
+                href="mailto:info@h-studio-tech.ru?subject=Получить разбор"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand text-black font-semibold rounded-xl hover:opacity-90 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.5)] focus:outline-none focus:ring-2 focus:ring-brand/60"
               >
                 <span>{t('cta.button1')}</span>
@@ -613,92 +581,6 @@ export default async function Home() {
             </div>
           </div>
         </section>
-
-        {/* Footer */}
-        <footer className="border-t border-white/10 bg-panel mt-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <Link href="/" className="flex items-center">
-                    <Image
-                      src="/logo-white.svg"
-                      alt="H-Studio - Автоматизация расчётов и КП"
-                      width={120}
-                      height={20}
-                      className="h-5 w-auto"
-                    />
-                  </Link>
-                </div>
-              </div>
-              <div>
-                <h3 className="font-semibold text-text mb-4">{tFooter('addressTitle')}</h3>
-                <div className="space-y-2 text-sm text-muted">
-                  <div className="flex items-start gap-2">
-                    <span className="text-brand mt-0.5 flex-shrink-0">
-                      <HiLocationMarker size={20} />
-                    </span>
-                    <span className="whitespace-pre-line">{tFooter('legalDetails.legalAddress')}</span>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h3 className="font-semibold text-text mb-4">{tFooter('contactTitle')}</h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center gap-3">
-                    <a 
-                      href="https://wa.me/79826666680" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-brand hover:opacity-80 transition-opacity"
-                      aria-label="WhatsApp"
-                    >
-                      <FaWhatsapp size={24} />
-                    </a>
-                    <a 
-                      href="https://t.me/+79826666680" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-brand hover:opacity-80 transition-opacity"
-                      aria-label="Telegram"
-                    >
-                      <FaTelegram size={24} />
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-brand">
-                      <HiMail size={20} />
-                    </span>
-                    <a href={`mailto:${tFooter('legalDetails.email')}`} className="text-muted hover:text-brand transition-colors">
-                      {tFooter('legalDetails.email')}
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="border-t border-white/10 pt-8">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div className="flex flex-wrap items-center gap-4 text-sm text-muted">
-                  <Link href="/blog" className="hover:text-text transition-colors">{tFooter('blog')}</Link>
-                  <span>•</span>
-                  <a href={`mailto:${tFooter('legalDetails.email')}?subject=Privacy Policy Request`} className="hover:text-text transition-colors">{tFooter('privacy')}</a>
-                  <span>•</span>
-                  <Link href="/legal-notice" className="hover:text-text transition-colors">{tFooter('legalNotice')}</Link>
-                  <span>•</span>
-                  <a href={`mailto:${tFooter('legalDetails.email')}?subject=Terms Request`} className="hover:text-text transition-colors">{tFooter('terms')}</a>
-                  <span>•</span>
-                  <CookieSettingsButton label={tFooter('cookieSettings')} />
-                </div>
-              </div>
-              <p className="text-sm text-muted mt-4 text-center md:text-left">
-                {tFooter('copyright')}
-              </p>
-              <p className="text-xs text-muted/60 mt-4 text-center md:text-left">
-                Автоматизация расчётов, КП, себестоимости, спецификаций, интеграции с 1С/ERP/CRM, документооборот и AI-аналитика для производственных и инженерных компаний.
-              </p>
-            </div>
-          </div>
-        </footer>
 
         {/* Scroll to Top Button - Client Component */}
         <ScrollToTopButton />

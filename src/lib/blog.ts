@@ -23,7 +23,7 @@ export function getAllPosts(): BlogPost[] {
 
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames
-    .filter((fileName) => fileName.endsWith('.md'))
+    .filter((fileName) => fileName.endsWith('.md') && fileName !== 'README.md')
     .map((fileName) => {
       const fullPath = path.join(postsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
@@ -74,6 +74,11 @@ export function getAllPosts(): BlogPost[] {
 
 export function getPostBySlug(slug: string): BlogPost | null {
   try {
+    // Exclude README.md from blog posts
+    if (slug === 'README' || slug.toLowerCase() === 'readme') {
+      return null;
+    }
+    
     const fullPath = path.join(postsDirectory, `${slug}.md`);
     if (!fs.existsSync(fullPath)) {
       return null;

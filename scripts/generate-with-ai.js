@@ -458,7 +458,7 @@ async function generateArticle(topic, title, category, tags, primaryKeyword, sec
       secondaryKeywords,
     });
     
-    const response = await callOpenAI(ARTICLE_SYSTEM_PROMPT, userPrompt, 6000); // Increased tokens for longer articles
+    const response = await callOpenAI(ARTICLE_SYSTEM_PROMPT, userPrompt, 4000); // Max tokens for gpt-4-turbo-preview
     let content = response.trim();
     
     // Remove markdown code blocks if present

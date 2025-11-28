@@ -4,8 +4,20 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import { OrganizationSchema, WebsiteSchema } from '@/components/StructuredData';
+import Footer from '@/components/Footer';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#7c5cfc' },
+    { media: '(prefers-color-scheme: dark)', color: '#7c5cfc' },
+  ],
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -34,16 +46,6 @@ export async function generateMetadata({
       icon: '/favicon.svg',
       apple: '/favicon.svg',
     },
-    viewport: {
-      width: 'device-width',
-      initialScale: 1,
-      maximumScale: 5,
-      userScalable: true,
-    },
-    themeColor: [
-      { media: '(prefers-color-scheme: light)', color: '#7c5cfc' },
-      { media: '(prefers-color-scheme: dark)', color: '#7c5cfc' },
-    ],
     appleWebApp: {
       capable: true,
       statusBarStyle: 'black-translucent',
@@ -125,6 +127,7 @@ export default async function LocaleLayout({
         <WebsiteSchema locale={locale} />
         <NextIntlClientProvider messages={messages}>
           {children}
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

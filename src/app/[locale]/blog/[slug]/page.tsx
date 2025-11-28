@@ -9,6 +9,7 @@ import remarkGfm from 'remark-gfm';
 import { BlogPostSchema } from '@/components/blog/BlogPostSchema';
 import { formatDate, formatDateISO } from '@/lib/date-utils';
 import { BlogCover } from '@/components/blog/BlogCover';
+import Header from '@/components/Header';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -93,6 +94,7 @@ export default async function BlogPostPage({
 
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         {/* Breadcrumb */}
         <nav className="mb-8 text-sm text-muted">

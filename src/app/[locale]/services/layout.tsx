@@ -1,6 +1,17 @@
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import { ReactNode } from 'react';
 import { ServiceSchema } from '@/components/StructuredData';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#7c5cfc' },
+    { media: '(prefers-color-scheme: dark)', color: '#7c5cfc' },
+  ],
+};
 
 export async function generateMetadata({
   params
@@ -23,16 +34,6 @@ export async function generateMetadata({
       icon: '/favicon.svg',
       apple: '/favicon.svg',
     },
-    viewport: {
-      width: 'device-width',
-      initialScale: 1,
-      maximumScale: 5,
-      userScalable: true,
-    },
-    themeColor: [
-      { media: '(prefers-color-scheme: light)', color: '#7c5cfc' },
-      { media: '(prefers-color-scheme: dark)', color: '#7c5cfc' },
-    ],
     robots: {
       index: true,
       follow: true,

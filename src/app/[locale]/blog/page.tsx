@@ -6,6 +6,7 @@ import { Metadata } from 'next';
 import { BlogSearchClient } from '@/components/blog/BlogSearchClient';
 import { formatDate } from '@/lib/date-utils';
 import { BlogCover } from '@/components/blog/BlogCover';
+import Header from '@/components/Header';
 
 export async function generateMetadata({
   params
@@ -88,6 +89,7 @@ export default async function BlogPage({
 
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         {/* Header */}
         <div className="mb-12">

@@ -1,8 +1,18 @@
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
-import { Link } from '@/i18n/routing';
-import Image from 'next/image';
+import Header from '@/components/Header';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#7c5cfc' },
+    { media: '(prefers-color-scheme: dark)', color: '#7c5cfc' },
+  ],
+};
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -28,16 +38,6 @@ export async function generateMetadata({
       icon: '/favicon.svg',
       apple: '/favicon.svg',
     },
-    viewport: {
-      width: 'device-width',
-      initialScale: 1,
-      maximumScale: 5,
-      userScalable: true,
-    },
-    themeColor: [
-      { media: '(prefers-color-scheme: light)', color: '#7c5cfc' },
-      { media: '(prefers-color-scheme: dark)', color: '#7c5cfc' },
-    ],
     robots: metadata.robots || {
       index: true,
       follow: true,
@@ -92,29 +92,7 @@ export default async function LegalNotice({
   
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-white/10 bg-panel">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/logo-white.svg"
-                alt="H-Studio"
-                width={120}
-                height={20}
-                className="h-5 w-auto"
-              />
-            </Link>
-            <Link
-              href="/"
-              className="text-sm text-text/70 hover:text-text transition-colors"
-            >
-              {locale === 'ru' ? '← Назад на главную' : locale === 'de' ? '← Zur Startseite' : '← Back to home'}
-            </Link>
-          </div>
-        </div>
-      </header>
-
+      <Header />
       {/* Content */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="mb-12">
