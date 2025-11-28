@@ -231,7 +231,15 @@ async function generateArticle(topic, title, category, tags, primaryKeyword, sec
     });
     
     const response = await callOpenAI(ARTICLE_SYSTEM_PROMPT, userPrompt, 4000);
-    return response.trim();
+    let content = response.trim();
+    
+    // Remove markdown code blocks if present
+    content = content.replace(/^```markdown\n?/i, '');
+    content = content.replace(/^```\n?/g, '');
+    content = content.replace(/\n?```$/g, '');
+    content = content.trim();
+    
+    return content;
   } catch (error) {
     throw new Error(`Failed to generate article: ${error.message}`);
   }
@@ -301,12 +309,34 @@ function callOpenAI(systemPrompt, userPrompt, maxTokens = 2000) {
  * Generate slug from text
  */
 function generateSlug(text) {
-  return text
+  if (!text) return 'blog-post';
+  
+  let slug = text
     .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
+    .replace(/[^\w\s-]/g, '') // Remove special chars except word chars, spaces, hyphens
+    .replace(/\s+/g, '-')     // Replace spaces with hyphens
+    .replace(/-+/g, '-')      // Replace multiple hyphens with single
+    .replace(/^-+|-+$/g, '')  // Remove leading/trailing hyphens
     .trim();
+  
+  // If slug is empty or only hyphens, generate from first words
+  if (!slug || slug === '-') {
+    slug = text
+      .toLowerCase()
+      .split(/\s+/)
+      .slice(0, 5)
+      .join('-')
+      .replace(/[^\w-]/g, '')
+      .replace(/-+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+  
+  // Fallback if still empty
+  if (!slug || slug === '-') {
+    slug = 'blog-post-' + Date.now();
+  }
+  
+  return slug;
 }
 
 /**
