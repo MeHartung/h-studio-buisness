@@ -1,0 +1,76 @@
+name: Search Blog Topics
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: 'Search query for topics'
+        required: true
+        type: string
+        default: 'автоматизация расчётов и КП'
+      count:
+        description: 'Number of topics to find'
+        required: false
+        type: number
+        default: 10
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Search topics
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          QUERY: ${{ github.event.inputs.query }}
+          COUNT: ${{ github.event.inputs.count }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "❌ Error: OPENAI_API_KEY is not set in GitHub Secrets"
+            echo "Please add OPENAI_API_KEY to Settings → Secrets and variables → Actions"
+            exit 1
+          fi
+          
+          echo "🔍 Searching topics for: $QUERY"
+          echo "📊 Requested count: ${COUNT:-10}"
+          echo ""
+          
+          npm run blog:search-topics -- --query "$QUERY" --count "${COUNT:-10}"
+
+      - name: Upload results
+        uses: actions/upload-artifact@v3
+        with:
+          name: topics-search-results
+          path: topics-search-results.json
+          retention-days: 7
+
+      - name: Create summary
+        run: |
+          if [ -f topics-search-results.json ]; then
+            echo "## 📊 Topics Search Results" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Query: \`${{ github.event.inputs.query }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "Count: ${{ github.event.inputs.count }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Results saved to \`topics-search-results.json\`" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Found Topics:" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo '```json' >> $GITHUB_STEP_SUMMARY
+            head -50 topics-search-results.json >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Error: topics-search-results.json was not created" >> $GITHUB_STEP_SUMMARY
+          fi
+
