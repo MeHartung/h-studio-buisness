@@ -326,7 +326,7 @@ function checkForDuplicates(topic, title) {
       })
       .filter((post) => post !== null);
 
-    // Normalize text for comparison
+    // Normalize text for comparison (remove common words, normalize endings)
     const normalize = (text) => {
       return text
         .toLowerCase()
@@ -335,24 +335,44 @@ function checkForDuplicates(topic, title) {
         .trim();
     };
 
+    // Extract key words (remove common stop words)
+    const stopWords = new Set(['как', 'для', 'что', 'это', 'или', 'лучшие', 'решения', 'гид', 'выбор', 'системы', 'улучшить', 'бизнес']);
+    const extractKeyWords = (text) => {
+      const normalized = normalize(text);
+      return normalized
+        .split(' ')
+        .filter(w => w.length > 2 && !stopWords.has(w))
+        .map(w => {
+          // Normalize word endings (simple stem)
+          if (w.endsWith('ания') || w.endsWith('ения')) return w.slice(0, -3);
+          if (w.endsWith('ание') || w.endsWith('ение')) return w.slice(0, -4);
+          if (w.endsWith('а') && w.length > 4) return w.slice(0, -1);
+          if (w.endsWith('ия') && w.length > 4) return w.slice(0, -2);
+          return w;
+        });
+    };
+
     const newTopicNormalized = normalize(topic);
     const newTitleNormalized = title ? normalize(title) : '';
+    const searchText = newTitleNormalized || newTopicNormalized;
+    const newKeyWords = new Set(extractKeyWords(searchText));
 
     // Check for exact or very similar matches
     for (const post of existingPosts) {
       const existingTitleNormalized = normalize(post.title);
+      const existingKeyWords = new Set(extractKeyWords(existingTitleNormalized));
       
-      // Calculate similarity (simple word overlap)
-      const newWords = new Set(newTopicNormalized.split(' ').filter(w => w.length > 3));
-      const existingWords = new Set(existingTitleNormalized.split(' ').filter(w => w.length > 3));
-      
-      const intersection = new Set([...newWords].filter(w => existingWords.has(w)));
-      const union = new Set([...newWords, ...existingWords]);
+      // Calculate similarity based on key words overlap
+      const intersection = new Set([...newKeyWords].filter(w => existingKeyWords.has(w)));
+      const union = new Set([...newKeyWords, ...existingKeyWords]);
       
       const similarity = union.size > 0 ? intersection.size / union.size : 0;
       
-      // If similarity is high (>0.6), it's likely a duplicate
-      if (similarity > 0.6) {
+      // Also check if key words appear in both (at least 2-3 matching words)
+      const matchingWords = intersection.size;
+      
+      // If similarity is high (>0.5) OR if we have 3+ matching key words, it's likely a duplicate
+      if (similarity > 0.5 || (matchingWords >= 3 && newKeyWords.size >= 4)) {
         // Check if the existing post is recent (within last 30 days)
         const postDate = new Date(post.date);
         const daysSincePost = (new Date() - postDate) / (1000 * 60 * 60 * 24);
