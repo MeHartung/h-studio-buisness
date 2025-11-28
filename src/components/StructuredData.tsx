@@ -16,7 +16,7 @@ export function StructuredData({ data }: StructuredDataProps) {
 
 // Organization Schema для главной страницы
 export function OrganizationSchema({ locale }: { locale: string }) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://h-studio-tech.ru";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
   
   const organizationData = {
     "@context": "https://schema.org",
@@ -55,7 +55,7 @@ export function ServiceSchema({
   description: string; 
   serviceUrl: string;
 }) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://h-studio-tech.ru";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
   
   const serviceData = {
     "@context": "https://schema.org",
@@ -83,7 +83,7 @@ export function BreadcrumbSchema({
 }: { 
   items: Array<{ name: string; url: string }>;
 }) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://h-studio-tech.ru";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
   
   const breadcrumbData = {
     "@context": "https://schema.org",
@@ -101,7 +101,7 @@ export function BreadcrumbSchema({
 
 // Website Schema
 export function WebsiteSchema({ locale }: { locale: string }) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://h-studio-tech.ru";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
   
   const websiteData = {
     "@context": "https://schema.org",

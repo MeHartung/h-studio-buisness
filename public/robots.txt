@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://h-studio-tech.ru/sitemap.xml
+Sitemap: https://www.h-studio-tech.ru/sitemap.xml
 

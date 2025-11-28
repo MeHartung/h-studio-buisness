@@ -21,14 +21,14 @@ export async function generateMetadata({
   const messages = (await import(`../../messages/${locale}.json`)).default;
   const metadata = messages.metadata;
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://h-studio-tech.ru";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
   const currentUrl = `${baseUrl}/${locale}`;
 
   return {
     title: metadata.title,
     description: metadata.description,
     other: {
-      'yandex-verification': '2067b27d0443e897',
+      'yandex-verification': 'ca2486b49c4d91ef',
     },
     alternates: {
       canonical: currentUrl,

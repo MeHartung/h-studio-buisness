@@ -20,7 +20,7 @@ export async function generateMetadata({
     };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://h-studio-tech.ru";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
   const currentUrl = `${baseUrl}/${locale}/services/${id}`;
 
   return {
@@ -57,7 +57,7 @@ export default async function ServiceDetailLayout({
 }) {
   const { locale, id } = await params;
   const messages = (await import(`../../../../messages/${locale}.json`)).default;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://h-studio-tech.ru";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
   
   const serviceKey = `service${id}` as keyof typeof messages.serviceDetail;
   const service = messages.serviceDetail[serviceKey];

@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/_next/') ||
     pathname.startsWith('/_static/') ||
     pathname.startsWith('/api/') ||
-    pathname.match(/\.(png|jpe?g|svg|ico|webp|css|js|json|woff2?)$/)
+    pathname.match(/\.(png|jpe?g|svg|ico|webp|css|js|json|woff2?|html)$/)
   ) {
     return NextResponse.next();
   }
@@ -25,7 +25,8 @@ export async function middleware(request: NextRequest) {
     '/sitemap.xml',
     '/sitemap-0.xml',
     '/favicon.ico',
-    '/yandex_2067b27d0443e897.html'
+    '/yandex_2067b27d0443e897.html',
+    '/yandex_ca2486b49c4d91ef.html'
   ];
   if (excludedPaths.includes(pathname)) {
     return NextResponse.next();
@@ -123,7 +124,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     // General locale redirector
-    '/((?!api|_next|_static|_vercel|.*\\..*|favicon.ico|robots.txt|sitemap.xml|sitemap-0.xml).*)',
+    '/((?!api|_next|_static|_vercel|.*\\..*|favicon.ico|robots.txt|sitemap.xml|sitemap-0.xml|yandex_.*\\.html).*)',
   ],
 }
 
