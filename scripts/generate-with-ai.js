@@ -277,9 +277,11 @@ SEO-требования:
 
 Перед финалом обязательно вставь блок "Что делать завтра" — список из 5–7 конкретных шагов, которые компания может сделать за 24 часа, чтобы улучшить ситуацию.
 
-Длина: 1800–2600 слов.
+Длина: ОБЯЗАТЕЛЬНО минимум 1800 слов, лучше 2000–2600 слов. Если статья получается короче — расширь разделы, добавь больше примеров, деталей, формул, кейсов.
 
 Формат: Markdown, только контент, без frontmatter.
+
+ВАЖНО: Статья должна быть объёмной и глубокой. Каждый раздел должен содержать минимум 3–4 абзаца с конкретной информацией. Не сокращай материал ради краткости.
 `.trim();
 }
 
@@ -450,7 +452,7 @@ async function generateArticle(topic, title, category, tags, primaryKeyword, sec
       secondaryKeywords,
     });
     
-    const response = await callOpenAI(ARTICLE_SYSTEM_PROMPT, userPrompt, 4000);
+    const response = await callOpenAI(ARTICLE_SYSTEM_PROMPT, userPrompt, 6000); // Increased tokens for longer articles
     let content = response.trim();
     
     // Remove markdown code blocks if present
@@ -458,6 +460,13 @@ async function generateArticle(topic, title, category, tags, primaryKeyword, sec
     content = content.replace(/^```\n?/g, '');
     content = content.replace(/\n?```$/g, '');
     content = content.trim();
+    
+    // Fix encoding artifacts (common issues with Russian text)
+    content = content
+      .replace(/необхоимого/g, 'необходимого')
+      .replace(/техничский/g, 'технический')
+      .replace(/исочником/g, 'источником')
+      .replace(/[^\x00-\x7F\u0400-\u04FF\u0500-\u052F\s\.,;:!?\-\(\)\[\]{}]/g, ''); // Remove invalid Unicode chars
     
     return content;
   } catch (error) {
@@ -526,12 +535,35 @@ function callOpenAI(systemPrompt, userPrompt, maxTokens = 2000) {
 }
 
 /**
+ * Transliterate Russian to Latin for slug
+ */
+function transliterate(text) {
+  const map = {
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
+    'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
+    'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+    'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch',
+    'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya',
+    'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 'Ё': 'Yo',
+    'Ж': 'Zh', 'З': 'Z', 'И': 'I', 'Й': 'Y', 'К': 'K', 'Л': 'L', 'М': 'M',
+    'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U',
+    'Ф': 'F', 'Х': 'H', 'Ц': 'Ts', 'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Sch',
+    'Ъ': '', 'Ы': 'Y', 'Ь': '', 'Э': 'E', 'Ю': 'Yu', 'Я': 'Ya'
+  };
+  
+  return text.split('').map(char => map[char] || char).join('');
+}
+
+/**
  * Generate slug from text
  */
 function generateSlug(text) {
   if (!text) return 'blog-post';
   
-  let slug = text
+  // Transliterate Russian to Latin
+  let transliterated = transliterate(text);
+  
+  let slug = transliterated
     .toLowerCase()
     .replace(/[^\w\s-]/g, '') // Remove special chars except word chars, spaces, hyphens
     .replace(/\s+/g, '-')     // Replace spaces with hyphens
@@ -541,10 +573,11 @@ function generateSlug(text) {
   
   // If slug is empty or only hyphens, generate from first words
   if (!slug || slug === '-') {
-    slug = text
+    slug = transliterated
       .toLowerCase()
       .split(/\s+/)
-      .slice(0, 5)
+      .slice(0, 6)
+      .filter(w => w.length > 2)
       .join('-')
       .replace(/[^\w-]/g, '')
       .replace(/-+/g, '-')
