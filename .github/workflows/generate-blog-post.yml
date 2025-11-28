@@ -57,6 +57,7 @@ jobs:
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
+        id: cpr
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Add blog post: ${{ github.event.inputs.title || github.event.inputs.topic }}"
@@ -66,4 +67,11 @@ jobs:
             
             Category: ${{ github.event.inputs.category }}
           branch: blog-post/${{ github.run_number }}
+
+      - name: Auto-merge Pull Request
+        if: steps.cpr.outputs.pull-request-number != ''
+        run: |
+          gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --merge --auto
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
