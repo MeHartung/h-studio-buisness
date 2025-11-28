@@ -34,10 +34,10 @@ export function OrganizationSchema({ locale }: { locale: string }) {
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "RU",
-      "addressRegion": "Свердловская область",
-      "addressLocality": "Реж",
-      "streetAddress": "ул. О. Кошевого, д. 16",
-      "postalCode": "623751"
+      "addressRegion": "Москва",
+      "addressLocality": "Москва",
+      "streetAddress": "ул. Октябрьская д. 80 стр. 6",
+      "postalCode": "117593"
     },
     "sameAs": []
   };

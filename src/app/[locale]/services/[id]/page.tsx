@@ -393,12 +393,24 @@ export default function ServiceDetailPage() {
               <div>
                 <h3 className="font-semibold text-text mb-4">{tFooter('contactTitle')}</h3>
                 <div className="space-y-3 text-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="text-brand">
-                      <HiPhone size={20} />
-                    </span>
-                    <a href="tel:+79826666680" className="text-muted hover:text-brand transition-colors">
-                      {tFooter('legalDetails.phone')}
+                  <div className="flex items-center gap-3">
+                    <a 
+                      href="https://wa.me/79826666680" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-brand hover:opacity-80 transition-opacity"
+                      aria-label="WhatsApp"
+                    >
+                      <FaWhatsapp size={24} />
+                    </a>
+                    <a 
+                      href="https://t.me/+79826666680" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-brand hover:opacity-80 transition-opacity"
+                      aria-label="Telegram"
+                    >
+                      <FaTelegram size={24} />
                     </a>
                   </div>
                   <div className="flex items-center gap-2">
