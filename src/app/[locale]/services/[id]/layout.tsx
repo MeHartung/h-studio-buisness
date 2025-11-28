@@ -22,10 +22,38 @@ export async function generateMetadata({
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
   const currentUrl = `${baseUrl}/${locale}/services/${id}`;
+  const ogImage = `${baseUrl}/1.png`;
+  const serviceDescription = service.subtitle || service.intro || 'Автоматизация процессов для производственных компаний';
 
   return {
     title: `${service.title} | H-Studio Business`,
-    description: service.subtitle || service.intro || 'Автоматизация процессов для производственных компаний',
+    description: serviceDescription,
+    metadataBase: new URL(baseUrl),
+    icons: {
+      icon: '/favicon.svg',
+      apple: '/favicon.svg',
+    },
+    viewport: {
+      width: 'device-width',
+      initialScale: 1,
+      maximumScale: 5,
+      userScalable: true,
+    },
+    themeColor: [
+      { media: '(prefers-color-scheme: light)', color: '#7c5cfc' },
+      { media: '(prefers-color-scheme: dark)', color: '#7c5cfc' },
+    ],
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     alternates: {
       canonical: currentUrl,
       languages: {
@@ -34,16 +62,25 @@ export async function generateMetadata({
     },
     openGraph: {
       title: `${service.title} | H-Studio Business`,
-      description: service.subtitle || service.intro || 'Автоматизация процессов для производственных компаний',
+      description: serviceDescription,
       url: currentUrl,
       siteName: "H-Studio Business",
       locale: 'ru_RU',
       type: "website",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: service.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${service.title} | H-Studio Business`,
-      description: service.subtitle || service.intro || 'Автоматизация процессов для производственных компаний',
+      description: serviceDescription,
+      images: [ogImage],
     },
   };
 }
@@ -79,6 +116,7 @@ export default async function ServiceDetailLayout({
         serviceName={service.title}
         description={service.subtitle || service.intro || ''}
         serviceUrl={serviceUrl}
+        category="Автоматизация бизнес-процессов"
       />
       <BreadcrumbSchema items={breadcrumbItems} />
       {children}

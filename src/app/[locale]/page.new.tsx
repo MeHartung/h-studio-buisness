@@ -25,64 +25,65 @@ import CookieSettingsButton from '@/components/CookieSettingsButton';
 import ServicesSectionClient from '@/components/home/ServicesSectionClient';
 import CasesSectionClient from '@/components/home/CasesSectionClient';
 import ScrollToTopButton from '@/components/home/ScrollToTopButton';
-import FAQSection from '@/components/home/FAQSection';
 
 // Server Component для LinkedIn Section
 async function LinkedInSection() {
   const t = await getTranslations('collaboration');
   
   return (
-    <div className="bg-card border border-white/10 rounded-3xl p-8 lg:p-12 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-        <div className="space-y-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-brand/20 rounded-xl flex items-center justify-center text-brand">
-              <HiUser size={24} />
-            </div>
-            <h3 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em]">
-              {t('title')}
-            </h3>
-          </div>
-          
-          {(t('subtitle') || t('subtitleText')) && (
-            <p className="text-lg text-text/80 leading-7">
-              <strong className="text-text">{t('subtitle')}</strong> {t('subtitleText')}
-            </p>
-          )}
-          
-          <p className="text-base text-muted leading-6">
-            {t('description')}
-          </p>
-
-          <div className="space-y-3 pt-4">
-            {[
-              t('checklist.item1'),
-              t('checklist.item2'),
-              t('checklist.item3'),
-              t('checklist.item4')
-            ].map((item, index) => (
-              <div key={index} className="flex items-start gap-3">
-                <span className="text-brand flex-shrink-0 mt-0.5">
-                  <HiCheckCircle size={20} />
-                </span>
-                <span className="text-sm text-text/80">{item}</span>
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+      <div className="bg-card border border-white/10 rounded-3xl p-8 lg:p-12 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 bg-brand/20 rounded-xl flex items-center justify-center text-brand">
+                <HiUser size={24} />
               </div>
-            ))}
-          </div>
-        </div>
+              <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em]">
+                {t('title')}
+              </h2>
+            </div>
+            
+            {(t('subtitle') || t('subtitleText')) && (
+              <p className="text-lg text-text/80 leading-7">
+                <strong className="text-text">{t('subtitle')}</strong> {t('subtitleText')}
+              </p>
+            )}
+            
+            <p className="text-base text-muted leading-6">
+              {t('description')}
+            </p>
 
-        <div className="relative">
-          <Image 
-            src="/2.png" 
-            alt="Внедрение без сопротивления - автоматизация процессов в производственных компаниях" 
-            width={800} 
-            height={600}
-            className="w-full h-auto object-contain"
-            priority={false}
-          />
+            <div className="space-y-3 pt-4">
+              {[
+                t('checklist.item1'),
+                t('checklist.item2'),
+                t('checklist.item3'),
+                t('checklist.item4')
+              ].map((item, index) => (
+                <div key={index} className="flex items-start gap-3">
+                  <span className="text-brand flex-shrink-0 mt-0.5">
+                    <HiCheckCircle size={20} />
+                  </span>
+                  <span className="text-sm text-text/80">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative">
+            <Image 
+              src="/2.png" 
+              alt="Автоматизация бизнес-процессов и коллаборация для производственных компаний" 
+              width={800} 
+              height={600}
+              className="w-full h-auto object-contain"
+              priority={false}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -102,7 +103,7 @@ async function ProcessSection() {
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
       <div className="text-center mb-16">
         <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
-          Как мы работаем (Наш процесс)
+          {t('title')}
         </h2>
         <p className="text-base text-text/70 max-w-2xl mx-auto">
           {t('description')}
@@ -221,7 +222,7 @@ export default async function Home() {
                 <Link href="/" className="flex items-center">
                   <Image
                     src="/logo-white.svg"
-                    alt="H-Studio - Автоматизация расчётов и КП"
+                    alt="H-Studio"
                     width={120}
                     height={20}
                     className="h-5 w-auto"
@@ -269,7 +270,6 @@ export default async function Home() {
                 
                 <h1 className="text-[56px] leading-[64px] font-semibold tracking-[-0.02em] text-text font-display">
                   {tHero('title')}
-                  <span className="sr-only"> {tHero('titleSeo')}</span>
                 </h1>
                 
                 <p className="text-text/70 max-w-xl text-base leading-7 font-medium">
@@ -348,17 +348,12 @@ export default async function Home() {
 
         {/* What We Do Section */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="text-center mb-12">
-            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
-              Автоматизация расчётов и коммерческих предложений
-            </h2>
-          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
                 <HiSearch size={20} />
               </div>
-              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">Автоматические расчёты параметров</h3>
+              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.calculationAutomation.title')}</h3>
               <p className="text-sm text-muted leading-6 mb-4">
                 {t('features.calculationAutomation.desc1')}
               </p>
@@ -377,7 +372,7 @@ export default async function Home() {
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
                 <HiLightBulb size={20} />
               </div>
-              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">Wizard КП</h3>
+              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.kpConfigurator.title')}</h3>
               <p className="text-sm text-muted leading-6 mb-4">
                 {t('features.kpConfigurator.desc1')}
               </p>
@@ -396,7 +391,7 @@ export default async function Home() {
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center mb-4 text-brand">
                 <HiDocumentText size={20} />
               </div>
-              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">Автоматизация согласований и документооборота</h3>
+              <h3 className="text-[28px] leading-[36px] font-semibold text-text mb-3">{t('features.documentAutomation.title')}</h3>
               <p className="text-sm text-muted leading-6 mb-4">
                 {t('features.documentAutomation.desc1')}
               </p>
@@ -413,15 +408,7 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Collaboration & Change Management Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="text-center mb-12">
-            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
-              Внедрение и обучение команд
-            </h2>
-          </div>
-          <LinkedInSection />
-        </section>
+        <LinkedInSection />
 
         {/* ICP / Who It's For Section */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
@@ -496,24 +483,10 @@ export default async function Home() {
         </section>
 
         {/* Cases Section - Client Component */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="text-center mb-12">
-            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
-              Кейсы
-            </h2>
-          </div>
-          <CasesSectionClient />
-        </section>
+        <CasesSectionClient />
 
         {/* Services Section - Client Component */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="text-center mb-12">
-            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
-              Наши услуги
-            </h2>
-          </div>
-          <ServicesSectionClient />
-        </section>
+        <ServicesSectionClient />
 
         {/* Process Section */}
         <ProcessSection />
@@ -527,7 +500,7 @@ export default async function Home() {
             <div className="relative flex items-center justify-center">
               <Image 
                 src="/3.png" 
-                alt="AI помощник для расчётов себестоимости и автоматизации производственных процессов" 
+                alt="AI помощник для автоматизации процессов производства и инженерии" 
                 width={800} 
                 height={600}
                 className="max-h-[600px] max-w-full w-auto object-contain"
@@ -538,7 +511,7 @@ export default async function Home() {
             <div className="space-y-6">
               <div>
                 <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
-                  AI-Process Assistant (AI помощник для производства)
+                  {t('processAssistant.title')}
                 </h2>
                 <p className="text-base text-text/80 leading-7 mb-2">
                   {t('processAssistant.subtitle')}
@@ -584,9 +557,6 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <FAQSection />
-
         {/* Final CTA Section */}
         <section id="contact" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
           <div className="bg-card border border-white/10 rounded-3xl p-12 lg:p-16 text-center shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]">
@@ -623,7 +593,7 @@ export default async function Home() {
                   <Link href="/" className="flex items-center">
                     <Image
                       src="/logo-white.svg"
-                      alt="H-Studio - Автоматизация расчётов и КП"
+                      alt="H-Studio"
                       width={120}
                       height={20}
                       className="h-5 w-auto"
@@ -690,9 +660,6 @@ export default async function Home() {
               </div>
               <p className="text-sm text-muted mt-4 text-center md:text-left">
                 {tFooter('copyright')}
-              </p>
-              <p className="text-xs text-muted/60 mt-4 text-center md:text-left">
-                Автоматизация расчётов, КП, себестоимости, спецификаций, интеграции с 1С/ERP/CRM, документооборот и AI-аналитика для производственных и инженерных компаний.
               </p>
             </div>
           </div>

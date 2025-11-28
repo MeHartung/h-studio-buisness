@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Allow: /_next/
 
 Sitemap: https://www.h-studio-tech.ru/sitemap.xml
 

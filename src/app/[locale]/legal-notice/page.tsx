@@ -18,11 +18,37 @@ export async function generateMetadata({
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
   const currentUrl = `${baseUrl}/${locale}/legal-notice`;
+  const ogImage = `${baseUrl}/1.png`;
 
   return {
     title: metadata.title,
     description: metadata.description,
-    robots: metadata.robots,
+    metadataBase: new URL(baseUrl),
+    icons: {
+      icon: '/favicon.svg',
+      apple: '/favicon.svg',
+    },
+    viewport: {
+      width: 'device-width',
+      initialScale: 1,
+      maximumScale: 5,
+      userScalable: true,
+    },
+    themeColor: [
+      { media: '(prefers-color-scheme: light)', color: '#7c5cfc' },
+      { media: '(prefers-color-scheme: dark)', color: '#7c5cfc' },
+    ],
+    robots: metadata.robots || {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     alternates: {
       canonical: currentUrl,
       languages: {
@@ -32,17 +58,26 @@ export async function generateMetadata({
       }
     },
     openGraph: {
-      title: metadata.ogTitle,
-      description: metadata.ogDescription,
+      title: metadata.ogTitle || metadata.title,
+      description: metadata.ogDescription || metadata.description,
       url: currentUrl,
       siteName: "H-Studio Business",
       locale: locale === 'ru' ? 'ru_RU' : locale === 'de' ? 'de_DE' : 'en_US',
       type: "website",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: metadata.title,
+        },
+      ],
     },
     twitter: {
-      card: "summary",
-      title: metadata.twitterTitle,
-      description: metadata.twitterDescription,
+      card: "summary_large_image",
+      title: metadata.twitterTitle || metadata.title,
+      description: metadata.twitterDescription || metadata.description,
+      images: [ogImage],
     },
   };
 }

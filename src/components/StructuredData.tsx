@@ -49,15 +49,23 @@ export function OrganizationSchema({ locale }: { locale: string }) {
 export function ServiceSchema({ 
   serviceName, 
   description, 
-  serviceUrl 
+  serviceUrl,
+  category,
+  offers
 }: { 
   serviceName: string; 
   description: string; 
   serviceUrl: string;
+  category?: string;
+  offers?: {
+    price?: string;
+    priceCurrency?: string;
+    availability?: string;
+  };
 }) {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
   
-  const serviceData = {
+  const serviceData: any = {
     "@context": "https://schema.org",
     "@type": "Service",
     "name": serviceName,
@@ -65,14 +73,44 @@ export function ServiceSchema({
     "provider": {
       "@type": "Organization",
       "name": "H-Studio Business",
-      "url": baseUrl
+      "url": baseUrl,
+      "logo": `${baseUrl}/logo-white.svg`,
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+7-982-666-66-80",
+        "contactType": "customer service",
+        "email": "hello@h-studio.io",
+        "availableLanguage": ["Russian"]
+      }
     },
     "areaServed": {
       "@type": "Country",
       "name": "Russia"
     },
-    "url": serviceUrl
+    "url": serviceUrl,
+    "serviceType": category || "Business Automation Service",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": serviceName,
+      "itemListElement": {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": serviceName
+        }
+      }
+    }
   };
+
+  if (offers) {
+    serviceData.offers = {
+      "@type": "Offer",
+      "price": offers.price || "0",
+      "priceCurrency": offers.priceCurrency || "RUB",
+      "availability": offers.availability || "https://schema.org/InStock",
+      "url": serviceUrl
+    };
+  }
 
   return <StructuredData data={serviceData} />;
 }
