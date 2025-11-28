@@ -679,6 +679,8 @@ export default async function Home() {
             <div className="border-t border-white/10 pt-8">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex flex-wrap items-center gap-4 text-sm text-muted">
+                  <Link href="/blog" className="hover:text-text transition-colors">{tFooter('blog')}</Link>
+                  <span>•</span>
                   <a href={`mailto:${tFooter('legalDetails.email')}?subject=Privacy Policy Request`} className="hover:text-text transition-colors">{tFooter('privacy')}</a>
                   <span>•</span>
                   <Link href="/legal-notice" className="hover:text-text transition-colors">{tFooter('legalNotice')}</Link>
