@@ -336,20 +336,42 @@ function checkForDuplicates(topic, title) {
     };
 
     // Extract key words (remove common stop words)
-    const stopWords = new Set(['как', 'для', 'что', 'это', 'или', 'лучшие', 'решения', 'гид', 'выбор', 'системы', 'улучшить', 'бизнес']);
+    const stopWords = new Set(['как', 'для', 'что', 'это', 'или', 'лучшие', 'решения', 'гид', 'выбор', 'системы', 'улучшить', 'бизнес', 'по', 'в', 'на', 'с', 'и', 'от']);
     const extractKeyWords = (text) => {
       const normalized = normalize(text);
       return normalized
         .split(' ')
-        .filter(w => w.length > 2 && !stopWords.has(w))
+        .filter(w => w.length > 3 && !stopWords.has(w))
         .map(w => {
-          // Normalize word endings (simple stem)
-          if (w.endsWith('ания') || w.endsWith('ения')) return w.slice(0, -3);
-          if (w.endsWith('ание') || w.endsWith('ение')) return w.slice(0, -4);
-          if (w.endsWith('а') && w.length > 4) return w.slice(0, -1);
-          if (w.endsWith('ия') && w.length > 4) return w.slice(0, -2);
+          // Normalize word endings (simple Russian stemmer)
+          // Remove common endings
+          if (w.length > 6) {
+            if (w.endsWith('ания') || w.endsWith('ения') || w.endsWith('ания') || w.endsWith('ения')) {
+              return w.slice(0, -4);
+            }
+            if (w.endsWith('ание') || w.endsWith('ение')) {
+              return w.slice(0, -4);
+            }
+          }
+          if (w.length > 5) {
+            if (w.endsWith('ания') || w.endsWith('ения')) {
+              return w.slice(0, -3);
+            }
+          }
+          // Remove single letter endings for longer words
+          if (w.length > 5 && (w.endsWith('а') || w.endsWith('я') || w.endsWith('о') || w.endsWith('е'))) {
+            return w.slice(0, -1);
+          }
+          if (w.length > 5 && (w.endsWith('ия') || w.endsWith('ие'))) {
+            return w.slice(0, -2);
+          }
+          // Normalize "расчет" and "расчета" to "расчет"
+          if (w.includes('расчет')) return 'расчет';
+          if (w.includes('себестоимост')) return 'себестоимост';
+          if (w.includes('автоматизац')) return 'автоматизац';
           return w;
-        });
+        })
+        .filter(w => w.length > 3);
     };
 
     const newTopicNormalized = normalize(topic);
