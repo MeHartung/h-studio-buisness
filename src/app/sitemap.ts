@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   
   const routes = [
     '',
+    '/about',
     '/services',
     ...serviceSlugs.map(slug => `/services/${slug}`),
     '/legal-notice',
@@ -31,7 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}/ru${route}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
-    priority: route === '' ? 1 : route === '/services' ? 0.9 : route === '/blog' ? 0.8 : 0.8,
+    priority: route === '' ? 1 : route === '/services' ? 0.9 : route === '/about' ? 0.9 : route === '/blog' ? 0.8 : 0.8,
   }));
 
   return [...staticRoutes, ...blogRoutes];

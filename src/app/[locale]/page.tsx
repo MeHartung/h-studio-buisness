@@ -231,9 +231,11 @@ export default async function Home() {
           <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-28 lg:pt-24 lg:pb-36 relative z-10">
             <div className="lg:grid lg:grid-cols-12 lg:gap-10 items-center">
               <div className="col-span-12 lg:col-span-6 space-y-6">
-                <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-3 py-1.5 text-xs text-text/80 font-medium">
-                  {tHero('badge')}
-                </span>
+                <div className="flex justify-center lg:justify-start">
+                  <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-3 py-1.5 text-xs text-text/80 font-medium">
+                    {tHero('badge')}
+                  </span>
+                </div>
                 
                 <h1 className="text-[56px] leading-[64px] font-semibold tracking-[-0.02em] text-text font-display">
                   {tHero('title')}
