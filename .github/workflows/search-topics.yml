@@ -60,15 +60,34 @@ jobs:
           if [ -f topics-search-results.json ]; then
             echo "## 📊 Topics Search Results" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "Query: \`${{ github.event.inputs.query }}\`" >> $GITHUB_STEP_SUMMARY
-            echo "Count: ${{ github.event.inputs.count }}" >> $GITHUB_STEP_SUMMARY
+            echo "**Query:** \`${{ github.event.inputs.query }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "**Count:** ${{ github.event.inputs.count }}" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "✅ Results saved to \`topics-search-results.json\`" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### Found Topics:" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
+            
+            # Parse JSON and create a nice table
+            node -e "
+              const fs = require('fs');
+              const topics = JSON.parse(fs.readFileSync('topics-search-results.json', 'utf8'));
+              console.log('| # | Topic | Primary Keyword | Tags | Audience |');
+              console.log('|---|-------|----------------|------|----------|');
+              topics.forEach((t, i) => {
+                const tags = (t.tags || []).join(', ') || '-';
+                const audience = t.targetAudience || '-';
+                const topic = t.topic || '-';
+                const keyword = t.primaryKeyword || '-';
+                console.log(\`| \${i+1} | \${topic} | \${keyword} | \${tags} | \${audience} |\`);
+              });
+            " >> $GITHUB_STEP_SUMMARY
+            
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Full JSON Results:" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
             echo '```json' >> $GITHUB_STEP_SUMMARY
-            head -50 topics-search-results.json >> $GITHUB_STEP_SUMMARY
+            cat topics-search-results.json >> $GITHUB_STEP_SUMMARY
             echo '```' >> $GITHUB_STEP_SUMMARY
           else
             echo "❌ Error: topics-search-results.json was not created" >> $GITHUB_STEP_SUMMARY

@@ -48,11 +48,19 @@ jobs:
           # Use AI generator if API key is available
           if [ -n "$OPENAI_API_KEY" ]; then
             echo "🤖 Using AI-powered content generation..."
-            npm run blog:generate:ai -- --topic "$TOPIC" --category "$CATEGORY" ${TITLE:+-t "$TITLE"}
+            if [ -n "$TITLE" ]; then
+              npm run blog:generate:ai -- --topic "$TOPIC" --title "$TITLE" --category "$CATEGORY"
+            else
+              npm run blog:generate:ai -- --topic "$TOPIC" --category "$CATEGORY"
+            fi
           else
             echo "⚠️  No OpenAI API key found, generating template..."
             echo "💡 To use AI generation, add OPENAI_API_KEY to GitHub Secrets"
-            npm run blog:generate -- --topic "$TOPIC" --category "$CATEGORY" ${TITLE:+-t "$TITLE"}
+            if [ -n "$TITLE" ]; then
+              npm run blog:generate -- --topic "$TOPIC" --title "$TITLE" --category "$CATEGORY"
+            else
+              npm run blog:generate -- --topic "$TOPIC" --category "$CATEGORY"
+            fi
           fi
 
       - name: Create Pull Request
