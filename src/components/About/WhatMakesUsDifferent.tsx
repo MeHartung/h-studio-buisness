@@ -12,8 +12,8 @@ const WhatMakesUsDifferent = () => {
       {/* Надписи для десктопа */}
       <div className="hidden lg:block absolute top-0 left-0 right-0 px-2 py-4">
         <div className="flex justify-between items-center">
-          <span className="text-text/60 text-lg font-bold">{t('mobileLabel1')}</span>
-          <span className="text-text/60 text-lg font-bold">{t('mobileLabel2')}</span>
+          <span className="text-text/70 text-lg font-bold">{t('mobileLabel1')}</span>
+          <span className="text-text/70 text-lg font-bold">{t('mobileLabel2')}</span>
         </div>
       </div>
       

@@ -15,6 +15,7 @@ import {
 import CookieBanner from '@/components/CookieBanner';
 import Header from '@/components/Header';
 import { getServiceIdBySlug } from '@/lib/services';
+import CTAButton from '@/components/CTAButton';
 
 export default function ServiceDetailPage() {
   const params = useNextParams();
@@ -324,19 +325,12 @@ export default function ServiceDetailPage() {
               {t('ctaDescription')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-              <Link
-                href="mailto:info@h-studio-tech.ru?subject=Получить разбор"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand text-black font-semibold rounded-xl hover:opacity-90 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.5)] focus:outline-none focus:ring-2 focus:ring-brand/60"
-              >
-                <span>{t('ctaButton1')}</span>
-                <HiArrowRight size={20} />
-              </Link>
-              <Link
-                href="/#contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 text-text font-semibold rounded-xl hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-brand/60"
-              >
+              <CTAButton variant="primary" ariaLabel={t('ctaButton1')}>
+                {t('ctaButton1')}
+              </CTAButton>
+              <CTAButton variant="secondary" ariaLabel={t('ctaButton2')}>
                 {t('ctaButton2')}
-              </Link>
+              </CTAButton>
             </div>
           </div>
         </section>

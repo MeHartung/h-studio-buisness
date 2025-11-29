@@ -315,6 +315,38 @@
       "email": "hello@h-studio.io"
     }
   },
+  "contactForm": {
+    "title": "Get Process Analysis",
+    "subtitle": "Fill out the form and we'll contact you within 24 hours",
+    "close": "Close",
+    "fields": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Your name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "your@email.com"
+      },
+      "phone": {
+        "label": "Phone",
+        "placeholder": "+1 (555) 123-4567"
+      },
+      "company": {
+        "label": "Company",
+        "placeholder": "Company name"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Tell us about your tasks or questions..."
+      }
+    },
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "success": "Sent!",
+    "error": "An error occurred. Please try again.",
+    "emailSubject": "Website inquiry: Get Process Analysis"
+  },
   "navigation": {
     "about": "About",
     "contact": "Contact",

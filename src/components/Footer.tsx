@@ -73,13 +73,13 @@ export default async function Footer() {
         <div className="border-t border-white/10 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted">
-              <Link href="/blog" className="hover:text-text transition-colors">{tFooter('blog')}</Link>
+              <Link href="/blog" className="hover:text-text transition-colors min-h-[44px] min-w-[44px] inline-flex items-center" aria-label={tFooter('blog')}>{tFooter('blog')}</Link>
               <span>•</span>
-              <a href={`mailto:${tFooter('legalDetails.email')}?subject=Privacy Policy Request`} className="hover:text-text transition-colors">{tFooter('privacy')}</a>
+              <a href={`mailto:${tFooter('legalDetails.email')}?subject=Privacy Policy Request`} className="hover:text-text transition-colors min-h-[44px] min-w-[44px] inline-flex items-center" aria-label={tFooter('privacy')}>{tFooter('privacy')}</a>
               <span>•</span>
-              <Link href="/legal-notice" className="hover:text-text transition-colors">{tFooter('legalNotice')}</Link>
+              <Link href="/legal-notice" className="hover:text-text transition-colors min-h-[44px] min-w-[44px] inline-flex items-center" aria-label={tFooter('legalNotice')}>{tFooter('legalNotice')}</Link>
               <span>•</span>
-              <a href={`mailto:${tFooter('legalDetails.email')}?subject=Terms Request`} className="hover:text-text transition-colors">{tFooter('terms')}</a>
+              <a href={`mailto:${tFooter('legalDetails.email')}?subject=Terms Request`} className="hover:text-text transition-colors min-h-[44px] min-w-[44px] inline-flex items-center" aria-label={tFooter('terms')}>{tFooter('terms')}</a>
               <span>•</span>
               <CookieSettingsButton label={tFooter('cookieSettings')} />
             </div>
@@ -87,7 +87,7 @@ export default async function Footer() {
           <p className="text-sm text-muted mt-4 text-center md:text-left">
             {tFooter('copyright')}
           </p>
-          <p className="text-xs text-muted/60 mt-4 text-center md:text-left">
+          <p className="text-xs text-muted/70 mt-4 text-center md:text-left">
             Автоматизация расчётов, КП, себестоимости, спецификаций, интеграции с 1С/ERP/CRM, документооборот и AI-аналитика для производственных и инженерных компаний.
           </p>
         </div>

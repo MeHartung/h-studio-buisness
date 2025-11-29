@@ -17,8 +17,8 @@ const WhatWeDo = () => {
       {/* Надписи для десктопа */}
       <div className="hidden lg:block absolute top-0 left-0 right-0 px-2 py-4">
         <div className="flex justify-between items-center">
-          <span className="text-text/60 text-lg font-bold">{t('mobileLabel1')}</span>
-          <span className="text-text/60 text-lg font-bold">{t('mobileLabel2')}</span>
+          <span className="text-text/70 text-lg font-bold">{t('mobileLabel1')}</span>
+          <span className="text-text/70 text-lg font-bold">{t('mobileLabel2')}</span>
         </div>
       </div>
       
@@ -38,7 +38,7 @@ const WhatWeDo = () => {
 
           {/* Описание */}
           <div className="mb-12 max-w-4xl mx-auto text-left">
-            <p className="text-lg text-text/80 leading-relaxed mb-8">
+            <p className="text-lg text-text/90 leading-relaxed mb-8">
               {t('description')}
             </p>
           </div>
@@ -59,7 +59,7 @@ const WhatWeDo = () => {
               </h3>
               <ul className="space-y-2">
                 {categories?.automation?.items?.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3 text-base text-text/80">
+                  <li key={index} className="flex items-start gap-3 text-base text-text/90">
                     <span className="text-brand font-bold mt-1">•</span>
                     <span>{item}</span>
                   </li>
@@ -81,7 +81,7 @@ const WhatWeDo = () => {
               </h3>
               <ul className="space-y-2">
                 {categories?.documentFlow?.items?.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3 text-base text-text/80">
+                  <li key={index} className="flex items-start gap-3 text-base text-text/90">
                     <span className="text-brand font-bold mt-1">•</span>
                     <span>{item}</span>
                   </li>
@@ -103,7 +103,7 @@ const WhatWeDo = () => {
               </h3>
               <ul className="space-y-2">
                 {categories?.integrations?.items?.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3 text-base text-text/80">
+                  <li key={index} className="flex items-start gap-3 text-base text-text/90">
                     <span className="text-brand font-bold mt-1">•</span>
                     <span>{item}</span>
                   </li>
@@ -125,7 +125,7 @@ const WhatWeDo = () => {
               </h3>
               <ul className="space-y-2">
                 {categories?.aiAnalytics?.items?.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3 text-base text-text/80">
+                  <li key={index} className="flex items-start gap-3 text-base text-text/90">
                     <span className="text-brand font-bold mt-1">•</span>
                     <span>{item}</span>
                   </li>
@@ -136,7 +136,7 @@ const WhatWeDo = () => {
 
           {/* Футер */}
           <div className="mt-12 max-w-4xl mx-auto text-left">
-            <p className="text-lg text-text/80 leading-relaxed">
+            <p className="text-lg text-text/90 leading-relaxed">
               {t('footer')}
             </p>
           </div>

@@ -7,6 +7,7 @@ import { routing } from '@/i18n/routing';
 import { Metadata, Viewport } from 'next';
 import { OrganizationSchema, WebsiteSchema } from '@/components/StructuredData';
 import Footer from '@/components/Footer';
+import { ContactFormProvider } from '@/contexts/ContactFormContext';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -126,8 +127,10 @@ export default async function LocaleLayout({
         <OrganizationSchema locale={locale} />
         <WebsiteSchema locale={locale} />
         <NextIntlClientProvider messages={messages}>
-          {children}
-          <Footer />
+          <ContactFormProvider>
+            {children}
+            <Footer />
+          </ContactFormProvider>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -315,6 +315,38 @@
       "email": "hello@h-studio.io"
     }
   },
+  "contactForm": {
+    "title": "Prozessanalyse erhalten",
+    "subtitle": "Füllen Sie das Formular aus und wir kontaktieren Sie innerhalb von 24 Stunden",
+    "close": "Schließen",
+    "fields": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Ihr Name"
+      },
+      "email": {
+        "label": "E-Mail",
+        "placeholder": "ihre@email.com"
+      },
+      "phone": {
+        "label": "Telefon",
+        "placeholder": "+49 123 456789"
+      },
+      "company": {
+        "label": "Unternehmen",
+        "placeholder": "Firmenname"
+      },
+      "message": {
+        "label": "Nachricht",
+        "placeholder": "Erzählen Sie uns von Ihren Aufgaben oder Fragen..."
+      }
+    },
+    "submit": "Absenden",
+    "submitting": "Wird gesendet...",
+    "success": "Gesendet!",
+    "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "emailSubject": "Website-Anfrage: Prozessanalyse erhalten"
+  },
   "navigation": {
     "about": "Über uns",
     "contact": "Kontakt",

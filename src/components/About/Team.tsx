@@ -42,8 +42,8 @@ const Team = () => {
       {/* Надписи для десктопа */}
       <div className="hidden lg:block absolute top-0 left-0 right-0 px-2 py-4">
         <div className="flex justify-between items-center">
-          <span className="text-text/60 text-lg font-bold">{t('mobileLabel1')}</span>
-          <span className="text-text/60 text-lg font-bold">{t('mobileLabel2')}</span>
+          <span className="text-text/70 text-lg font-bold">{t('mobileLabel1')}</span>
+          <span className="text-text/70 text-lg font-bold">{t('mobileLabel2')}</span>
         </div>
       </div>
       
@@ -61,7 +61,7 @@ const Team = () => {
             {t('mainTitle').split('\n').map((line, index) => (
               <span key={index}>
                 {index === 1 ? (
-                  <span className="text-text/80">{line}</span>
+                  <span className="text-text/90">{line}</span>
                 ) : (
                   line
                 )}
@@ -72,11 +72,11 @@ const Team = () => {
 
           {/* Описание команды */}
           <div className="mb-16 max-w-4xl mx-auto text-left">
-            <p className="text-lg text-text/80 leading-relaxed mb-6">
+            <p className="text-lg text-text/90 leading-relaxed mb-6">
               {t('description1')}
             </p>
             
-            <p className="text-lg text-text/80 leading-relaxed">
+            <p className="text-lg text-text/90 leading-relaxed">
               {t('description2')}
             </p>
           </div>
@@ -84,7 +84,7 @@ const Team = () => {
 
         {/* Горизонтальный скролл для мобильных */}
         <div className="block md:hidden">
-          <div className="flex gap-6 overflow-x-auto overflow-y-hidden pb-4 scrollbar-hide h-[580px]">
+          <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
             {teamMembers.map((member, index) => (
               <div
                 key={member.id}
@@ -95,7 +95,7 @@ const Team = () => {
                   opacity: 0,
                 }}
               >
-                <div className="relative overflow-hidden rounded-[32px] aspect-[380/540]">
+                <div className="relative overflow-hidden rounded-[32px] aspect-[380/540] mb-4">
                   <Image
                     src={member.image}
                     alt={member.name}
@@ -104,18 +104,15 @@ const Team = () => {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     priority={index === 0}
                   />
-                  
-                  {/* Градиентное затемнение */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand/80 via-brand/20 to-transparent"></div>
-                  
-                  {/* Информация о члене команды */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-                    <p className="text-sm opacity-90 mb-2">{member.position}</p>
-                    {member.description && (
-                      <p className="text-xs opacity-75 leading-relaxed">{member.description}</p>
-                    )}
-                  </div>
+                </div>
+                
+                {/* Информация о члене команды под фотографией */}
+                <div className="p-4 text-white">
+                  <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
+                  <p className="text-sm opacity-95 mb-2">{member.position}</p>
+                  {member.description && (
+                    <p className="text-xs opacity-85 leading-relaxed">{member.description}</p>
+                  )}
                 </div>
               </div>
             ))}
@@ -134,7 +131,7 @@ const Team = () => {
                 opacity: 0,
               }}
             >
-              <div className="relative overflow-hidden rounded-[32px] aspect-[380/540]">
+              <div className="relative overflow-hidden rounded-[32px] aspect-[380/540] mb-4">
                 <Image
                   src={member.image}
                   alt={member.name}
@@ -143,18 +140,15 @@ const Team = () => {
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                   priority={index === 0}
                 />
-                
-                {/* Градиентное затемнение */}
-                <div className="absolute inset-0 bg-gradient-to-t from-brand/80 via-brand/20 to-transparent"></div>
-                
-                {/* Информация о члене команды */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-                  <p className="text-sm opacity-90 mb-2">{member.position}</p>
-                  {member.description && (
-                    <p className="text-xs opacity-75 leading-relaxed">{member.description}</p>
-                  )}
-                </div>
+              </div>
+              
+              {/* Информация о члене команды под фотографией */}
+              <div className="p-4 text-white">
+                <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
+                <p className="text-sm opacity-95 mb-2">{member.position}</p>
+                {member.description && (
+                  <p className="text-xs opacity-85 leading-relaxed">{member.description}</p>
+                )}
               </div>
             </div>
           ))}

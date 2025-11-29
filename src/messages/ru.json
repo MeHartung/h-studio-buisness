@@ -399,6 +399,38 @@
       "email": "hello@h-studio.io"
     }
   },
+  "contactForm": {
+    "title": "Получить разбор процессов",
+    "subtitle": "Заполните форму, и мы свяжемся с вами в течение 24 часов",
+    "close": "Закрыть",
+    "fields": {
+      "name": {
+        "label": "Имя",
+        "placeholder": "Ваше имя"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "your@email.com"
+      },
+      "phone": {
+        "label": "Телефон",
+        "placeholder": "+7 (999) 123-45-67"
+      },
+      "company": {
+        "label": "Компания",
+        "placeholder": "Название компании"
+      },
+      "message": {
+        "label": "Сообщение",
+        "placeholder": "Расскажите о ваших задачах или вопросах..."
+      }
+    },
+    "submit": "Отправить",
+    "submitting": "Отправка...",
+    "success": "Отправлено!",
+    "error": "Произошла ошибка. Попробуйте еще раз.",
+    "emailSubject": "Запрос с сайта: Получить разбор"
+  },
   "navigation": {
     "about": "О нас",
     "contact": "Контакты",

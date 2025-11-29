@@ -22,6 +22,8 @@ import CasesSectionClient from '@/components/home/CasesSectionClient';
 import ScrollToTopButton from '@/components/home/ScrollToTopButton';
 import FAQSection from '@/components/home/FAQSection';
 import Header from '@/components/Header';
+import CTAButton from '@/components/CTAButton';
+import CTALink from '@/components/CTALink';
 
 // Server Component для LinkedIn Section
 async function LinkedInSection() {
@@ -253,21 +255,12 @@ export default async function Home() {
                 )}
                 
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Link
-                    href="#contact"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand text-black font-semibold rounded-xl hover:opacity-90 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.5)] focus:outline-none focus:ring-2 focus:ring-brand/60"
-                    aria-label={tHero('requestDemo')}
-                  >
-                    <span>{tHero('requestDemo')}</span>
-                    <HiArrowRight size={20} />
-                  </Link>
-                  <Link
-                    href="#contact"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 text-text font-semibold rounded-xl hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-brand/60"
-                    aria-label={tHero('seeExamples')}
-                  >
+                  <CTAButton variant="primary" ariaLabel={tHero('requestDemo')}>
+                    {tHero('requestDemo')}
+                  </CTAButton>
+                  <CTAButton variant="secondary" ariaLabel={tHero('seeExamples')}>
                     {tHero('seeExamples')}
-                  </Link>
+                  </CTAButton>
                 </div>
                 
                 <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-start gap-2 sm:gap-6 text-[10px] sm:text-xs text-text/60">
@@ -337,10 +330,9 @@ export default async function Home() {
                   {t('features.calculationAutomation.desc2')}
                 </p>
               )}
-              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.calculationAutomation.learnMore')}>
+              <CTALink ariaLabel={t('features.calculationAutomation.learnMore')}>
                 {t('features.calculationAutomation.learnMore')}
-                <HiArrowRight size={12} />
-              </Link>
+              </CTALink>
             </div>
 
             <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
@@ -356,10 +348,9 @@ export default async function Home() {
                   {t('features.kpConfigurator.desc2')}
                 </p>
               )}
-              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.kpConfigurator.learnMore')}>
+              <CTALink ariaLabel={t('features.kpConfigurator.learnMore')}>
                 {t('features.kpConfigurator.learnMore')}
-                <HiArrowRight size={12} />
-              </Link>
+              </CTALink>
             </div>
 
             <div className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]">
@@ -375,10 +366,9 @@ export default async function Home() {
                   {t('features.documentAutomation.desc2')}
                 </p>
               )}
-              <Link href="#contact" className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded" aria-label={t('features.documentAutomation.learnMore')}>
+              <CTALink ariaLabel={t('features.documentAutomation.learnMore')}>
                 {t('features.documentAutomation.learnMore')}
-                <HiArrowRight size={12} />
-              </Link>
+              </CTALink>
             </div>
           </div>
         </section>
@@ -536,19 +526,12 @@ export default async function Home() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                <Link
-                  href="#contact"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand text-black font-semibold rounded-xl hover:opacity-90 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.5)] focus:outline-none focus:ring-2 focus:ring-brand/60"
-                >
-                  <span>{t('processAssistant.buildButton')}</span>
-                  <HiArrowRight size={20} />
-                </Link>
-                <Link
-                  href="#contact"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 text-text font-semibold rounded-xl hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-brand/60"
-                >
+                <CTAButton variant="primary" ariaLabel={t('processAssistant.buildButton')}>
+                  {t('processAssistant.buildButton')}
+                </CTAButton>
+                <CTAButton variant="secondary" ariaLabel={t('processAssistant.demoButton')}>
                   {t('processAssistant.demoButton')}
-                </Link>
+                </CTAButton>
               </div>
             </div>
           </div>
@@ -567,19 +550,12 @@ export default async function Home() {
               {t('cta.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-              <Link
-                href="mailto:info@h-studio-tech.ru?subject=Получить разбор"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand text-black font-semibold rounded-xl hover:opacity-90 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.5)] focus:outline-none focus:ring-2 focus:ring-brand/60"
-              >
-                <span>{t('cta.button1')}</span>
-                <HiArrowRight size={20} />
-              </Link>
-              <Link
-                href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 text-text font-semibold rounded-xl hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-brand/60"
-              >
+              <CTAButton variant="primary" ariaLabel={t('cta.button1')}>
+                {t('cta.button1')}
+              </CTAButton>
+              <CTAButton variant="secondary" ariaLabel={t('cta.button2')}>
                 {t('cta.button2')}
-              </Link>
+              </CTAButton>
             </div>
           </div>
         </section>
