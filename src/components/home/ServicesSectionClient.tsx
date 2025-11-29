@@ -122,7 +122,8 @@ export default function ServicesSectionClient() {
       <div className="mt-12 text-center">
         <Link
           href="/services"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-brand text-white rounded-xl hover:bg-brand/90 transition-colors font-medium shadow-[0_10px_30px_-12px_rgba(124,92,252,0.4)]"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-brand text-white rounded-xl hover:bg-brand/90 transition-colors font-medium shadow-[0_10px_30px_-12px_rgba(124,92,252,0.4)] min-h-[44px] min-w-[44px]"
+          aria-label={t('viewAll')}
         >
           {t('viewAll')}
           <HiArrowRight size={20} />
