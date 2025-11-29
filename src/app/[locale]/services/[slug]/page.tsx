@@ -14,10 +14,26 @@ import {
 } from 'react-icons/hi';
 import CookieBanner from '@/components/CookieBanner';
 import Header from '@/components/Header';
+import { getServiceIdBySlug } from '@/lib/services';
 
 export default function ServiceDetailPage() {
   const params = useNextParams();
-  const serviceId = params.id as string;
+  const slug = params.slug as string;
+  const serviceId = getServiceIdBySlug(slug);
+  
+  if (!serviceId) {
+    return (
+      <div className="min-h-screen bg-bg flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-semibold text-text mb-4">Сервис не найден</h1>
+          <Link href="/services" className="text-brand hover:text-brand/80">
+            Вернуться к услугам
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   const t = useTranslations(`serviceDetail.service${serviceId}`);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -172,10 +188,7 @@ export default function ServiceDetailPage() {
                 )}
                 <ul className="space-y-2">
                   {solution.items.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-muted">
-                      <span className="text-brand flex-shrink-0 mt-0.5">
-                        <HiCheckCircle size={16} />
-                      </span>
+                    <li key={idx} className="text-sm text-muted">
                       <span>{item}</span>
                     </li>
                   ))}

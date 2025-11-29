@@ -1,6 +1,7 @@
 import { Metadata, Viewport } from 'next';
 import { ReactNode } from 'react';
 import { ServiceSchema, BreadcrumbSchema } from '@/components/StructuredData';
+import { getServiceIdBySlug, getServiceSlugById } from '@/lib/services';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -16,23 +17,32 @@ export const viewport: Viewport = {
 export async function generateMetadata({
   params
 }: {
-  params: Promise<{ locale: string; id: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { locale, id } = await params;
+  const { locale, slug } = await params;
+  const serviceId = getServiceIdBySlug(slug);
+  
+  if (!serviceId) {
+    return {
+      title: 'Услуга | H-Studio Business',
+      description: 'Описание услуги',
+    };
+  }
+
   const messages = (await import(`../../../../messages/${locale}.json`)).default;
   
-  const serviceKey = `service${id}` as keyof typeof messages.serviceDetail;
+  const serviceKey = `service${serviceId}` as keyof typeof messages.serviceDetail;
   const service = messages.serviceDetail[serviceKey];
   
   if (!service) {
     return {
-      title: 'Услуга',
+      title: 'Услуга | H-Studio Business',
       description: 'Описание услуги',
     };
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
-  const currentUrl = `${baseUrl}/${locale}/services/${id}`;
+  const currentUrl = `${baseUrl}/${locale}/services/${slug}`;
   const ogImage = `${baseUrl}/1.png`;
   const serviceDescription = service.subtitle || service.intro || 'Автоматизация процессов для производственных компаний';
 
@@ -58,7 +68,7 @@ export async function generateMetadata({
     alternates: {
       canonical: currentUrl,
       languages: {
-        ru: `${baseUrl}/ru/services/${id}`,
+        ru: `${baseUrl}/ru/services/${slug}`,
       },
     },
     openGraph: {
@@ -91,24 +101,30 @@ export default async function ServiceDetailLayout({
   params,
 }: {
   children: ReactNode;
-  params: Promise<{ locale: string; id: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { locale, id } = await params;
+  const { locale, slug } = await params;
+  const serviceId = getServiceIdBySlug(slug);
+  
+  if (!serviceId) {
+    return <>{children}</>;
+  }
+
   const messages = (await import(`../../../../messages/${locale}.json`)).default;
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
   
-  const serviceKey = `service${id}` as keyof typeof messages.serviceDetail;
+  const serviceKey = `service${serviceId}` as keyof typeof messages.serviceDetail;
   const service = messages.serviceDetail[serviceKey];
   
   if (!service) {
     return <>{children}</>;
   }
 
-  const serviceUrl = `${baseUrl}/${locale}/services/${id}`;
+  const serviceUrl = `${baseUrl}/${locale}/services/${slug}`;
   const breadcrumbItems = [
     { name: 'Главная', url: `/${locale}` },
     { name: 'Услуги', url: `/${locale}/services` },
-    { name: service.title, url: `/${locale}/services/${id}` },
+    { name: service.title, url: `/${locale}/services/${slug}` },
   ];
 
   return (

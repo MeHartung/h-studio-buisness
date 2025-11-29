@@ -20,6 +20,7 @@ import {
 } from 'react-icons/hi';
 import CookieBanner from '@/components/CookieBanner';
 import Header from '@/components/Header';
+import { getServiceSlugById } from '@/lib/services';
 
 export default function ServicesPage() {
   const t = useTranslations('services');
@@ -145,7 +146,7 @@ export default function ServicesPage() {
                     {service.description}
                   </p>
                   <Link
-                    href={`/services/${index + 1}`}
+                    href={`/services/${getServiceSlugById(String(index + 1)) || index + 1}`}
                     className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded mt-auto"
                     aria-label={t('readMore')}
                   >

@@ -1,20 +1,19 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/blog';
+import { getServiceSlugById } from '@/lib/services';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.h-studio-tech.ru';
   
+  // Генерируем slug для всех сервисов
+  const serviceSlugs = ['1', '2', '3', '4', '5', '6', '7', '8']
+    .map(id => getServiceSlugById(id))
+    .filter((slug): slug is string => slug !== null);
+  
   const routes = [
     '',
     '/services',
-    '/services/1',
-    '/services/2',
-    '/services/3',
-    '/services/4',
-    '/services/5',
-    '/services/6',
-    '/services/7',
-    '/services/8',
+    ...serviceSlugs.map(slug => `/services/${slug}`),
     '/legal-notice',
     '/blog',
   ];
