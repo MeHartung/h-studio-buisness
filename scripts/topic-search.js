@@ -114,9 +114,27 @@ function buildUserPrompt(query, count) {
     "whyImportant": "кратко, почему тема важна и какие боли закрывает",
     "recommendedArticleType": "гайд | кейс | обзор | список | FAQ",
     "internalLinkIdea": "на какую секцию/услугу H-Studio логично вести из статьи",
-    "tags": ["manufacturing", "costing", "quotations"] // выбери 2-4 тега из списка: manufacturing, engineering, costing, quotations, configurators, documents, approvals, 1c, erp, crm, ai, analytics, automation, integration
+    "tags": ["manufacturing", "costing", "quotations"]
   }
 ]
+
+ВАЖНО: Поле "tags" ОБЯЗАТЕЛЬНО. Выбери 2-4 тега из списка: manufacturing, engineering, costing, quotations, configurators, documents, approvals, 1c, erp, crm, ai, analytics, automation, integration.
+
+Выбор тегов:
+- manufacturing - если тема про производство, заводы, предприятия
+- engineering - если тема про инженерные компании, техотдел
+- costing - если тема про себестоимость, расчёты, маржу
+- quotations - если тема про КП, коммерческие предложения
+- configurators - если тема про конфигураторы КП
+- documents - если тема про документооборот
+- approvals - если тема про согласования
+- 1c - если тема про 1С
+- erp - если тема про ERP системы
+- crm - если тема про CRM
+- ai - если тема про AI, искусственный интеллект
+- analytics - если тема про аналитику, дашборды
+- automation - если тема про автоматизацию
+- integration - если тема про интеграции
 
 Темы должны быть максимально прикладными, понятными людям из производства и инженерии, без абстрактного консалтингового буллшита.
 `.trim();
