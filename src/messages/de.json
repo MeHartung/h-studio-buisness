@@ -316,7 +316,9 @@
     }
   },
   "navigation": {
-    "contact": "Kontakt"
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "services": "Dienstleistungen"
   },
   "legalNotice": {
     "meta": {
