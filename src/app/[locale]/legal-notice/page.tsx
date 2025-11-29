@@ -62,7 +62,7 @@ export async function generateMetadata({
       description: metadata.ogDescription || metadata.description,
       url: currentUrl,
       siteName: "H-Studio Business",
-      locale: locale === 'ru' ? 'ru_RU' : locale === 'de' ? 'de_DE' : 'en_US',
+      locale: 'ru_RU', // Только русская локаль
       type: "website",
       images: [
         {

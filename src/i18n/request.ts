@@ -3,7 +3,8 @@ import { routing } from './routing'
 import { cookies, headers } from 'next/headers'
 
 export default getRequestConfig(async () => {
-  const availableLocales = ['en', 'de', 'ru'];
+  // Только русская локаль
+  const availableLocales = ['ru'];
   const headerStore = await headers();
   const pathname = headerStore.get('next-url') || '/';
   const segments = pathname.split('/').filter(Boolean);
@@ -23,19 +24,15 @@ export default getRequestConfig(async () => {
   );
   const cookieLocaleAlt = parsedCookies['lang'];
 
-  const acceptLanguage = headerStore
-    .get('accept-language')
-    ?.split(',')[0]
-    ?.split('-')[0];
+  // Приоритет: cookie > URL > default (только ru)
+  let locale = cookieLocaleAlt || cookieLocale || localeFromUrl || routing.defaultLocale;
 
-  // Приоритет: cookie > URL > Accept-Language > default
-  let locale = cookieLocaleAlt || cookieLocale || localeFromUrl || acceptLanguage || routing.defaultLocale;
-
-  if (!availableLocales.includes(locale)) {
+  // Всегда используем русскую локаль
+  if (!availableLocales.includes(locale) || !routing.locales.includes(locale as any)) {
     locale = routing.defaultLocale;
   }
 
-  // Загружаем переводы
+  // Загружаем переводы (только ru)
   const messages = (await import(`../messages/${locale}.json`)).default;
 
   return {
