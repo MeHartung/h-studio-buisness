@@ -19,11 +19,14 @@ import {
 import CookieBanner from '@/components/CookieBanner';
 import ServicesSectionClient from '@/components/home/ServicesSectionClient';
 import CasesSectionClient from '@/components/home/CasesSectionClient';
+import ClientsSection from '@/components/clients/ClientsSection';
 import ScrollToTopButton from '@/components/home/ScrollToTopButton';
 import FAQSection from '@/components/home/FAQSection';
 import Header from '@/components/Header';
 import CTAButton from '@/components/CTAButton';
 import CTALink from '@/components/CTALink';
+import { ProductSchema } from '@/components/StructuredData';
+import { getAllPosts } from '@/lib/blog';
 
 // Server Component для LinkedIn Section
 async function LinkedInSection() {
@@ -156,6 +159,84 @@ async function ProcessSection() {
   );
 }
 
+// Server Component для Useful Materials Section
+async function UsefulMaterialsSection({ locale }: { locale: string }) {
+  const t = await getTranslations('usefulMaterials');
+  const allPosts = getAllPosts();
+  
+  // Получаем случайные 5 статей
+  const shuffled = [...allPosts].sort(() => 0.5 - Math.random());
+  const randomPosts = shuffled.slice(0, 5);
+
+  if (randomPosts.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      {/* Mobile: Grid with 3 rows, horizontal scroll by groups */}
+      <div className="md:hidden overflow-x-auto -mx-4 sm:-mx-6 px-4 sm:px-6 scrollbar-hide snap-x snap-mandatory">
+        <div className="flex gap-4 pb-4" style={{ height: 'fit-content' }}>
+          {Array.from({ length: Math.ceil(randomPosts.length / 3) }).map((_, groupIndex) => (
+            <div
+              key={groupIndex}
+              className="flex-shrink-0 w-[calc(100vw-2rem)] snap-start flex flex-col gap-4"
+            >
+              {randomPosts.slice(groupIndex * 3, groupIndex * 3 + 3).map((post, itemIndex) => {
+                const actualIndex = groupIndex * 3 + itemIndex;
+                return (
+                  <Link
+                    key={post.slug || actualIndex}
+                    href={`/${locale}/blog/${post.slug}`}
+                    className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all group"
+                  >
+                    <h3 className="text-lg font-semibold text-text mb-2 group-hover:text-brand transition-colors">
+                      {post.title}
+                    </h3>
+                    {post.excerpt && (
+                      <p className="text-sm text-muted leading-6 mb-4 line-clamp-2">
+                        {post.excerpt}
+                      </p>
+                    )}
+                    <div className="flex items-center gap-2 text-sm text-brand">
+                      <span>{t('readMore')}</span>
+                      <HiArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop: Grid layout */}
+      <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {randomPosts.map((post) => (
+          <Link
+            key={post.slug}
+            href={`/${locale}/blog/${post.slug}`}
+            className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all group"
+          >
+            <h3 className="text-lg font-semibold text-text mb-2 group-hover:text-brand transition-colors">
+              {post.title}
+            </h3>
+            {post.excerpt && (
+              <p className="text-sm text-muted leading-6 mb-4 line-clamp-2">
+                {post.excerpt}
+              </p>
+            )}
+            <div className="flex items-center gap-2 text-sm text-brand">
+              <span>{t('readMore')}</span>
+              <HiArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </div>
+          </Link>
+        ))}
+      </div>
+    </>
+  );
+}
+
 // Server Component для Results Section
 async function ResultsSection() {
   const t = await getTranslations('results');
@@ -202,12 +283,18 @@ async function ResultsSection() {
 }
 
 // Main Server Component
-export default async function Home() {
+export default async function Home({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const t = await getTranslations();
   const tHero = await getTranslations('hero');
 
   return (
     <div className="min-h-screen bg-bg relative overflow-hidden">
+      <ProductSchema locale={locale} />
       <main className="relative z-10">
         {/* Hero Section */}
         <section className="relative overflow-hidden">
@@ -239,7 +326,7 @@ export default async function Home() {
                   </span>
                 </div>
                 
-                <h1 className="text-[56px] leading-[64px] font-semibold tracking-[-0.02em] text-text font-display">
+                <h1 className="text-[36px] leading-[44px] sm:text-[48px] sm:leading-[56px] lg:text-[56px] lg:leading-[64px] font-semibold tracking-[-0.02em] text-text font-display !mt-10 sm:!mt-6 lg:!mt-0">
                   {tHero('title')}
                   <span className="sr-only"> {tHero('titleSeo')}</span>
                 </h1>
@@ -248,13 +335,18 @@ export default async function Home() {
                   {tHero('description')}
                 </p>
                 
+                {/* Hidden SEO text for search engines */}
+                <p className="sr-only">
+                  {tHero('seoHiddenText')}
+                </p>
+                
                 {tHero('subtitle') && (
                   <p className="text-text/70 max-w-xl text-base leading-7">
                     {tHero('subtitle')}
                   </p>
                 )}
                 
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-3 !mt-16 sm:!mt-10 lg:!mt-0">
                   <CTAButton variant="primary" ariaLabel={tHero('requestDemo')}>
                     {tHero('requestDemo')}
                   </CTAButton>
@@ -306,6 +398,90 @@ export default async function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* What We Automate Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+          <div className="text-center mb-12">
+            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
+              {t('whatWeAutomate.title')}
+            </h2>
+            <p className="text-base text-text/70 max-w-2xl mx-auto">
+              {t('whatWeAutomate.description')}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {(t.raw('whatWeAutomate.cards') as Array<{ title: string; items: string[] }>).map((card, index) => {
+              const icons = [HiCog, HiDocumentText, HiPuzzle];
+              const Icon = icons[index] || HiCog;
+              return (
+                <div
+                  key={index}
+                  className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.2)]"
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-brand/20 to-accent/20 rounded-xl flex items-center justify-center mb-4 text-brand">
+                    <Icon size={24} />
+                  </div>
+                  <h3 className="text-xl font-semibold text-text mb-4">{card.title}</h3>
+                  <ul className="space-y-2">
+                    {card.items.map((item, itemIndex) => (
+                      <li key={itemIndex} className="flex items-start gap-2">
+                        <span className="text-brand flex-shrink-0 mt-1">
+                          <HiCheckCircle size={16} />
+                        </span>
+                        <span className="text-sm text-text/80 leading-6">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Problems We Solve Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 bg-card/30 rounded-3xl mx-4 lg:mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
+              {t('problemsWeSolve.title')}
+            </h2>
+            <p className="text-base text-text/70 max-w-2xl mx-auto">
+              {t('problemsWeSolve.description')}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {(t.raw('problemsWeSolve.items') as string[]).map((item, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-3 bg-bg border border-white/10 rounded-xl p-4 hover:border-white/20 transition-all"
+              >
+                <span className="flex-shrink-0 mt-1.5 w-2 h-2 rounded-full bg-brand"></span>
+                <span className="text-sm text-text/80 leading-6">{item}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Task Categories Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+          <div className="text-center mb-12">
+            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
+              {t('taskCategories.title')}
+            </h2>
+            <p className="text-base text-text/70 max-w-2xl mx-auto">
+              {t('taskCategories.description')}
+            </p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+            {(t.raw('taskCategories.items') as string[]).map((item, index) => (
+              <span
+                key={index}
+                className="inline-flex items-center px-4 py-2 bg-card border border-white/10 rounded-full text-sm text-text/80 hover:border-brand/50 hover:text-brand transition-all"
+              >
+                {item}
+              </span>
+            ))}
           </div>
         </section>
 
@@ -394,8 +570,8 @@ export default async function Home() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
+          {(() => {
+            const items = [
               { 
                 icon: HiCog, 
                 label: t('whoItsFor.manufacturing.label'),
@@ -430,29 +606,113 @@ export default async function Home() {
                 icon: HiDocumentText, 
                 label: t('whoItsFor.custom.label'),
                 description: t('whoItsFor.custom.description')
+              },
+              { 
+                icon: HiChartBar, 
+                label: t('whoItsFor.developers.label'),
+                description: t('whoItsFor.developers.description')
+              },
+              { 
+                icon: HiLightBulb, 
+                label: t('whoItsFor.designBureaus.label'),
+                description: t('whoItsFor.designBureaus.description')
+              },
+              { 
+                icon: HiCog, 
+                label: t('whoItsFor.b2bManufacturing.label'),
+                description: t('whoItsFor.b2bManufacturing.description')
+              },
+              { 
+                icon: HiTrendingUp, 
+                label: t('whoItsFor.tradingManufacturing.label'),
+                description: t('whoItsFor.tradingManufacturing.description')
+              },
+              { 
+                icon: HiPuzzle, 
+                label: t('whoItsFor.oemManufacturers.label'),
+                description: t('whoItsFor.oemManufacturers.description')
+              },
+              { 
+                icon: HiDocumentText, 
+                label: t('whoItsFor.complexAssortment.label'),
+                description: t('whoItsFor.complexAssortment.description')
+              },
+              { 
+                icon: HiChartBar, 
+                label: t('whoItsFor.largePriceLists.label'),
+                description: t('whoItsFor.largePriceLists.description')
+              },
+              { 
+                icon: HiCog, 
+                label: t('whoItsFor.engineeringDepartments.label'),
+                description: t('whoItsFor.engineeringDepartments.description')
               }
-            ].filter(item => item.label && item.description).map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={index}
-                  className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-1 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.2)] group"
-                >
-                  <div className="flex flex-col items-center text-center gap-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-brand/20 to-brand/10 rounded-xl flex items-center justify-center border border-brand/20 group-hover:scale-110 transition-transform text-brand">
-                      <Icon size={32} />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-text mb-2">{item.label}</h3>
-                      <p className="text-sm text-muted leading-5">
-                        {item.description}
-                      </p>
-                    </div>
+            ].filter(item => item.label && item.description);
+
+            return (
+              <>
+                {/* Mobile: Grid with 3 rows, horizontal scroll by groups */}
+                <div className="md:hidden overflow-x-auto -mx-4 sm:-mx-6 px-4 sm:px-6 scrollbar-hide snap-x snap-mandatory">
+                  <div className="flex gap-4 pb-4" style={{ height: 'fit-content' }}>
+                    {Array.from({ length: Math.ceil(items.length / 3) }).map((_, groupIndex) => (
+                      <div
+                        key={groupIndex}
+                        className="flex-shrink-0 w-[calc(100vw-2rem)] snap-start flex flex-col gap-4"
+                      >
+                        {items.slice(groupIndex * 3, groupIndex * 3 + 3).map((item, itemIndex) => {
+                          const Icon = item.icon;
+                          const actualIndex = groupIndex * 3 + itemIndex;
+                          return (
+                            <div
+                              key={actualIndex}
+                              className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.2)] group"
+                            >
+                              <div className="flex flex-col items-center text-center gap-4">
+                                <div className="w-16 h-16 bg-gradient-to-br from-brand/20 to-brand/10 rounded-xl flex items-center justify-center border border-brand/20 group-hover:scale-110 transition-transform text-brand">
+                                  <Icon size={32} />
+                                </div>
+                                <div>
+                                  <h3 className="text-lg font-semibold text-text mb-2">{item.label}</h3>
+                                  <p className="text-sm text-muted leading-5">
+                                    {item.description}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ))}
                   </div>
                 </div>
-              );
-            })}
-          </div>
+
+                {/* Desktop: Grid layout */}
+                <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {items.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={index}
+                        className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-1 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.2)] group"
+                      >
+                        <div className="flex flex-col items-center text-center gap-4">
+                          <div className="w-16 h-16 bg-gradient-to-br from-brand/20 to-brand/10 rounded-xl flex items-center justify-center border border-brand/20 group-hover:scale-110 transition-transform text-brand">
+                            <Icon size={32} />
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold text-text mb-2">{item.label}</h3>
+                            <p className="text-sm text-muted leading-5">
+                              {item.description}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            );
+          })()}
         </section>
 
         {/* Cases Section - Client Component */}
@@ -465,14 +725,174 @@ export default async function Home() {
           <CasesSectionClient />
         </section>
 
-        {/* Services Section - Client Component */}
+        {/* Clients Section - Enterprise Cases */}
+        <ClientsSection />
+
+        {/* Why Choose Us Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+          <div className="text-center mb-12">
+            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
+              {t('whyChooseUs.title')}
+            </h2>
+            <p className="text-base text-text/70 max-w-2xl mx-auto">
+              {t('whyChooseUs.description')}
+            </p>
+          </div>
+          {(() => {
+            const items = t.raw('whyChooseUs.items') as Array<{ title: string; description: string }>;
+            
+            return (
+              <>
+                {/* Mobile: Grid with 3 rows, horizontal scroll by groups */}
+                <div className="md:hidden overflow-x-auto -mx-4 sm:-mx-6 px-4 sm:px-6 scrollbar-hide snap-x snap-mandatory">
+                  <div className="flex gap-4 pb-4" style={{ height: 'fit-content' }}>
+                    {Array.from({ length: Math.ceil(items.length / 3) }).map((_, groupIndex) => (
+                      <div
+                        key={groupIndex}
+                        className="flex-shrink-0 w-[calc(100vw-2rem)] snap-start flex flex-col gap-4"
+                      >
+                        {items.slice(groupIndex * 3, groupIndex * 3 + 3).map((item, itemIndex) => {
+                          const actualIndex = groupIndex * 3 + itemIndex;
+                          return (
+                            <div
+                              key={actualIndex}
+                              className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.2)]"
+                            >
+                              <div className="w-12 h-12 bg-gradient-to-br from-brand/20 to-accent/20 rounded-xl flex items-center justify-center mb-4 text-brand">
+                                <HiSparkles size={24} />
+                              </div>
+                              <h3 className="text-xl font-semibold text-text mb-3">{item.title}</h3>
+                              <p className="text-sm text-muted leading-6">{item.description}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Desktop: Grid layout */}
+                <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {items.map((item, index) => (
+                    <div
+                      key={index}
+                      className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.2)]"
+                    >
+                      <div className="w-12 h-12 bg-gradient-to-br from-brand/20 to-accent/20 rounded-xl flex items-center justify-center mb-4 text-brand">
+                        <HiSparkles size={24} />
+                      </div>
+                      <h3 className="text-xl font-semibold text-text mb-3">{item.title}</h3>
+                      <p className="text-sm text-muted leading-6">{item.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            );
+          })()}
+        </section>
+
+        {/* Services Section */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
           <div className="text-center mb-12">
             <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
               Наши услуги
             </h2>
+            <p className="text-base text-text/70 max-w-2xl mx-auto mb-8">
+              Подробное описание каждой услуги с ссылками на детальные страницы
+            </p>
           </div>
-          <ServicesSectionClient />
+          
+          {(() => {
+            const services = Object.values(t.raw('ourServices') as any)
+              .filter((cat: any) => cat.services)
+              .flatMap((cat: any) => cat.services);
+            
+            return (
+              <>
+                {/* Mobile: Grid with 3 rows, horizontal scroll by groups */}
+                <div className="md:hidden overflow-x-auto -mx-4 sm:-mx-6 px-4 sm:px-6 scrollbar-hide snap-x snap-mandatory">
+                  <div className="flex gap-4 pb-4" style={{ height: 'fit-content' }}>
+                    {Array.from({ length: Math.ceil(services.length / 3) }).map((_, groupIndex) => (
+                      <div
+                        key={groupIndex}
+                        className="flex-shrink-0 w-[calc(100vw-2rem)] snap-start flex flex-col gap-4"
+                      >
+                        {services.slice(groupIndex * 3, groupIndex * 3 + 3).map((service: any, itemIndex: number) => {
+                          const actualIndex = groupIndex * 3 + itemIndex;
+                          return (
+                            <div
+                              key={service.link || actualIndex}
+                              className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.2)]"
+                            >
+                              <div className="flex flex-col gap-4">
+                                <div className="flex-1">
+                                  <h3 className="text-xl font-semibold text-text mb-3">
+                                    {service.title}
+                                  </h3>
+                                  <p className="text-sm text-muted leading-6">
+                                    {service.description}
+                                  </p>
+                                </div>
+                                {service.link && (
+                                  <Link
+                                    href={service.link}
+                                    className="inline-flex items-center gap-2 text-sm text-brand hover:text-brand/80 transition-colors font-medium"
+                                  >
+                                    Подробнее
+                                    <HiArrowRight size={16} />
+                                  </Link>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Desktop: Grid layout with 2 columns */}
+                <div className="hidden md:grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                  {services.map((service: any, index: number) => (
+                    <div
+                      key={service.link || index}
+                      className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.2)]"
+                    >
+                      <div className="flex flex-col gap-4">
+                        <div className="flex-1">
+                          <h3 className="text-xl font-semibold text-text mb-3">
+                            {service.title}
+                          </h3>
+                          <p className="text-sm text-muted leading-6">
+                            {service.description}
+                          </p>
+                        </div>
+                        {service.link && (
+                          <Link
+                            href={service.link}
+                            className="inline-flex items-center gap-2 text-sm text-brand hover:text-brand/80 transition-colors font-medium"
+                          >
+                            Подробнее
+                            <HiArrowRight size={16} />
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            );
+          })()}
+          
+          <div className="text-center mt-12">
+            <Link
+              href={`/${locale}/services`}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-brand text-white rounded-xl hover:bg-brand/90 transition-colors font-medium"
+            >
+              {t('ourServices.viewAll')}
+              <HiArrowRight size={20} />
+            </Link>
+          </div>
         </section>
 
         {/* Process Section */}
@@ -537,8 +957,30 @@ export default async function Home() {
           </div>
         </section>
 
+        {/* Useful Materials Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+          <div className="text-center mb-12">
+            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
+              {t('usefulMaterials.title')}
+            </h2>
+            <p className="text-base text-text/70 max-w-2xl mx-auto">
+              {t('usefulMaterials.description')}
+            </p>
+          </div>
+          <UsefulMaterialsSection locale={locale} />
+        </section>
+
         {/* FAQ Section */}
         <FAQSection />
+
+        {/* Hidden SEO Block */}
+        <section style={{ display: 'none' }} aria-hidden="true">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <p className="text-base text-text/80 leading-relaxed">
+              {t('seoBlock.content')}
+            </p>
+          </div>
+        </section>
 
         {/* Final CTA Section */}
         <section id="contact" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">

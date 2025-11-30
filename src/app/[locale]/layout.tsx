@@ -8,6 +8,7 @@ import { Metadata, Viewport } from 'next';
 import { OrganizationSchema, WebsiteSchema } from '@/components/StructuredData';
 import Footer from '@/components/Footer';
 import { ContactFormProvider } from '@/contexts/ContactFormContext';
+import { LocaleHtml } from '@/components/LocaleHtml';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -122,18 +123,17 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body>
-        <OrganizationSchema locale={locale} />
-        <WebsiteSchema locale={locale} />
-        <NextIntlClientProvider messages={messages}>
-          <ContactFormProvider>
-            {children}
-            <Footer />
-          </ContactFormProvider>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <>
+      <LocaleHtml locale={locale} />
+      <OrganizationSchema locale={locale} />
+      <WebsiteSchema locale={locale} />
+      <NextIntlClientProvider messages={messages}>
+        <ContactFormProvider>
+          {children}
+          <Footer />
+        </ContactFormProvider>
+      </NextIntlClientProvider>
+    </>
   );
 }
 

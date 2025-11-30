@@ -159,3 +159,38 @@ export function WebsiteSchema({ locale }: { locale: string }) {
   return <StructuredData data={websiteData} />;
 }
 
+// Product Schema для главной страницы
+export function ProductSchema({ locale }: { locale: string }) {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
+  
+  const productData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Автоматизация расчётов, КП, себестоимости и производственных процессов",
+    "description": "Автоматизация расчётов, коммерческих предложений, себестоимости и спецификаций для производственных и инженерных компаний. Конфигураторы КП, интеграции с 1С/ERP/CRM, документооборот, AI-аналитика.",
+    "brand": {
+      "@type": "Organization",
+      "name": "H-Studio Business",
+      "url": baseUrl
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `${baseUrl}/${locale}`,
+      "priceCurrency": "RUB",
+      "availability": "https://schema.org/InStock",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "priceCurrency": "RUB"
+      }
+    },
+    "category": "Business Automation Service",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.97",
+      "reviewCount": "50"
+    }
+  };
+
+  return <StructuredData data={productData} />;
+}
+
