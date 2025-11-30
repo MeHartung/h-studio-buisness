@@ -17,6 +17,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...serviceSlugs.map(slug => `/services/${slug}`),
     '/legal-notice',
     '/blog',
+    '/clients',
+    '/enterprise-cases/vtb-bank',
+    '/enterprise-cases/sber',
+    '/enterprise-cases/societe-generale',
+    '/enterprise-cases/eventstripe',
   ];
 
   // Add blog posts
@@ -32,7 +37,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}/ru${route}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
-    priority: route === '' ? 1 : route === '/services' ? 0.9 : route === '/about' ? 0.9 : route === '/blog' ? 0.8 : 0.8,
+    priority: route === '' ? 1 
+      : route === '/services' ? 0.9 
+      : route === '/about' ? 0.9 
+      : route === '/clients' ? 0.9
+      : route.startsWith('/enterprise-cases/') ? 0.8
+      : route === '/blog' ? 0.8 
+      : 0.8,
   }));
 
   return [...staticRoutes, ...blogRoutes];
