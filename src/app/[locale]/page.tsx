@@ -328,15 +328,14 @@ export default async function Home({
                 
                 <h1 className="text-[36px] leading-[44px] sm:text-[48px] sm:leading-[56px] lg:text-[56px] lg:leading-[64px] font-semibold tracking-[-0.02em] text-text font-display !mt-10 sm:!mt-6 lg:!mt-0">
                   {tHero('title')}
-                  <span className="sr-only"> {tHero('titleSeo')}</span>
                 </h1>
                 
                 <p className="text-text/70 max-w-xl text-base leading-7 font-medium">
                   {tHero('description')}
                 </p>
                 
-                {/* Hidden SEO text for search engines */}
-                <p className="sr-only">
+                {/* Hidden SEO text for search engines - дополняет, но не дублирует H1 */}
+                <p className="sr-only" aria-hidden="true">
                   {tHero('seoHiddenText')}
                 </p>
                 
@@ -973,8 +972,8 @@ export default async function Home({
         {/* FAQ Section */}
         <FAQSection />
 
-        {/* Hidden SEO Block */}
-        <section style={{ display: 'none' }} aria-hidden="true">
+        {/* Hidden SEO Block - дополняет контент, но не дублирует его */}
+        <section className="sr-only" aria-hidden="true">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <p className="text-base text-text/80 leading-relaxed">
               {t('seoBlock.content')}
