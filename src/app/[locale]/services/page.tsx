@@ -1,12 +1,7 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
-import { useTranslations } from 'next-intl';
 import { 
   HiArrowRight, 
-  HiCog, 
-  HiSearch,
   HiLightBulb,
   HiDocumentText,
   HiPuzzle,
@@ -14,30 +9,20 @@ import {
   HiCheckCircle,
   HiTrendingUp,
   HiSparkles,
-  HiArrowUp,
-  HiChartBar,
   HiCalculator,
 } from 'react-icons/hi';
 import CookieBanner from '@/components/CookieBanner';
 import Header from '@/components/Header';
+import ScrollToTopButton from '@/components/home/ScrollToTopButton';
 import { getServiceSlugById } from '@/lib/services';
 
-export default function ServicesPage() {
-  const t = useTranslations('services');
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 300);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+export default async function ServicesPage({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations('services');
 
   const services = [
     {
@@ -84,6 +69,8 @@ export default function ServicesPage() {
 
   const forWhomItems = t.raw('forWhom.items') as string[];
   const whyUsItems = t.raw('whyUs.items') as string[];
+  const introParagraph = t('hero.introParagraph');
+  const seoParagraph = t('seoParagraph');
 
   return (
     <div className="min-h-screen bg-bg relative overflow-hidden">
@@ -113,9 +100,12 @@ export default function ServicesPage() {
           <Header />
           <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-28 lg:pt-24 lg:pb-36 relative z-10">
             <div className="max-w-4xl">
-              <h1 className="text-[32px] leading-[40px] sm:text-[40px] sm:leading-[48px] lg:text-[56px] lg:leading-[64px] font-semibold tracking-[-0.02em] text-text font-display">
+              <h1 className="text-[32px] leading-[40px] sm:text-[40px] sm:leading-[48px] lg:text-[56px] lg:leading-[64px] font-semibold tracking-[-0.02em] text-text font-display mb-6">
                 {t('hero.title')}
               </h1>
+              <p className="text-lg text-text/80 leading-relaxed max-w-3xl">
+                {introParagraph}
+              </p>
             </div>
           </div>
         </section>
@@ -131,6 +121,7 @@ export default function ServicesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service, index) => {
               const Icon = service.icon;
+              const serviceSlug = getServiceSlugById(String(index + 1));
               return (
                 <div
                   key={index}
@@ -145,14 +136,16 @@ export default function ServicesPage() {
                   <p className="text-sm text-muted leading-6 mb-4 flex-1">
                     {service.description}
                   </p>
-                  <Link
-                    href={`/services/${getServiceSlugById(String(index + 1)) || index + 1}`}
-                    className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded mt-auto"
-                    aria-label={t('readMore')}
-                  >
-                    {t('readMore')}
-                    <HiArrowRight size={12} />
-                  </Link>
+                  {serviceSlug && (
+                    <Link
+                      href={`/services/${serviceSlug}`}
+                      className="text-xs text-brand hover:text-brand/80 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand/60 rounded mt-auto"
+                      aria-label={t('readMore')}
+                    >
+                      {t('readMore')}
+                      <HiArrowRight size={12} />
+                    </Link>
+                  )}
                 </div>
               );
             })}
@@ -205,16 +198,30 @@ export default function ServicesPage() {
           </div>
         </section>
 
+        {/* SEO Paragraph Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
+          <div className="max-w-4xl mx-auto">
+            <p className="text-base text-text/70 leading-relaxed">
+              <Link 
+                href={`/${locale}`}
+                className="text-brand hover:text-brand/80 underline"
+              >
+                Автоматизация расчётов и КП для производственных компаний
+              </Link>
+              {' '}— наши решения включают автоматизацию расчётов себестоимости,{' '}
+              <Link 
+                href={`/${locale}/services/${getServiceSlugById('2') || 'konfiguratory-kommercheskih-predlozheniy'}`}
+                className="text-brand hover:text-brand/80 underline"
+              >
+                конфигураторы КП
+              </Link>
+              {', '}интеграцию с 1С, ERP и CRM, автоматизацию документооборота и согласований, AI-аналитику для производственных компаний. Мы помогаем производственным и инженерным компаниям ускорить процессы, исключить ошибки и повысить эффективность работы отделов.
+            </p>
+          </div>
+        </section>
+
         {/* Scroll to Top Button */}
-        {showScrollTop && (
-          <button
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-50 w-12 h-12 bg-brand text-white rounded-full shadow-lg hover:bg-brand/90 transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-brand/60"
-            aria-label="Scroll to top"
-          >
-            <HiArrowUp size={24} />
-          </button>
-        )}
+        <ScrollToTopButton />
 
         {/* Cookie Banner */}
         <CookieBanner />
@@ -222,4 +229,3 @@ export default function ServicesPage() {
     </div>
   );
 }
-

@@ -1,25 +1,22 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { useParams as useNextParams } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
-import { useTranslations } from 'next-intl';
 import { 
-  HiArrowRight, 
   HiCheckCircle,
-  HiPhone,
-  HiArrowUp,
   HiCalculator,
   HiArrowLeft
 } from 'react-icons/hi';
 import CookieBanner from '@/components/CookieBanner';
 import Header from '@/components/Header';
+import ScrollToTopButton from '@/components/home/ScrollToTopButton';
 import { getServiceIdBySlug } from '@/lib/services';
 import CTAButton from '@/components/CTAButton';
 
-export default function ServiceDetailPage() {
-  const params = useNextParams();
-  const slug = params.slug as string;
+export default async function ServiceDetailPage({
+  params
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
   const serviceId = getServiceIdBySlug(slug);
   
   if (!serviceId) {
@@ -35,21 +32,8 @@ export default function ServiceDetailPage() {
     );
   }
 
-  const t = useTranslations(`serviceDetail.service${serviceId}`);
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 300);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const t = await getTranslations(`serviceDetail.service${serviceId}`);
+  const tServices = await getTranslations('services');
 
   const problems = t.raw('problems') as string[];
   const howItWorks = t.raw('howItWorks') as string[];
@@ -90,6 +74,11 @@ export default function ServiceDetailPage() {
     }
   }
 
+  // SEO тексты
+  const introSeoParagraph = tServices('detailPage.introSeoParagraph');
+  const footerSeoParagraph = tServices('detailPage.footerSeoParagraph');
+  const backToServices = tServices('detailPage.backToServices');
+
   return (
     <div className="min-h-screen bg-bg relative overflow-hidden">
       <div className="relative z-10">
@@ -119,15 +108,19 @@ export default function ServiceDetailPage() {
           <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-28 lg:pt-24 lg:pb-36 relative z-10">
             <div className="max-w-4xl">
               <Link
-                href="/services"
+                href={`/${locale}/services`}
                 className="inline-flex items-center gap-2 text-text/70 hover:text-text transition-colors mb-6"
               >
                 <HiArrowLeft size={20} />
-                <span>Назад к услугам</span>
+                <span>{backToServices}</span>
               </Link>
-              <h1 className="text-[56px] leading-[64px] font-semibold tracking-[-0.02em] text-text font-display mb-4">
+              <h1 className="text-[56px] leading-[64px] font-semibold tracking-[-0.02em] text-text font-display mb-6">
                 {t('title')}
               </h1>
+              {/* Вводный SEO-абзац (общий для всех услуг) */}
+              <p className="text-lg text-text/80 leading-relaxed mb-6 max-w-3xl">
+                {introSeoParagraph}
+              </p>
               <p className="text-xl text-text/80 leading-7 mb-6">
                 {t('subtitle')}
               </p>
@@ -335,16 +328,30 @@ export default function ServiceDetailPage() {
           </div>
         </section>
 
+        {/* SEO Paragraph Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
+          <div className="max-w-4xl mx-auto">
+            <p className="text-base text-text/70 leading-relaxed">
+              <Link 
+                href={`/${locale}`}
+                className="text-brand hover:text-brand/80 underline"
+              >
+                H-Studio
+              </Link>
+              {' '}разрабатывает системы автоматизации расчётов, себестоимости, коммерческих предложений, спецификаций, документооборота, интеграций с 1С/ERP/CRM и AI-аналитики. Помогаем производственным и инженерным компаниям ускорять расчёты, исключать ошибки и масштабировать процессы.{' '}
+              <Link 
+                href={`/${locale}/services`}
+                className="text-brand hover:text-brand/80 underline"
+              >
+                Все услуги по автоматизации
+              </Link>
+              {' '}доступны для производственных и инженерных компаний.
+            </p>
+          </div>
+        </section>
+
         {/* Scroll to Top Button */}
-        {showScrollTop && (
-          <button
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-50 w-12 h-12 bg-brand text-white rounded-full shadow-lg hover:bg-brand/90 transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-brand/60"
-            aria-label="Scroll to top"
-          >
-            <HiArrowUp size={24} />
-          </button>
-        )}
+        <ScrollToTopButton />
 
         {/* Cookie Banner */}
         <CookieBanner />
@@ -352,4 +359,3 @@ export default function ServiceDetailPage() {
     </div>
   );
 }
-

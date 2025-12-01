@@ -24,8 +24,8 @@ export async function generateMetadata({
   
   if (!serviceId) {
     return {
-      title: 'Услуга | H-Studio Business',
-      description: 'Описание услуги',
+      title: 'Услуга | Автоматизация расчётов и КП | H-Studio',
+      description: 'Автоматизация расчётов, КП, спецификаций, документооборота, интеграции с 1С/ERP/CRM.',
     };
   }
 
@@ -36,19 +36,24 @@ export async function generateMetadata({
   
   if (!service) {
     return {
-      title: 'Услуга | H-Studio Business',
-      description: 'Описание услуги',
+      title: 'Услуга | Автоматизация расчётов и КП | H-Studio',
+      description: 'Автоматизация расчётов, КП, спецификаций, документооборота, интеграции с 1С/ERP/CRM.',
     };
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
   const currentUrl = `${baseUrl}/${locale}/services/${slug}`;
   const ogImage = `${baseUrl}/1.png`;
-  const serviceDescription = service.subtitle || service.intro || 'Автоматизация процессов для производственных компаний';
+  
+  // Fallback значения для метаданных
+  const serviceTitle = service.title || 'Услуга';
+  const serviceDescription = service.subtitle || service.intro || 'Автоматизация расчётов, КП, спецификаций, документооборота, интеграции с 1С/ERP/CRM.';
+  const metaTitle = `${serviceTitle} | Автоматизация расчётов и КП | H-Studio`;
+  const metaDescription = serviceDescription || 'Автоматизация расчётов, КП, спецификаций, документооборота, интеграции с 1С/ERP/CRM.';
 
   return {
-    title: `${service.title} | H-Studio Business`,
-    description: serviceDescription,
+    title: metaTitle,
+    description: metaDescription,
     metadataBase: new URL(baseUrl),
     icons: {
       icon: '/favicon.svg',
@@ -72,8 +77,8 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: `${service.title} | H-Studio Business`,
-      description: serviceDescription,
+      title: metaTitle,
+      description: metaDescription,
       url: currentUrl,
       siteName: "H-Studio Business",
       locale: 'ru_RU',
@@ -89,8 +94,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${service.title} | H-Studio Business`,
-      description: serviceDescription,
+      title: metaTitle,
+      description: metaDescription,
       images: [ogImage],
     },
   };
