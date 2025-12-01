@@ -9,7 +9,8 @@
     "lint": "next lint",
     "blog:generate": "node scripts/generate-blog-post.js",
     "blog:generate:ai": "node scripts/generate-blog-post.js --ai",
-    "blog:search-topics": "node scripts/topic-search.js"
+    "blog:search-topics": "node scripts/topic-search.js",
+    "blog:auto-generate": "node scripts/auto-generate-from-topics.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

@@ -1,0 +1,81 @@
+name: Auto Generate Blog Posts
+
+on:
+  schedule:
+    # Run every Monday at 9:00 AM UTC (12:00 PM Moscow time)
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      generate_count:
+        description: 'Number of blog posts to generate (default: 1)'
+        required: false
+        type: number
+        default: 1
+
+jobs:
+  search-and-generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Search topics
+        id: search_topics
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "❌ Error: OPENAI_API_KEY is not set in GitHub Secrets"
+            echo "Please add OPENAI_API_KEY to Settings → Secrets and variables → Actions"
+            exit 1
+          fi
+          
+          echo "🔍 Searching for blog topics..."
+          npm run blog:search-topics -- --query "автоматизация расчётов и КП для производственных компаний" --count 5
+          
+          # Check if topics were found
+          if [ -f "topics-search-results.json" ]; then
+            echo "✅ Topics found and saved to topics-search-results.json"
+          else
+            echo "⚠️  No topics file created"
+            exit 1
+          fi
+
+      - name: Generate blog posts
+        id: generate_posts
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ ! -f "topics-search-results.json" ]; then
+            echo "❌ Error: topics-search-results.json not found"
+            exit 1
+          fi
+          
+          GENERATE_COUNT="${{ github.event.inputs.generate_count || 1 }}"
+          echo "📝 Generating $GENERATE_COUNT blog post(s) from topics..."
+          node scripts/auto-generate-from-topics.js --count "$GENERATE_COUNT"
+
+      - name: Commit and push
+        if: success()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Check if there are new blog posts
+          if git diff --quiet --exit-code content/blog/*.md 2>/dev/null; then
+            echo "ℹ️  No new blog posts to commit"
+          else
+            git add content/blog/*.md
+            git commit -m "Auto-generate blog posts [skip ci]" || exit 0
+            git push || echo "⚠️  Push failed (might be due to no changes or permissions)"
+          fi
+
