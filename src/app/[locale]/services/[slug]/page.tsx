@@ -95,14 +95,26 @@ export default async function ServiceDetailPage({
   for (let i = 1; i <= 6; i++) {
     const solutionKey = `solution${i}`;
     try {
-      const title = t(`${solutionKey}.title`);
-      const items = t.raw(`${solutionKey}.items`) as string[];
-      if (title && items) {
+      // Сначала проверяем существование ключа через raw
+      const solutionData = t.raw(solutionKey);
+      if (!solutionData || typeof solutionData !== 'object') {
+        // Если решения нет, прекращаем цикл
+        break;
+      }
+      
+      const title = solutionData.title;
+      const itemsData = solutionData.items;
+      const items = Array.isArray(itemsData) ? itemsData : [];
+      
+      if (title && items.length > 0) {
         solutions.push({
           title,
           description: getDescription(solutionKey),
           items
         });
+      } else {
+        // Если нет title или items, прекращаем цикл
+        break;
       }
     } catch {
       // Если решения нет, прекращаем цикл
