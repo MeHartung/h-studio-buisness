@@ -3,6 +3,8 @@ name: Auto Generate Blog Posts
 on:
   schedule:
     # Run every Monday at 9:00 AM UTC (12:00 PM Moscow time)
+    # Note: GitHub Actions scheduled workflows only run on the default branch (main/master)
+    # and require the repository to have activity in the last 60 days
     - cron: '0 9 * * 1'
   workflow_dispatch:
     inputs:

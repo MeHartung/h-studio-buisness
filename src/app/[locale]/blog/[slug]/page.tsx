@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
 import { getPostBySlug, getAllPosts } from '@/lib/blog';
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Metadata } from 'next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -98,11 +98,11 @@ export default async function BlogPostPage({
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         {/* Breadcrumb */}
         <nav className="mb-8 text-sm text-muted">
-          <Link href={`/${locale}`} className="hover:text-brand transition-colors">
+          <Link href="/" className="hover:text-brand transition-colors">
             Главная
           </Link>
           <span className="mx-2">/</span>
-          <Link href={`/${locale}/blog`} className="hover:text-brand transition-colors">
+          <Link href="/blog" className="hover:text-brand transition-colors">
             Блог
           </Link>
           <span className="mx-2">/</span>
@@ -195,7 +195,7 @@ export default async function BlogPostPage({
         {/* Back to Blog */}
         <div className="mt-12 pt-8 border-t border-white/10">
           <Link
-            href={`/${locale}/blog`}
+            href="/blog"
             className="inline-flex items-center gap-2 text-brand hover:underline"
           >
             ← {t('backToBlog')}

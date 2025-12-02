@@ -203,14 +203,14 @@ export default async function ServicesPage({
           <div className="max-w-4xl mx-auto">
             <p className="text-base text-text/70 leading-relaxed">
               <Link 
-                href={`/${locale}`}
+                href="/"
                 className="text-brand hover:text-brand/80 underline"
               >
                 Автоматизация расчётов и КП для производственных компаний
               </Link>
               {' '}— наши решения включают автоматизацию расчётов себестоимости,{' '}
               <Link 
-                href={`/${locale}/services/${getServiceSlugById('2') || 'konfiguratory-kommercheskih-predlozheniy'}`}
+                href={`/services/${getServiceSlugById('2') || 'konfiguratory-kommercheskih-predlozheniy'}`}
                 className="text-brand hover:text-brand/80 underline"
               >
                 конфигураторы КП

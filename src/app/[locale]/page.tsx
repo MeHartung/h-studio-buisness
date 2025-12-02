@@ -187,7 +187,7 @@ async function UsefulMaterialsSection({ locale }: { locale: string }) {
                 return (
                   <Link
                     key={post.slug || actualIndex}
-                    href={`/${locale}/blog/${post.slug}`}
+                    href={`/blog/${post.slug}`}
                     className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all group"
                   >
                     <h3 className="text-lg font-semibold text-text mb-2 group-hover:text-brand transition-colors">
@@ -215,7 +215,7 @@ async function UsefulMaterialsSection({ locale }: { locale: string }) {
         {randomPosts.map((post) => (
           <Link
             key={post.slug}
-            href={`/${locale}/blog/${post.slug}`}
+            href={`/blog/${post.slug}`}
             className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all group"
           >
             <h3 className="text-lg font-semibold text-text mb-2 group-hover:text-brand transition-colors">
@@ -885,7 +885,7 @@ export default async function Home({
           
           <div className="text-center mt-12">
             <Link
-              href={`/${locale}/services`}
+              href="/services"
               className="inline-flex items-center gap-2 px-6 py-3 bg-brand text-white rounded-xl hover:bg-brand/90 transition-colors font-medium"
             >
               {t('ourServices.viewAll')}

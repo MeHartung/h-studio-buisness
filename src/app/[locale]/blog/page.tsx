@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
 import { getAllPosts, getAllCategories, getAllTags } from '@/lib/blog';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Metadata } from 'next';
 import { BlogSearchClient } from '@/components/blog/BlogSearchClient';
 import { formatDate } from '@/lib/date-utils';
@@ -116,7 +116,7 @@ export default async function BlogPage({
             {filteredPosts.map((post, index) => (
               <Link
                 key={post.slug}
-                href={`/${locale}/blog/${post.slug}`}
+                href={`/blog/${post.slug}`}
                 className="group bg-card border border-white/10 rounded-2xl overflow-hidden hover:border-brand/50 transition-all duration-300 hover:shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)]"
               >
                 <BlogCover 

@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
+import { notFound } from 'next/navigation';
 import { 
   HiCheckCircle,
   HiCalculator,
@@ -32,13 +33,48 @@ export default async function ServiceDetailPage({
     );
   }
 
-  const t = await getTranslations(`serviceDetail.service${serviceId}`);
-  const tServices = await getTranslations('services');
+  let t, tServices;
+  try {
+    t = await getTranslations(`serviceDetail.service${serviceId}`);
+    tServices = await getTranslations('services');
+  } catch (error) {
+    // If translation data is missing, return 404
+    notFound();
+  }
 
-  const problems = t.raw('problems') as string[];
-  const howItWorks = t.raw('howItWorks') as string[];
-  const results = t.raw('results') as string[];
-  const whyUs = t.raw('whyUs') as string[];
+  // Safely get arrays with fallback to empty arrays
+  let problems: string[] = [];
+  let howItWorks: string[] = [];
+  let results: string[] = [];
+  let whyUs: string[] = [];
+
+  try {
+    const problemsData = t.raw('problems');
+    problems = Array.isArray(problemsData) ? problemsData : [];
+  } catch {
+    problems = [];
+  }
+
+  try {
+    const howItWorksData = t.raw('howItWorks');
+    howItWorks = Array.isArray(howItWorksData) ? howItWorksData : [];
+  } catch {
+    howItWorks = [];
+  }
+
+  try {
+    const resultsData = t.raw('results');
+    results = Array.isArray(resultsData) ? resultsData : [];
+  } catch {
+    results = [];
+  }
+
+  try {
+    const whyUsData = t.raw('whyUs');
+    whyUs = Array.isArray(whyUsData) ? whyUsData : [];
+  } catch {
+    whyUs = [];
+  }
 
   // Безопасная функция для получения описания, если оно есть
   const getDescription = (solutionKey: string): string => {
@@ -108,7 +144,7 @@ export default async function ServiceDetailPage({
           <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-28 lg:pt-24 lg:pb-36 relative z-10">
             <div className="max-w-4xl">
               <Link
-                href={`/${locale}/services`}
+                href="/services"
                 className="inline-flex items-center gap-2 text-text/70 hover:text-text transition-colors mb-6"
               >
                 <HiArrowLeft size={20} />
@@ -333,14 +369,14 @@ export default async function ServiceDetailPage({
           <div className="max-w-4xl mx-auto">
             <p className="text-base text-text/70 leading-relaxed">
               <Link 
-                href={`/${locale}`}
+                href="/"
                 className="text-brand hover:text-brand/80 underline"
               >
                 H-Studio
               </Link>
               {' '}разрабатывает системы автоматизации расчётов, себестоимости, коммерческих предложений, спецификаций, документооборота, интеграций с 1С/ERP/CRM и AI-аналитики. Помогаем производственным и инженерным компаниям ускорять расчёты, исключать ошибки и масштабировать процессы.{' '}
               <Link 
-                href={`/${locale}/services`}
+                href="/services"
                 className="text-brand hover:text-brand/80 underline"
               >
                 Все услуги по автоматизации

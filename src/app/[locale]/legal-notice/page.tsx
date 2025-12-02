@@ -53,8 +53,6 @@ export async function generateMetadata({
       canonical: currentUrl,
       languages: {
         ru: `${baseUrl}/ru/legal-notice`,
-        en: `${baseUrl}/en/legal-notice`,
-        de: `${baseUrl}/de/legal-notice`,
       }
     },
     openGraph: {
