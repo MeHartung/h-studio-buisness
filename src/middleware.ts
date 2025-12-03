@@ -9,6 +9,16 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 дней
 export async function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const isGooglebot = request.headers.get('user-agent')?.toLowerCase().includes('googlebot');
+  
+  // ✅ Определяем правильный протокол (HTTPS) для редиректов
+  // Проверяем заголовки прокси и исходный протокол
+  const forwardedProto = request.headers.get('x-forwarded-proto');
+  const isHttps = forwardedProto === 'https' || 
+                  request.nextUrl.protocol === 'https:' ||
+                  request.headers.get('x-forwarded-ssl') === 'on';
+  // В production всегда используем HTTPS для редиректов
+  const protocol = (isHttps || process.env.NODE_ENV === 'production') ? 'https' : 'http';
+  const host = request.headers.get('host') || request.nextUrl.host;
 
   // ✅ Исключения для служебных и статических файлов
   if (
@@ -88,7 +98,8 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
-    const redirectUrl = new URL(`/${targetLocale}${pathname}${search}`, request.url);
+    // ✅ Создаем URL с явным указанием HTTPS протокола
+    const redirectUrl = new URL(`/${targetLocale}${pathname}${search}`, `${protocol}://${host}`);
     
     // ✅ SEO оптимизация: используем правильные статус коды
     let statusCode = 307; // Temporary redirect по умолчанию
@@ -112,12 +123,14 @@ export async function middleware(request: NextRequest) {
   }
 
   // ✅ Для Googlebot всегда используем русский язык с 301 редиректом
+  // ✅ Важно: используем HTTPS протокол для редиректов
   if (pathname === '/') {
-    return NextResponse.redirect(new URL('/ru', request.url), 301);
+    const redirectUrl = new URL('/ru', `${protocol}://${host}`);
+    return NextResponse.redirect(redirectUrl, 301);
   }
   
   // Для остальных путей Googlebot перенаправляем на русскую версию
-  const redirectUrl = new URL(`/ru${pathname}${search}`, request.url);
+  const redirectUrl = new URL(`/ru${pathname}${search}`, `${protocol}://${host}`);
   return NextResponse.redirect(redirectUrl, 301);
 }
 
