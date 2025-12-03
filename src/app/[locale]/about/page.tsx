@@ -6,7 +6,7 @@ import OurApproach from "@/components/About/OurApproach";
 import WhatMakesUsDifferent from "@/components/About/WhatMakesUsDifferent";
 import ServicesSectionClient from '@/components/home/ServicesSectionClient';
 import { AboutPageSchema } from '@/components/About/AboutPageSchema';
-import { BreadcrumbSchema } from '@/components/StructuredData';
+import { BreadcrumbSchema, WebPageSchema } from '@/components/StructuredData';
 import { Metadata } from "next";
 import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
@@ -118,9 +118,21 @@ export default async function AboutPage({
     },
   ];
 
+  const pageUrl = `/${locale}/about`;
+  const breadcrumbItems = [
+    { name: 'Главная', url: `/${locale}` },
+    { name: 'О нас', url: pageUrl },
+  ];
+
   return (
     <div className="min-h-screen bg-bg relative overflow-hidden">
       {/* Structured Data */}
+      <WebPageSchema 
+        pageUrl={pageUrl}
+        title={t('pageTitle')}
+        description={t('seoDescription')}
+        locale={locale}
+      />
       <AboutPageSchema
         baseUrl={baseUrl}
         currentUrl={currentUrl}
@@ -129,10 +141,8 @@ export default async function AboutPage({
         teamMembers={teamMembers}
       />
       <BreadcrumbSchema
-        items={[
-          { name: 'Главная', url: `${baseUrl}/${locale}` },
-          { name: 'О нас', url: currentUrl },
-        ]}
+        items={breadcrumbItems}
+        pageUrl={pageUrl}
       />
       
       <main className="relative z-10">

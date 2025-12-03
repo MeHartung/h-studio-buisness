@@ -10,6 +10,7 @@ import { BlogPostSchema } from '@/components/blog/BlogPostSchema';
 import { formatDate, formatDateISO } from '@/lib/date-utils';
 import { BlogCover } from '@/components/blog/BlogCover';
 import Header from '@/components/Header';
+import { WebPageSchema, BreadcrumbSchema } from '@/components/StructuredData';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -91,9 +92,26 @@ export default async function BlogPostPage({
   const postIndex = allPosts.findIndex(p => p.slug === slug);
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
+  const currentUrl = `/${locale}/blog/${slug}`;
+
+  const breadcrumbItems = [
+    { name: 'Главная', url: `/${locale}` },
+    { name: 'Блог', url: `/${locale}/blog` },
+    { name: post.title, url: currentUrl }
+  ];
 
   return (
     <div className="min-h-screen bg-background">
+      <WebPageSchema 
+        pageUrl={currentUrl}
+        title={post.title}
+        description={post.excerpt}
+        locale={locale}
+      />
+      <BreadcrumbSchema 
+        items={breadcrumbItems}
+        pageUrl={currentUrl}
+      />
       <Header />
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         {/* Breadcrumb */}

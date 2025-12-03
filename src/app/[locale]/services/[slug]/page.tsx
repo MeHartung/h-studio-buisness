@@ -9,8 +9,15 @@ import {
 import CookieBanner from '@/components/CookieBanner';
 import Header from '@/components/Header';
 import ScrollToTopButton from '@/components/home/ScrollToTopButton';
-import { getServiceIdBySlug } from '@/lib/services';
+import { getServiceIdBySlug, serviceSlugToId } from '@/lib/services';
 import CTAButton from '@/components/CTAButton';
+
+export async function generateStaticParams() {
+  const slugs = Object.keys(serviceSlugToId);
+  return slugs.map((slug) => ({
+    slug,
+  }));
+}
 
 export default async function ServiceDetailPage({
   params
@@ -199,7 +206,7 @@ export default async function ServiceDetailPage({
               ))}
             </ul>
             <p className="mt-6 text-base text-text/70 font-medium">
-              Автоматизация убирает эти риски полностью.
+              {tServices('detailPage.problemsNote')}
             </p>
           </div>
         </section>
@@ -384,14 +391,15 @@ export default async function ServiceDetailPage({
                 href="/"
                 className="text-brand hover:text-brand/80 underline"
               >
-                H-Studio
+                {tServices('detailPage.companyName')}
               </Link>
-              {' '}разрабатывает системы автоматизации расчётов, себестоимости, коммерческих предложений, спецификаций, документооборота, интеграций с 1С/ERP/CRM и AI-аналитики. Помогаем производственным и инженерным компаниям ускорять расчёты, исключать ошибки и масштабировать процессы.{' '}
+              {' '}
+              {tServices('detailPage.footerSeoParagraph')}{' '}
               <Link 
                 href="/services"
                 className="text-brand hover:text-brand/80 underline"
               >
-                Все услуги по автоматизации
+                {tServices('detailPage.allServicesLink')}
               </Link>
               {' '}доступны для производственных и инженерных компаний.
             </p>

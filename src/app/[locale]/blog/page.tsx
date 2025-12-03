@@ -7,6 +7,7 @@ import { BlogSearchClient } from '@/components/blog/BlogSearchClient';
 import { formatDate } from '@/lib/date-utils';
 import { BlogCover } from '@/components/blog/BlogCover';
 import Header from '@/components/Header';
+import { WebPageSchema, BreadcrumbSchema } from '@/components/StructuredData';
 
 export async function generateMetadata({
   params
@@ -87,8 +88,26 @@ export default async function BlogPage({
     );
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
+  const currentUrl = `/${locale}/blog`;
+
+  const breadcrumbItems = [
+    { name: 'Главная', url: `/${locale}` },
+    { name: 'Блог', url: currentUrl }
+  ];
+
   return (
     <div className="min-h-screen bg-background">
+      <WebPageSchema 
+        pageUrl={currentUrl}
+        title={t('title')}
+        description={t('description')}
+        locale={locale}
+      />
+      <BreadcrumbSchema 
+        items={breadcrumbItems}
+        pageUrl={currentUrl}
+      />
       <Header />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         {/* Header */}

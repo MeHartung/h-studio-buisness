@@ -15,6 +15,7 @@ import CookieBanner from '@/components/CookieBanner';
 import Header from '@/components/Header';
 import ScrollToTopButton from '@/components/home/ScrollToTopButton';
 import { getServiceSlugById } from '@/lib/services';
+import { ItemListSchema, BreadcrumbSchema } from '@/components/StructuredData';
 
 export default async function ServicesPage({
   params
@@ -72,8 +73,35 @@ export default async function ServicesPage({
   const introParagraph = t('hero.introParagraph');
   const seoParagraph = t('seoParagraph');
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
+  const currentUrl = `/${locale}/services`;
+
+  // Подготовка данных для ItemListSchema
+  const serviceItems = services.map((service, index) => {
+    const serviceSlug = getServiceSlugById(String(index + 1));
+    return {
+      name: service.title,
+      description: service.description,
+      url: serviceSlug ? `/${locale}/services/${serviceSlug}` : ''
+    };
+  }).filter(item => item.url);
+
+  const breadcrumbItems = [
+    { name: 'Главная', url: `/${locale}` },
+    { name: 'Услуги', url: `/${locale}/services` }
+  ];
+
   return (
     <div className="min-h-screen bg-bg relative overflow-hidden">
+      <ItemListSchema 
+        listUrl={currentUrl}
+        items={serviceItems}
+        listName={t('servicesList.title')}
+      />
+      <BreadcrumbSchema 
+        items={breadcrumbItems}
+        pageUrl={currentUrl}
+      />
       <div className="relative z-10">
         {/* Hero Section */}
         <section className="relative overflow-hidden">
@@ -202,20 +230,7 @@ export default async function ServicesPage({
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
           <div className="max-w-4xl mx-auto">
             <p className="text-base text-text/70 leading-relaxed">
-              <Link 
-                href="/"
-                className="text-brand hover:text-brand/80 underline"
-              >
-                Автоматизация расчётов и КП для производственных компаний
-              </Link>
-              {' '}— наши решения включают автоматизацию расчётов себестоимости,{' '}
-              <Link 
-                href={`/services/${getServiceSlugById('2') || 'konfiguratory-kommercheskih-predlozheniy'}`}
-                className="text-brand hover:text-brand/80 underline"
-              >
-                конфигураторы КП
-              </Link>
-              {', '}интеграцию с 1С, ERP и CRM, автоматизацию документооборота и согласований, AI-аналитику для производственных компаний. Мы помогаем производственным и инженерным компаниям ускорить процессы, исключить ошибки и повысить эффективность работы отделов.
+              {seoParagraph}
             </p>
           </div>
         </section>

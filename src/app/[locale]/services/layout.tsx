@@ -1,6 +1,6 @@
 import { Metadata, Viewport } from 'next';
 import { ReactNode } from 'react';
-import { ServiceSchema } from '@/components/StructuredData';
+import { ServiceSchema, WebPageSchema } from '@/components/StructuredData';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -91,6 +91,12 @@ export default async function ServicesLayout({
 
   return (
     <>
+      <WebPageSchema 
+        pageUrl={`/${locale}/services`}
+        title={metadata.title}
+        description={metadata.description}
+        locale={locale}
+      />
       <ServiceSchema 
         serviceName={metadata.title}
         description={metadata.description}

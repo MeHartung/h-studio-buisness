@@ -1,6 +1,6 @@
 import { Metadata, Viewport } from 'next';
 import { ReactNode } from 'react';
-import { ServiceSchema, BreadcrumbSchema } from '@/components/StructuredData';
+import { ServiceSchema, BreadcrumbSchema, WebPageSchema, FAQPageSchema } from '@/components/StructuredData';
 import { getServiceIdBySlug, getServiceSlugById } from '@/lib/services';
 
 export const viewport: Viewport = {
@@ -126,21 +126,50 @@ export default async function ServiceDetailLayout({
   }
 
   const serviceUrl = `${baseUrl}/${locale}/services/${slug}`;
+  const pageUrl = `/${locale}/services/${slug}`;
   const breadcrumbItems = [
-    { name: 'Главная', url: `/${locale}` },
-    { name: 'Услуги', url: `/${locale}/services` },
-    { name: service.title, url: `/${locale}/services/${slug}` },
+    { name: messages.navigation?.home || 'Главная', url: `/${locale}` },
+    { name: messages.navigation?.services || 'Услуги', url: `/${locale}/services` },
+    { name: service.title, url: pageUrl },
   ];
+
+  // Подготовка FAQ вопросов из локализации (если есть)
+  const faqQuestions: Array<{ question: string; answer: string }> = [];
+  try {
+    // Пытаемся получить FAQ из локализации сервиса
+    const faqData = (service as any).faq;
+    if (Array.isArray(faqData)) {
+      faqQuestions.push(...faqData);
+    }
+  } catch {
+    // FAQ нет в локализации
+  }
 
   return (
     <>
+      <WebPageSchema 
+        pageUrl={pageUrl}
+        title={service.title}
+        description={service.subtitle || service.intro || ''}
+        locale={locale}
+      />
       <ServiceSchema 
         serviceName={service.title}
         description={service.subtitle || service.intro || ''}
         serviceUrl={serviceUrl}
         category="Автоматизация бизнес-процессов"
+        serviceId="true"
       />
-      <BreadcrumbSchema items={breadcrumbItems} />
+      {faqQuestions.length > 0 && (
+        <FAQPageSchema 
+          faqUrl={pageUrl}
+          questions={faqQuestions}
+        />
+      )}
+      <BreadcrumbSchema 
+        items={breadcrumbItems}
+        pageUrl={pageUrl}
+      />
       {children}
     </>
   );

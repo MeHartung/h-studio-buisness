@@ -22,9 +22,19 @@ export function AboutPageSchema({
   const aboutPageSchema = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
+    "@id": currentUrl,
     "name": title,
     "description": description,
     "url": currentUrl,
+    "isPartOf": {
+      "@id": `${baseUrl}#website`
+    },
+    "about": {
+      "@id": `${baseUrl}#organization`
+    },
+    "publisher": {
+      "@id": `${baseUrl}#organization`
+    },
     "mainEntity": {
       "@type": "Organization",
       "@id": `${baseUrl}#organization`,
@@ -80,34 +90,17 @@ export function AboutPageSchema({
         "Интеграции с 1С/ERP/CRM",
         "AI-аналитика"
       ],
-      "member": teamMembers.map(member => ({
+        "member": teamMembers.map((member, index) => ({
         "@type": "Person",
+        "@id": `${currentUrl}#person-${member.name.toLowerCase().replace(/\s+/g, '-')}`,
         "name": member.name,
         "jobTitle": member.position,
         "description": member.description,
         "worksFor": {
-          "@type": "Organization",
-          "name": "H-Studio Business"
+          "@id": `${baseUrl}#organization`
         }
       }))
     },
-    "breadcrumb": {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Главная",
-          "item": baseUrl
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "О нас",
-          "item": currentUrl
-        }
-      ]
-    }
   };
 
   return (

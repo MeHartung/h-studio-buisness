@@ -14,6 +14,7 @@ export function BlogPostSchema({ post, baseUrl }: BlogPostSchemaProps) {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    "@id": `${postUrl}#article`,
     "headline": post.title,
     "description": post.excerpt,
     "image": imageUrl,
@@ -25,17 +26,14 @@ export function BlogPostSchema({ post, baseUrl }: BlogPostSchemaProps) {
       "url": baseUrl,
     },
     "publisher": {
-      "@type": "Organization",
-      "name": "H-Studio Business",
-      "url": baseUrl,
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${baseUrl}/logo-white.svg`,
-      },
+      "@id": `${baseUrl}#organization`
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": postUrl,
+    },
+    "isPartOf": {
+      "@id": `${baseUrl}#website`
     },
     "articleSection": post.category,
     "keywords": post.tags.join(", "),

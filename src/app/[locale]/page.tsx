@@ -25,7 +25,7 @@ import FAQSection from '@/components/home/FAQSection';
 import Header from '@/components/Header';
 import CTAButton from '@/components/CTAButton';
 import CTALink from '@/components/CTALink';
-import { ProductSchema } from '@/components/StructuredData';
+import { ProductSchema, WebPageSchema } from '@/components/StructuredData';
 import { getAllPosts } from '@/lib/blog';
 
 // Server Component для LinkedIn Section
@@ -292,9 +292,18 @@ export default async function Home({
   const t = await getTranslations();
   const tHero = await getTranslations('hero');
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
+  const currentUrl = `/${locale}`;
+
   return (
     <div className="min-h-screen bg-bg relative overflow-hidden">
       <ProductSchema locale={locale} />
+      <WebPageSchema 
+        pageUrl={currentUrl}
+        title={tHero('title')}
+        description={tHero('description')}
+        locale={locale}
+      />
       <main className="relative z-10">
         {/* Hero Section */}
         <section className="relative overflow-hidden">
@@ -334,8 +343,8 @@ export default async function Home({
                   {tHero('description')}
                 </p>
                 
-                {/* Hidden SEO text for search engines - дополняет, но не дублирует H1 */}
-                <p className="sr-only" aria-hidden="true">
+                {/* SEO text for search engines - дополняет, но не дублирует H1 */}
+                <p className="sr-only">
                   {tHero('seoHiddenText')}
                 </p>
                 
@@ -972,8 +981,8 @@ export default async function Home({
         {/* FAQ Section */}
         <FAQSection />
 
-        {/* Hidden SEO Block - дополняет контент, но не дублирует его */}
-        <section className="sr-only" aria-hidden="true">
+        {/* SEO Block - дополняет контент, но не дублирует его */}
+        <section className="sr-only">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <p className="text-base text-text/80 leading-relaxed">
               {t('seoBlock.content')}

@@ -21,9 +21,13 @@ export function OrganizationSchema({ locale }: { locale: string }) {
   const organizationData = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${baseUrl}#organization`,
     "name": "H-Studio Business",
     "url": baseUrl,
-    "logo": `${baseUrl}/logo-white.svg`,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${baseUrl}/logo-white.svg`,
+    },
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+7-982-666-66-80",
@@ -51,7 +55,8 @@ export function ServiceSchema({
   description, 
   serviceUrl,
   category,
-  offers
+  offers,
+  serviceId
 }: { 
   serviceName: string; 
   description: string; 
@@ -62,26 +67,19 @@ export function ServiceSchema({
     priceCurrency?: string;
     availability?: string;
   };
+  serviceId?: string;
 }) {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
+  const id = serviceId ? `${serviceUrl}#service` : undefined;
   
   const serviceData: any = {
     "@context": "https://schema.org",
     "@type": "Service",
+    ...(id && { "@id": id }),
     "name": serviceName,
     "description": description,
     "provider": {
-      "@type": "Organization",
-      "name": "H-Studio Business",
-      "url": baseUrl,
-      "logo": `${baseUrl}/logo-white.svg`,
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+7-982-666-66-80",
-        "contactType": "customer service",
-        "email": "hello@h-studio.io",
-        "availableLanguage": ["Russian"]
-      }
+      "@id": `${baseUrl}#organization`
     },
     "areaServed": {
       "@type": "Country",
@@ -89,17 +87,6 @@ export function ServiceSchema({
     },
     "url": serviceUrl,
     "serviceType": category || "Business Automation Service",
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": serviceName,
-      "itemListElement": {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": serviceName
-        }
-      }
-    }
   };
 
   if (offers) {
@@ -117,13 +104,15 @@ export function ServiceSchema({
 
 // BreadcrumbList Schema
 export function BreadcrumbSchema({ 
-  items 
+  items,
+  pageUrl
 }: { 
   items: Array<{ name: string; url: string }>;
+  pageUrl?: string;
 }) {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
   
-  const breadcrumbData = {
+  const breadcrumbData: any = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": items.map((item, index) => ({
@@ -133,6 +122,13 @@ export function BreadcrumbSchema({
       "item": item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`
     }))
   };
+
+  if (pageUrl) {
+    breadcrumbData.mainEntity = {
+      "@type": "WebPage",
+      "@id": pageUrl.startsWith('http') ? pageUrl : `${baseUrl}${pageUrl}`
+    };
+  }
 
   return <StructuredData data={breadcrumbData} />;
 }
@@ -144,8 +140,12 @@ export function WebsiteSchema({ locale }: { locale: string }) {
   const websiteData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${baseUrl}#website`,
     "name": "H-Studio Business",
     "url": baseUrl,
+    "publisher": {
+      "@id": `${baseUrl}#organization`
+    },
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
@@ -169,9 +169,7 @@ export function ProductSchema({ locale }: { locale: string }) {
     "name": "Автоматизация расчётов, КП, себестоимости и производственных процессов",
     "description": "Автоматизация расчётов, коммерческих предложений, себестоимости и спецификаций для производственных и инженерных компаний. Конфигураторы КП, интеграции с 1С/ERP/CRM, документооборот, AI-аналитика.",
     "brand": {
-      "@type": "Organization",
-      "name": "H-Studio Business",
-      "url": baseUrl
+      "@id": `${baseUrl}#organization`
     },
     "offers": {
       "@type": "Offer",
@@ -192,5 +190,119 @@ export function ProductSchema({ locale }: { locale: string }) {
   };
 
   return <StructuredData data={productData} />;
+}
+
+// WebPage Schema для всех страниц
+export function WebPageSchema({
+  pageUrl,
+  title,
+  description,
+  locale = 'ru'
+}: {
+  pageUrl: string;
+  title?: string;
+  description?: string;
+  locale?: string;
+}) {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
+  const fullUrl = pageUrl.startsWith('http') ? pageUrl : `${baseUrl}${pageUrl}`;
+  
+  const webPageData: any = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": fullUrl,
+    "url": fullUrl,
+    "isPartOf": {
+      "@id": `${baseUrl}#website`
+    },
+    "about": {
+      "@id": `${baseUrl}#organization`
+    },
+    "publisher": {
+      "@id": `${baseUrl}#organization`
+    },
+    "inLanguage": locale === 'ru' ? 'ru-RU' : locale === 'en' ? 'en-US' : 'de-DE'
+  };
+
+  if (title) {
+    webPageData.name = title;
+  }
+
+  if (description) {
+    webPageData.description = description;
+  }
+
+  return <StructuredData data={webPageData} />;
+}
+
+// ItemList Schema для страницы списка сервисов
+export function ItemListSchema({
+  listUrl,
+  items,
+  listName
+}: {
+  listUrl: string;
+  items: Array<{ name: string; description?: string; url: string }>;
+  listName: string;
+}) {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
+  const fullUrl = listUrl.startsWith('http') ? listUrl : `${baseUrl}${listUrl}`;
+  
+  const itemListData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${fullUrl}#services-list`,
+    "name": listName,
+    "url": fullUrl,
+    "about": {
+      "@id": `${baseUrl}#organization`
+    },
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Service",
+        "name": item.name,
+        "description": item.description || "",
+        "url": item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`,
+        "provider": {
+          "@id": `${baseUrl}#organization`
+        }
+      }
+    }))
+  };
+
+  return <StructuredData data={itemListData} />;
+}
+
+// FAQPage Schema для страниц сервисов (серверный компонент)
+export function FAQPageSchema({
+  faqUrl,
+  questions
+}: {
+  faqUrl: string;
+  questions: Array<{ question: string; answer: string }>;
+}) {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
+  const fullUrl = faqUrl.startsWith('http') ? faqUrl : `${baseUrl}${faqUrl}`;
+  
+  const faqPageData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${fullUrl}#faq`,
+    "mainEntity": questions.map(q => ({
+      "@type": "Question",
+      "name": q.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": q.answer
+      }
+    })),
+    "about": {
+      "@id": `${baseUrl}#organization`
+    }
+  };
+
+  return <StructuredData data={faqPageData} />;
 }
 
