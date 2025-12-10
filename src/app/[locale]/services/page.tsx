@@ -226,6 +226,148 @@ export default async function ServicesPage({
           </div>
         </section>
 
+        {/* Specialized Solutions Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+          <div className="mb-16">
+            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
+              Специализированные решения
+            </h2>
+            <p className="text-base text-text/70 max-w-2xl">
+              Лендинги под высокоинтентные запросы для производственных и инженерных компаний
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                title: "CPQ для производственных компаний",
+                url: "/solutions/cpq-proizvodstvo",
+                description: "Конфигураторы коммерческих предложений для производственных компаний в Москве и по России"
+              },
+              {
+                title: "Интеграция 1С для производства",
+                url: "/solutions/integraciya-1c-proizvodstvo",
+                description: "Интеграция 1С с системами расчётов, КП и документооборота для производственных компаний"
+              },
+              {
+                title: "Автоматизация расчётов для кабеля/металла",
+                url: "/solutions/avtomatizaciya-raschetov-kabel",
+                description: "Автоматизация расчётов параметров, себестоимости и спецификаций для кабельной продукции и металлообработки"
+              },
+              {
+                title: "Автоматизация документооборота для инженерных бюро",
+                url: "/solutions/avtomatizaciya-dokumentooborota-inzhenernye-byuro",
+                description: "Системы документооборота и согласований для инженерных и проектных бюро"
+              },
+              {
+                title: "Внедрение CPQ-систем",
+                url: "/solutions/vnedrenie-cpq-sistem",
+                description: "Внедрение и обучение персонала работе с конфигураторами коммерческих предложений"
+              }
+            ].map((solution, index) => (
+              <div
+                key={index}
+                className="bg-card border border-white/10 rounded-2xl p-6 opacity-60 cursor-not-allowed relative"
+              >
+                <div className="absolute top-4 right-4">
+                  <span className="text-xs text-text/50 bg-white/5 px-2 py-1 rounded-full border border-white/10">
+                    Скоро будет
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold text-text mb-3 pr-16">
+                  {solution.title}
+                </h3>
+                <p className="text-sm text-muted leading-6 mb-4">
+                  {solution.description}
+                </p>
+                <div className="text-xs text-text/40 italic">
+                  URL: {solution.url}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Industries Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+          <div className="mb-16">
+            <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
+              Отрасли
+            </h2>
+            <p className="text-base text-text/70 max-w-2xl">
+              Решения для конкретных отраслей производства и инженерии
+            </p>
+          </div>
+          
+          {/* Industries Hub Link */}
+          <div className="mb-12">
+            <div className="bg-card border border-white/10 rounded-2xl p-6 opacity-60 cursor-not-allowed relative">
+              <div className="absolute top-4 right-4">
+                <span className="text-xs text-text/50 bg-white/5 px-2 py-1 rounded-full border border-white/10">
+                  Скоро будет
+                </span>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center text-brand">
+                  <HiPuzzle size={24} />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold text-text mb-2 pr-16">
+                    Хаб отраслей
+                  </h3>
+                  <p className="text-sm text-muted leading-6 mb-2">
+                    Обзор всех отраслей, для которых мы создаём решения по автоматизации
+                  </p>
+                  <div className="text-xs text-text/40 italic">
+                    URL: /industries
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Industry Landing Pages */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Металлообработка и металлоконструкции",
+                url: "/industries/metalloobrabotka-metallokonstrukcii",
+                description: "Автоматизация расчётов, КП и спецификаций для металлообработки и производства металлоконструкций"
+              },
+              {
+                title: "Кабель, провода, профили",
+                url: "/industries/kabel-provod-profil",
+                description: "Системы расчётов параметров, себестоимости и КП для кабельной продукции и профилей"
+              },
+              {
+                title: "Оборудование и машиностроение",
+                url: "/industries/oborudovanie-mashinostroenie",
+                description: "Автоматизация расчётов и документооборота для производителей оборудования и машиностроения"
+              }
+            ].map((industry, index) => (
+              <div
+                key={index}
+                className="bg-card border border-white/10 rounded-2xl p-6 opacity-60 cursor-not-allowed relative"
+              >
+                <div className="absolute top-4 right-4">
+                  <span className="text-xs text-text/50 bg-white/5 px-2 py-1 rounded-full border border-white/10">
+                    Скоро будет
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold text-text mb-3 pr-16">
+                  {industry.title}
+                </h3>
+                <p className="text-sm text-muted leading-6 mb-4">
+                  {industry.description}
+                </p>
+                <div className="text-xs text-text/40 italic">
+                  URL: {industry.url}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* SEO Paragraph Section */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
           <div className="max-w-4xl mx-auto">

@@ -49,7 +49,7 @@ export async function generateMetadata({
   const serviceTitle = service.title || 'Услуга';
   const serviceDescription = service.subtitle || service.intro || 'Автоматизация расчётов, КП, спецификаций, документооборота, интеграции с 1С/ERP/CRM.';
   const metaTitle = `${serviceTitle} | Автоматизация расчётов и КП | H-Studio`;
-  const metaDescription = serviceDescription || 'Автоматизация расчётов, КП, спецификаций, документооборота, интеграции с 1С/ERP/CRM.';
+  const metaDescription = `${serviceDescription} для производственных компаний в Москве и по России.`;
 
   return {
     title: metaTitle,

@@ -11,6 +11,7 @@ import { formatDate, formatDateISO } from '@/lib/date-utils';
 import { BlogCover } from '@/components/blog/BlogCover';
 import Header from '@/components/Header';
 import { WebPageSchema, BreadcrumbSchema } from '@/components/StructuredData';
+import RelevantCasesSection from '@/components/blog/RelevantCasesSection';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -209,6 +210,42 @@ export default async function BlogPostPage({
             </ReactMarkdown>
           </div>
         </article>
+
+        {/* Relevant Cases Section */}
+        {(() => {
+          // Определяем релевантные кейсы на основе тегов статьи
+          const caseMapping: Record<string, string[]> = {
+            'расчёт': ['eventstripe'],
+            'расчёты': ['eventstripe'],
+            'кп': ['eventstripe'],
+            'коммерческ': ['eventstripe'],
+            'конфигуратор': ['eventstripe'],
+            'документооборот': ['sber'],
+            'согласован': ['sber'],
+            'интеграц': ['vtb-bank', 'sber'],
+            '1с': ['vtb-bank', 'sber'],
+            'erp': ['vtb-bank', 'sber'],
+            'crm': ['vtb-bank', 'sber'],
+            'ai': ['vtb-bank', 'societe-generale'],
+            'аналитик': ['vtb-bank', 'societe-generale'],
+          };
+          
+          const relevantCases: string[] = [];
+          const text = `${post.title} ${post.content}`.toLowerCase();
+          
+          for (const [keyword, cases] of Object.entries(caseMapping)) {
+            if (text.includes(keyword)) {
+              relevantCases.push(...cases);
+            }
+          }
+          
+          // Убираем дубликаты и ограничиваем до 2
+          const uniqueCases = Array.from(new Set(relevantCases)).slice(0, 2);
+          
+          return uniqueCases.length > 0 ? (
+            <RelevantCasesSection relevantCaseSlugs={uniqueCases} />
+          ) : null;
+        })()}
 
         {/* Back to Blog */}
         <div className="mt-12 pt-8 border-t border-white/10">

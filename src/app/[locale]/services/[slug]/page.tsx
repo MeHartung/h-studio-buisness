@@ -4,13 +4,15 @@ import { notFound } from 'next/navigation';
 import { 
   HiCheckCircle,
   HiCalculator,
-  HiArrowLeft
+  HiArrowLeft,
+  HiArrowRight
 } from 'react-icons/hi';
 import CookieBanner from '@/components/CookieBanner';
 import Header from '@/components/Header';
 import ScrollToTopButton from '@/components/home/ScrollToTopButton';
-import { getServiceIdBySlug, serviceSlugToId } from '@/lib/services';
+import { getServiceIdBySlug, serviceSlugToId, getServiceSlugById } from '@/lib/services';
 import CTAButton from '@/components/CTAButton';
+import RelevantCasesSection from '@/components/services/RelevantCasesSection';
 
 export async function generateStaticParams() {
   const slugs = Object.keys(serviceSlugToId);
@@ -133,6 +135,41 @@ export default async function ServiceDetailPage({
   const introSeoParagraph = tServices('detailPage.introSeoParagraph');
   const footerSeoParagraph = tServices('detailPage.footerSeoParagraph');
   const backToServices = tServices('detailPage.backToServices');
+
+  // Получаем связанные услуги
+  const relatedServicesMapping: Record<string, string[]> = {
+    '1': ['2', '4'], // расчёты → CPQ, контроль цен
+    '2': ['1', '4'], // CPQ → расчёты, контроль цен
+    '4': ['1', '2'], // контроль цен → расчёты, CPQ
+    '3': ['5'], // спецификации → документооборот
+    '5': ['3'], // документооборот → спецификации
+    '6': ['7'], // интеграции → AI
+    '7': ['6'], // AI → интеграции
+    '8': ['1', '2'], // внедрение → расчёты, CPQ
+  };
+  
+  const relatedServiceIds = relatedServicesMapping[serviceId] || [];
+  
+  // Загружаем данные связанных услуг
+  let relatedServices: Array<{ id: string; title: string; description: string; slug: string }> = [];
+  if (relatedServiceIds.length > 0) {
+    const messages = (await import(`../../../../messages/${locale}.json`)).default;
+    relatedServices = relatedServiceIds
+      .map(id => {
+        const serviceKey = `service${id}` as keyof typeof messages.serviceDetail;
+        const service = messages.serviceDetail[serviceKey];
+        if (!service) return null;
+        const serviceSlug = getServiceSlugById(id);
+        if (!serviceSlug) return null;
+        return {
+          id,
+          title: service.title,
+          description: service.subtitle || service.intro || '',
+          slug: serviceSlug
+        };
+      })
+      .filter(Boolean) as Array<{ id: string; title: string; description: string; slug: string }>;
+  }
 
   return (
     <div className="min-h-screen bg-bg relative overflow-hidden">
@@ -362,6 +399,61 @@ export default async function ServiceDetailPage({
             ))}
           </div>
         </section>
+
+        {/* Related Services Section */}
+        {relatedServices.length > 0 && (
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+            <div className="mb-16">
+              <h2 className="text-[40px] leading-[48px] font-semibold text-text tracking-[-0.02em] mb-4">
+                Связанные услуги
+              </h2>
+              <p className="text-base text-text/70 max-w-2xl">
+                Другие услуги из этой группы, которые могут быть полезны для вашей компании
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedServices.map((service) => (
+                <Link
+                  key={service.id}
+                  href={`/services/${service.slug}`}
+                  className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)] group"
+                >
+                  <h3 className="text-xl font-semibold text-text mb-3 group-hover:text-brand transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-sm text-muted leading-6 mb-4 line-clamp-3">
+                    {service.description}
+                  </p>
+                  <div className="inline-flex items-center gap-2 text-sm text-brand hover:text-brand/80 transition-colors font-medium">
+                    Подробнее
+                    <HiArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Relevant Cases Section */}
+        {(() => {
+          // Определяем релевантные кейсы для каждой услуги
+          const caseMapping: Record<string, string[]> = {
+            '1': ['eventstripe', 'sber'], // расчёты
+            '2': ['eventstripe'], // CPQ
+            '3': ['eventstripe', 'sber'], // спецификации
+            '4': ['eventstripe'], // контроль цен
+            '5': ['sber', 'societe-generale'], // документооборот
+            '6': ['vtb-bank', 'sber', 'societe-generale'], // интеграции
+            '7': ['vtb-bank', 'societe-generale'], // AI
+            '8': ['vtb-bank', 'sber', 'societe-generale', 'eventstripe'], // внедрение
+          };
+          
+          const relevantCases = caseMapping[serviceId] || [];
+          return relevantCases.length > 0 ? (
+            <RelevantCasesSection relevantCaseSlugs={relevantCases} />
+          ) : null;
+        })()}
 
         {/* CTA Section */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">

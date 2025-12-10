@@ -160,8 +160,8 @@ function addInternalLinks(content, internalTags, title) {
   const links = [];
   const text = `${title} ${content}`.toLowerCase();
   
-  // Маппинг тегов на ссылки
-  const linkMap = {
+  // Маппинг тегов на ссылки услуг
+  const serviceLinkMap = {
     costing: {
       text: 'Автоматизация расчётов и КП',
       url: '/services/avtomatizatsiya-raschetov-i-sebestoimosti'
@@ -207,44 +207,122 @@ function addInternalLinks(content, internalTags, title) {
       url: '/services/vnedrenie-i-obuchenie-personala'
     }
   };
+
+  // Маппинг тегов на ссылки кейсов
+  const caseLinkMap = {
+    costing: {
+      text: 'EventStripe',
+      url: '/enterprise-cases/eventstripe'
+    },
+    quotations: {
+      text: 'EventStripe',
+      url: '/enterprise-cases/eventstripe'
+    },
+    configurators: {
+      text: 'EventStripe',
+      url: '/enterprise-cases/eventstripe'
+    },
+    documents: {
+      text: 'Sber',
+      url: '/enterprise-cases/sber'
+    },
+    approvals: {
+      text: 'Sber',
+      url: '/enterprise-cases/sber'
+    },
+    '1c': {
+      text: 'VTB Bank',
+      url: '/enterprise-cases/vtb-bank'
+    },
+    erp: {
+      text: 'Sber',
+      url: '/enterprise-cases/sber'
+    },
+    integration: {
+      text: 'VTB Bank',
+      url: '/enterprise-cases/vtb-bank'
+    },
+    ai: {
+      text: 'Société Générale',
+      url: '/enterprise-cases/societe-generale'
+    },
+    analytics: {
+      text: 'VTB Bank',
+      url: '/enterprise-cases/vtb-bank'
+    }
+  };
   
-  // Определяем, какие ссылки добавить
-  const tagsToLink = new Set();
+  // Определяем, какие ссылки на услуги добавить
+  const serviceTagsToLink = new Set();
   
   if (internalTags.includes('costing') || internalTags.includes('quotations') || 
       text.includes('кп') || text.includes('коммерческ')) {
-    if (internalTags.includes('costing')) tagsToLink.add('costing');
+    if (internalTags.includes('costing')) serviceTagsToLink.add('costing');
     if (internalTags.includes('quotations') || internalTags.includes('configurators')) {
-      tagsToLink.add('quotations');
+      serviceTagsToLink.add('quotations');
     }
   }
   
   if (internalTags.includes('documents') || internalTags.includes('approvals')) {
-    tagsToLink.add('documents');
+    serviceTagsToLink.add('documents');
   }
   
   if (internalTags.includes('1c') || internalTags.includes('erp') || internalTags.includes('integration')) {
-    tagsToLink.add('integration');
+    serviceTagsToLink.add('integration');
   }
   
   if (internalTags.includes('ai') || internalTags.includes('analytics')) {
-    tagsToLink.add('ai');
+    serviceTagsToLink.add('ai');
   }
   
   if (internalTags.includes('implementation')) {
-    tagsToLink.add('implementation');
+    serviceTagsToLink.add('implementation');
   }
   
-  // Формируем блок ссылок
-  if (tagsToLink.size > 0) {
-    const linkTexts = Array.from(tagsToLink)
-      .map(tag => linkMap[tag])
+  // Определяем, какие ссылки на кейсы добавить
+  const caseTagsToLink = new Set();
+  
+  if (internalTags.includes('costing') || internalTags.includes('quotations') || internalTags.includes('configurators')) {
+    caseTagsToLink.add('costing');
+  }
+  
+  if (internalTags.includes('documents') || internalTags.includes('approvals')) {
+    caseTagsToLink.add('documents');
+  }
+  
+  if (internalTags.includes('1c') || internalTags.includes('erp') || internalTags.includes('integration')) {
+    caseTagsToLink.add('integration');
+  }
+  
+  if (internalTags.includes('ai') || internalTags.includes('analytics')) {
+    caseTagsToLink.add('ai');
+  }
+  
+  // Формируем блок ссылок на услуги
+  if (serviceTagsToLink.size > 0) {
+    const serviceLinkTexts = Array.from(serviceTagsToLink)
+      .map(tag => serviceLinkMap[tag])
       .filter(Boolean)
+      .slice(0, 3) // Максимум 3 услуги
       .map(link => `[${link.text}](${link.url})`)
       .join(', ');
     
-    if (linkTexts) {
-      links.push(`\n\n**Связанные услуги:** ${linkTexts}`);
+    if (serviceLinkTexts) {
+      links.push(`\n\n**Связанные услуги:** ${serviceLinkTexts}`);
+    }
+  }
+  
+  // Формируем блок ссылок на кейсы
+  if (caseTagsToLink.size > 0) {
+    const caseLinkTexts = Array.from(caseTagsToLink)
+      .map(tag => caseLinkMap[tag])
+      .filter(Boolean)
+      .slice(0, 2) // Максимум 2 кейса
+      .map(link => `[${link.text}](${link.url})`)
+      .join(', ');
+    
+    if (caseLinkTexts) {
+      links.push(`\n\n**Примеры внедрения:** ${caseLinkTexts}`);
     }
   }
   

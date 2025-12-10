@@ -6,6 +6,7 @@ import { BreadcrumbSchema } from '@/components/StructuredData';
 import BlogHeader from '@/components/Common/BlogHeader';
 import CookieBanner from '@/components/CookieBanner';
 import ScrollToTopButton from '@/components/home/ScrollToTopButton';
+import RelevantServicesSection from '@/components/cases/RelevantServicesSection';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -162,6 +163,9 @@ export default async function VTBBankCase({
             </div>
           </div>
         </section>
+
+        {/* Relevant Services Section */}
+        <RelevantServicesSection relevantServiceIds={['6', '7']} />
 
         <ScrollToTopButton />
         <CookieBanner />
