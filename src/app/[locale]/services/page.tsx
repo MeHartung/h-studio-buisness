@@ -242,48 +242,72 @@ export default async function ServicesPage({
               {
                 title: "CPQ для производственных компаний",
                 url: "/solutions/cpq-proizvodstvo",
-                description: "Конфигураторы коммерческих предложений для производственных компаний в Москве и по России"
+                description: "Конфигураторы коммерческих предложений для производственных компаний в Москве и по России",
+                active: true
               },
               {
                 title: "Интеграция 1С для производства",
                 url: "/solutions/integraciya-1c-proizvodstvo",
-                description: "Интеграция 1С с системами расчётов, КП и документооборота для производственных компаний"
+                description: "Интеграция 1С с системами расчётов, КП и документооборота для производственных компаний",
+                active: true
               },
               {
                 title: "Автоматизация расчётов для кабеля/металла",
                 url: "/solutions/avtomatizaciya-raschetov-kabel",
-                description: "Автоматизация расчётов параметров, себестоимости и спецификаций для кабельной продукции и металлообработки"
+                description: "Автоматизация расчётов параметров, себестоимости и спецификаций для кабельной продукции и металлообработки",
+                active: true
               },
               {
                 title: "Автоматизация документооборота для инженерных бюро",
                 url: "/solutions/avtomatizaciya-dokumentooborota-inzhenernye-byuro",
-                description: "Системы документооборота и согласований для инженерных и проектных бюро"
+                description: "Системы документооборота и согласований для инженерных и проектных бюро",
+                active: true
               },
               {
                 title: "Внедрение CPQ-систем",
                 url: "/solutions/vnedrenie-cpq-sistem",
-                description: "Внедрение и обучение персонала работе с конфигураторами коммерческих предложений"
+                description: "Внедрение и обучение персонала работе с конфигураторами коммерческих предложений",
+                active: true
               }
             ].map((solution, index) => (
-              <div
-                key={index}
-                className="bg-card border border-white/10 rounded-2xl p-6 opacity-60 cursor-not-allowed relative"
-              >
-                <div className="absolute top-4 right-4">
-                  <span className="text-xs text-text/50 bg-white/5 px-2 py-1 rounded-full border border-white/10">
-                    Скоро будет
-                  </span>
+              solution.active ? (
+                <Link
+                  key={index}
+                  href={solution.url}
+                  className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)] group"
+                >
+                  <h3 className="text-xl font-semibold text-text mb-3 group-hover:text-brand transition-colors">
+                    {solution.title}
+                  </h3>
+                  <p className="text-sm text-muted leading-6 mb-4">
+                    {solution.description}
+                  </p>
+                  <div className="inline-flex items-center gap-2 text-sm text-brand hover:text-brand/80 transition-colors font-medium">
+                    Подробнее
+                    <HiArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </Link>
+              ) : (
+                <div
+                  key={index}
+                  className="bg-card border border-white/10 rounded-2xl p-6 opacity-60 cursor-not-allowed relative"
+                >
+                  <div className="absolute top-4 right-4">
+                    <span className="text-xs text-text/50 bg-white/5 px-2 py-1 rounded-full border border-white/10">
+                      Скоро будет
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-semibold text-text mb-3 pr-16">
+                    {solution.title}
+                  </h3>
+                  <p className="text-sm text-muted leading-6 mb-4">
+                    {solution.description}
+                  </p>
+                  <div className="text-xs text-text/40 italic">
+                    URL: {solution.url}
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-text mb-3 pr-16">
-                  {solution.title}
-                </h3>
-                <p className="text-sm text-muted leading-6 mb-4">
-                  {solution.description}
-                </p>
-                <div className="text-xs text-text/40 italic">
-                  URL: {solution.url}
-                </div>
-              </div>
+              )
             ))}
           </div>
         </section>
@@ -301,70 +325,28 @@ export default async function ServicesPage({
           
           {/* Industries Hub Link */}
           <div className="mb-12">
-            <div className="bg-card border border-white/10 rounded-2xl p-6 opacity-60 cursor-not-allowed relative">
-              <div className="absolute top-4 right-4">
-                <span className="text-xs text-text/50 bg-white/5 px-2 py-1 rounded-full border border-white/10">
-                  Скоро будет
-                </span>
-              </div>
+            <Link
+              href="/industries"
+              className="bg-card border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_-12px_rgba(124,92,252,0.3)] group block"
+            >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand/20 to-accent/20 flex items-center justify-center text-brand">
                   <HiPuzzle size={24} />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-text mb-2 pr-16">
+                  <h3 className="text-xl font-semibold text-text mb-2 group-hover:text-brand transition-colors">
                     Хаб отраслей
                   </h3>
                   <p className="text-sm text-muted leading-6 mb-2">
                     Обзор всех отраслей, для которых мы создаём решения по автоматизации
                   </p>
-                  <div className="text-xs text-text/40 italic">
-                    URL: /industries
+                  <div className="inline-flex items-center gap-2 text-sm text-brand hover:text-brand/80 transition-colors font-medium">
+                    Смотреть отрасли
+                    <HiArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* Industry Landing Pages */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Металлообработка и металлоконструкции",
-                url: "/industries/metalloobrabotka-metallokonstrukcii",
-                description: "Автоматизация расчётов, КП и спецификаций для металлообработки и производства металлоконструкций"
-              },
-              {
-                title: "Кабель, провода, профили",
-                url: "/industries/kabel-provod-profil",
-                description: "Системы расчётов параметров, себестоимости и КП для кабельной продукции и профилей"
-              },
-              {
-                title: "Оборудование и машиностроение",
-                url: "/industries/oborudovanie-mashinostroenie",
-                description: "Автоматизация расчётов и документооборота для производителей оборудования и машиностроения"
-              }
-            ].map((industry, index) => (
-              <div
-                key={index}
-                className="bg-card border border-white/10 rounded-2xl p-6 opacity-60 cursor-not-allowed relative"
-              >
-                <div className="absolute top-4 right-4">
-                  <span className="text-xs text-text/50 bg-white/5 px-2 py-1 rounded-full border border-white/10">
-                    Скоро будет
-                  </span>
-                </div>
-                <h3 className="text-xl font-semibold text-text mb-3 pr-16">
-                  {industry.title}
-                </h3>
-                <p className="text-sm text-muted leading-6 mb-4">
-                  {industry.description}
-                </p>
-                <div className="text-xs text-text/40 italic">
-                  URL: {industry.url}
-                </div>
-              </div>
-            ))}
+            </Link>
           </div>
         </section>
 

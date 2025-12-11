@@ -44,7 +44,8 @@ export async function POST(request: NextRequest) {
       `📧 *Email:* ${escapeMarkdown(email)}\n` +
       (phone ? `📱 *Телефон:* ${escapeMarkdown(phone)}\n` : '') +
       (company ? `🏢 *Компания:* ${escapeMarkdown(company)}\n` : '') +
-      `\n💬 *Сообщение:*\n${escapeMarkdown(message)}`;
+      `\n💬 *Сообщение:*\n${escapeMarkdown(message)}\n\n` +
+      `Отправлено с www.h-studio-tech.ru`;
     
     // Отправляем в Telegram
     const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;

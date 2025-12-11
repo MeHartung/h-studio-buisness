@@ -70,12 +70,13 @@ export function ServiceSchema({
   serviceId?: string;
 }) {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.h-studio-tech.ru";
-  const id = serviceId ? `${serviceUrl}#service` : undefined;
+  const fullUrl = serviceUrl.startsWith('http') ? serviceUrl : `${baseUrl}${serviceUrl}`;
+  const id = `${fullUrl}#service`;
   
   const serviceData: any = {
     "@context": "https://schema.org",
     "@type": "Service",
-    ...(id && { "@id": id }),
+    "@id": id,
     "name": serviceName,
     "description": description,
     "provider": {
@@ -85,7 +86,7 @@ export function ServiceSchema({
       "@type": "Country",
       "name": "Russia"
     },
-    "url": serviceUrl,
+    "url": fullUrl,
     "serviceType": category || "Business Automation Service",
   };
 
@@ -95,7 +96,7 @@ export function ServiceSchema({
       "price": offers.price || "0",
       "priceCurrency": offers.priceCurrency || "RUB",
       "availability": offers.availability || "https://schema.org/InStock",
-      "url": serviceUrl
+      "url": fullUrl
     };
   }
 

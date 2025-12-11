@@ -22,6 +22,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/enterprise-cases/sber',
     '/enterprise-cases/societe-generale',
     '/enterprise-cases/eventstripe',
+    // Специализированные решения
+    '/solutions/cpq-proizvodstvo',
+    '/solutions/integraciya-1c-proizvodstvo',
+    '/solutions/avtomatizaciya-raschetov-kabel',
+    '/solutions/avtomatizaciya-dokumentooborota-inzhenernye-byuro',
+    '/solutions/vnedrenie-cpq-sistem',
+    // Отрасли
+    '/industries',
+    '/industries/metalloobrabotka-metallokonstrukcii',
+    '/industries/kabel-provod-profil',
+    '/industries/oborudovanie-mashinostroenie',
   ];
 
   // Add blog posts
@@ -41,6 +52,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       : route === '/services' ? 0.9 
       : route === '/about' ? 0.9 
       : route === '/clients' ? 0.9
+      : route === '/industries' ? 0.85
+      : route.startsWith('/solutions/') ? 0.85
+      : route.startsWith('/industries/') ? 0.8
       : route.startsWith('/enterprise-cases/') ? 0.8
       : route === '/blog' ? 0.8 
       : 0.8,
