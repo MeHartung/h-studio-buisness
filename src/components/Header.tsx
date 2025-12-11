@@ -12,7 +12,7 @@ const menuVariants = {
   closed: {
     width: 60,
     height: 60,
-    bottom: 21,
+    top: 21,
     right: 22,
     transition: {
       duration: 0.3,
@@ -22,7 +22,7 @@ const menuVariants = {
   open: {
     width: 'calc(100vw - 24px)',
     height: '621px',
-    bottom: 13,
+    top: 13,
     right: 12,
     transition: {
       duration: 0.3,
@@ -63,8 +63,6 @@ export default function Header() {
   const tNav = useTranslations('navigation');
   const tFooter = useTranslations('footer');
   const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -80,18 +78,6 @@ export default function Header() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  useEffect(() => {
-    if (!isMobile) return;
-
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setIsVisible(currentScrollY <= lastScrollY);
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY, isMobile]);
 
   // Блокировать скролл когда меню открыто
   useEffect(() => {
@@ -152,7 +138,7 @@ export default function Header() {
       {/* Мобильное меню */}
       {isMobile && (
         <>
-          <div className="lg:hidden w-full flex justify-center top-[26.4px] absolute z-50">
+          <div className="lg:hidden w-full flex justify-start px-4 top-[26.4px] absolute z-50">
             <Link href="/" className="flex items-center">
               <Image
                 src="/logo-white.svg"
@@ -167,11 +153,9 @@ export default function Header() {
           </div>
 
           <motion.div
-            className="fixed bottom-[0px] right-[0px] w-screen flex flex-col z-40 min-w-screen lg:hidden"
-            animate={{ y: isVisible ? 0 : 100, opacity: isVisible ? 1 : 0 }}
-            transition={{ duration: 0.4, ease: 'circOut' }}
+            className="fixed top-[0px] right-[0px] w-screen flex flex-col z-40 min-w-screen lg:hidden"
           >
-            <div className="absolute bottom-[21px] right-[22px]">
+            <div className="absolute top-[21px] right-[22px]">
               <motion.button
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-[60px] h-[60px] bg-white/5 backdrop-blur-sm border border-white/10 text-text rounded-[16px] flex items-center justify-center shrink-0 relative z-50"
