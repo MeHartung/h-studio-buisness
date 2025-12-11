@@ -1,6 +1,20 @@
 User-agent: *
 Allow: /
 Allow: /_next/
+Disallow: /api/
 
+# Яндекс
+User-agent: Yandex
+Allow: /
+Allow: /_next/
+Disallow: /api/
+
+# Google
+User-agent: Googlebot
+Allow: /
+Allow: /_next/
+Disallow: /api/
+
+# Sitemap для всех поисковых систем
 Sitemap: https://www.h-studio-tech.ru/sitemap.xml
 

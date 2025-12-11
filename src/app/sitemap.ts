@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .map(id => getServiceSlugById(id))
     .filter((slug): slug is string => slug !== null);
   
+  // Статические страницы сайта
   const routes = [
     '',
     '/about',
@@ -35,16 +36,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/industries/oborudovanie-mashinostroenie',
   ];
 
-  // Add blog posts
+  // Получаем все посты блога
   const blogPosts = getAllPosts();
-  const blogRoutes = blogPosts.map((post) => ({
-    url: `${baseUrl}/ru/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
-
-  const staticRoutes = routes.map((route) => ({
+  
+  // Формируем маршруты для статических страниц
+  const staticRoutes: MetadataRoute.Sitemap = routes.map((route) => ({
     url: `${baseUrl}/ru${route}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
@@ -52,6 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       : route === '/services' ? 0.9 
       : route === '/about' ? 0.9 
       : route === '/clients' ? 0.9
+      : route.startsWith('/services/') ? 0.85
       : route === '/industries' ? 0.85
       : route.startsWith('/solutions/') ? 0.85
       : route.startsWith('/industries/') ? 0.8
@@ -60,6 +57,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       : 0.8,
   }));
 
+  // Формируем маршруты для постов блога
+  const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${baseUrl}/ru/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  // Объединяем все маршруты
   return [...staticRoutes, ...blogRoutes];
 }
 
