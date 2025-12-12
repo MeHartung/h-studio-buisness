@@ -153,7 +153,7 @@ export default function Header() {
           </div>
 
           <motion.div
-            className="fixed top-[0px] right-[0px] w-screen flex flex-col z-40 min-w-screen lg:hidden"
+            className="fixed top-[0px] right-[0px] w-screen flex flex-col z-[60] min-w-screen lg:hidden"
           >
             <div className="absolute top-[21px] right-[22px]">
               <motion.button
@@ -209,7 +209,7 @@ export default function Header() {
             <AnimatePresence>
               {isOpen && (
                 <motion.div
-                  className="absolute bg-white/5 backdrop-blur-[40px] border border-white/10 text-text rounded-[20px] z-40"
+                  className="absolute bg-white/5 backdrop-blur-[40px] border border-white/10 text-text rounded-[20px] z-[60]"
                   initial="closed"
                   animate="open"
                   exit="closed"
