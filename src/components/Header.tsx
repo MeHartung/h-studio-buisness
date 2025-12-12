@@ -155,10 +155,10 @@ export default function Header() {
           <motion.div
             className="fixed top-[0px] right-[0px] w-screen flex flex-col z-[60] min-w-screen lg:hidden"
           >
-            <div className="absolute top-[21px] right-[22px]">
+            <div className="absolute top-[21px] right-[22px] z-[70]">
               <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-[60px] h-[60px] bg-white/5 backdrop-blur-sm border border-white/10 text-text rounded-[16px] flex items-center justify-center shrink-0 relative z-50"
+                className="w-[60px] h-[60px] bg-white/5 backdrop-blur-sm border border-white/10 text-text rounded-[16px] flex items-center justify-center shrink-0 relative z-[70]"
                 animate={{ rotate: isOpen ? 90 : 0 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                 aria-label={isOpen ? "Close menu" : "Open menu"}
