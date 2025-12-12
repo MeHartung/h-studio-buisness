@@ -75,6 +75,8 @@ export default async function Footer() {
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted">
               <Link href="/blog" className="hover:text-text transition-colors min-h-[44px] min-w-[44px] inline-flex items-center" aria-label={tFooter('blog')}>{tFooter('blog')}</Link>
               <span>•</span>
+              <Link href="/contact" className="hover:text-text transition-colors min-h-[44px] min-w-[44px] inline-flex items-center" aria-label={tFooter('contactTitle')}>{tFooter('contactTitle')}</Link>
+              <span>•</span>
               <a href={`mailto:${tFooter('legalDetails.email')}?subject=Privacy Policy Request`} className="hover:text-text transition-colors min-h-[44px] min-w-[44px] inline-flex items-center" aria-label={tFooter('privacy')}>{tFooter('privacy')}</a>
               <span>•</span>
               <Link href="/legal-notice" className="hover:text-text transition-colors min-h-[44px] min-w-[44px] inline-flex items-center" aria-label={tFooter('legalNotice')}>{tFooter('legalNotice')}</Link>

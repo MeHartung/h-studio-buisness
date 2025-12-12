@@ -131,6 +131,13 @@ export default function Header() {
             >
               {tFooter('blog')}
             </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] text-text font-semibold rounded-lg hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-brand/60"
+              aria-label={tNav('contact')}
+            >
+              {tNav('contact')}
+            </Link>
           </nav>
         </div>
       </header>
@@ -221,6 +228,7 @@ export default function Header() {
                         { title: tNav('about'), href: '/about' },
                         { title: tNav('services'), href: '/services' },
                         { title: tFooter('blog'), href: '/blog' },
+                        { title: tNav('contact'), href: '/contact' },
                       ].map((item, i) => (
                         <MotionLink
                           key={item.href}

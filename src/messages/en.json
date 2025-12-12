@@ -350,7 +350,8 @@
   "navigation": {
     "about": "About",
     "contact": "Contact",
-    "services": "Services"
+    "services": "Services",
+    "home": "Home"
   },
   "legalNotice": {
     "meta": {
@@ -411,6 +412,42 @@
     "english": "English",
     "german": "Deutsch",
     "russian": "Русский"
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact | H-Studio – Calculation Automation & CPQ",
+      "description": "Get in touch to discuss calculation automation, commercial proposals, and specifications for your production. Moscow-based team serving companies across Russia.",
+      "keywords": "contact H-Studio, calculation automation, CPQ consultation, production automation Moscow",
+      "ogTitle": "Contact Us",
+      "ogDescription": "From calculation automation to CPQ configurators — H-Studio helps production companies accelerate processes and eliminate errors.",
+      "ogAlt": "Contact H-Studio",
+      "twitterTitle": "Contact H-Studio – Calculation Automation & CPQ",
+      "twitterDescription": "From calculation automation to CPQ configurators — H-Studio helps production companies accelerate processes and eliminate errors."
+    },
+    "pageTitle": "Contact\nUs",
+    "highlightedWord": "Us",
+    "subtitle": "We work with production and engineering companies across Russia to implement calculation automation, CPQ configurators, and document management systems. Get in touch and let's discuss your needs.",
+    "highlightedSubtitle": "Get in touch",
+    "formTitle": "Let's build something\ngreat together",
+    "formTitleHighlight": "great",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "Your email",
+    "phonePlaceholder": "Your phone (optional)",
+    "messagePlaceholder": "Your message",
+    "privacyText": "I agree to the",
+    "privacyLink": "Privacy Policy",
+    "sendButton": "Send Message",
+    "sendingButton": "Sending...",
+    "successMessage": "Thank you! We'll respond within 24 hours.",
+    "errorTitle": "Unable to send your message",
+    "errorMessage": "Please try again later or contact us directly at hello@h-studio.io",
+    "correspondenceTitle": "Correspondence Address",
+    "address": "Oktyabrskaya St. 80, bldg. 6",
+    "city": "117593 Moscow, Russia",
+    "callUsTitle": "Call Us",
+    "phone": "+7 (982) 666-66-80",
+    "sayHelloTitle": "Say Hello",
+    "email": "hello@h-studio.io"
   }
 }
 

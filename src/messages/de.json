@@ -350,7 +350,8 @@
   "navigation": {
     "about": "Über uns",
     "contact": "Kontakt",
-    "services": "Dienstleistungen"
+    "services": "Dienstleistungen",
+    "home": "Startseite"
   },
   "legalNotice": {
     "meta": {
@@ -411,6 +412,42 @@
     "english": "English",
     "german": "Deutsch",
     "russian": "Русский"
+  },
+  "contact": {
+    "meta": {
+      "title": "Kontakt | H-Studio – Automatisierung von Berechnungen und CPQ",
+      "description": "Kontaktieren Sie uns, um die Automatisierung von Berechnungen, kommerziellen Angeboten und Spezifikationen für Ihre Produktion zu besprechen. Team in Moskau, arbeiten in ganz Russland.",
+      "keywords": "Kontakt H-Studio, Berechnungsautomatisierung, CPQ-Beratung, Produktionsautomatisierung Moskau",
+      "ogTitle": "Kontaktieren Sie uns",
+      "ogDescription": "Von der Berechnungsautomatisierung bis zu CPQ-Konfiguratoren — H-Studio hilft Produktionsunternehmen, Prozesse zu beschleunigen und Fehler zu eliminieren.",
+      "ogAlt": "Kontakt H-Studio",
+      "twitterTitle": "Kontakt H-Studio – Automatisierung von Berechnungen und CPQ",
+      "twitterDescription": "Von der Berechnungsautomatisierung bis zu CPQ-Konfiguratoren — H-Studio hilft Produktionsunternehmen, Prozesse zu beschleunigen und Fehler zu eliminieren."
+    },
+    "pageTitle": "Kontaktieren\nSie uns",
+    "highlightedWord": "uns",
+    "subtitle": "Wir arbeiten mit Produktions- und Ingenieurunternehmen in ganz Russland zusammen, um Berechnungsautomatisierung, CPQ-Konfiguratoren und Dokumentenmanagementsysteme zu implementieren. Kontaktieren Sie uns und lassen Sie uns Ihre Anforderungen besprechen.",
+    "highlightedSubtitle": "Kontaktieren Sie uns",
+    "formTitle": "Lassen Sie uns etwas\nGroßartiges zusammen bauen",
+    "formTitleHighlight": "Großartiges",
+    "namePlaceholder": "Ihr Name",
+    "emailPlaceholder": "Ihre E-Mail",
+    "phonePlaceholder": "Ihre Telefonnummer (optional)",
+    "messagePlaceholder": "Ihre Nachricht",
+    "privacyText": "Ich stimme der",
+    "privacyLink": "Datenschutzrichtlinie",
+    "sendButton": "Nachricht senden",
+    "sendingButton": "Wird gesendet...",
+    "successMessage": "Vielen Dank! Wir werden innerhalb von 24 Stunden antworten.",
+    "errorTitle": "Nachricht konnte nicht gesendet werden",
+    "errorMessage": "Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt unter hello@h-studio.io",
+    "correspondenceTitle": "Postanschrift",
+    "address": "Oktyabrskaya Str. 80, Gebäude 6",
+    "city": "117593 Moskau, Russland",
+    "callUsTitle": "Rufen Sie uns an",
+    "phone": "+7 (982) 666-66-80",
+    "sayHelloTitle": "Sagen Sie Hallo",
+    "email": "hello@h-studio.io"
   }
 }
 

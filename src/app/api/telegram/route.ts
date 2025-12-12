@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Домен сайта
-    const domain = 'www.h-studio-tech.ru';
+    const domain = process.env.NEXT_PUBLIC_SITE_URL?.replace('https://', '').replace('http://', '') || 'www.h-studio-tech.ru';
     
     // Формируем сообщение для Telegram
     const telegramMessage = `🎯 *Новая заявка с сайта*\n\n` +
